@@ -24,7 +24,7 @@ initializePassport(
 
 router.use(flash())
 router.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: cringe,
     resave: false,
     saveUninitialized: false
 }))
