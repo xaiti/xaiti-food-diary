@@ -24,7 +24,7 @@ initializePassport(
 
 router.use(flash())
 router.use(session({
-    secret: cringe,
+    secret: 'cringe',
     resave: false,
     saveUninitialized: false
 }))
