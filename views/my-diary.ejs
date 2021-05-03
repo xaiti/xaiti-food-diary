@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&family=Roboto:wght@300;400;700&family=Yellowtail&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="my-diary.css">
+    <title>X Food Diary</title>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="header">
+        <div id="logo"></div>
+        <div class="header-links">
+            <div id="help">Help</div>
+            <div id="how-it-works">How it works</div>
+            <div id="my-diary">My Diary</div>
+        </div>
+        <!-- <button id="sign-in-button" onclick="location.href='/sign-in'" type="button">Sign in</button> -->
+        <form action="/logout?_method=DELETE" method="POST">
+            <button class="sign-out-button" type="submit">Sign out</button>
+        </form>
+    </div>
+
+    <h1>Signed in as <%= username %> </h1>
+</body>
+<script src="main.js"></script>
+</html>

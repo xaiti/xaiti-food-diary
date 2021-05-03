@@ -1,0 +1,17 @@
+/* Normalizing stuff */
+
+*, :after, :before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+button {
+    border: none;
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    border: 0;
+}
+button:focus {
+    outline: none;
+}

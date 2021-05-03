@@ -16,8 +16,7 @@ const initializePassport = require('../passport-config')
 initializePassport(
     passport,
     async (email) => await User.findOne({email: email}),
-    async (id) => await User.findOne({id: id}),
-    // async (name) => await User.findOne({name: name}).exec()
+    async (id) => await User.findOne({id: id})
     // email => User.find(user => user.email === email),
     // id => User.find(user => user.id === id)
 )
@@ -38,10 +37,10 @@ router.get('/', (req, res) => {
     res.render('index')
 })
 
-// myDiary Route
-router.get('/myDiary', checkAuthenticated, async (req, res) => {
+// my-diary Route
+router.get('/my-diary', checkAuthenticated, async (req, res) => {
     console.log(req.user)
-    res.render('myDiary', { username: req.user.name })
+    res.render('my-diary', { username: req.user.name })
 })
 
 // All Users Route (temporary)
@@ -61,14 +60,14 @@ router.get('/', async (req, res) => {
     }
 })
 
-// Login Route
-router.get('/login', checkNotAuthenticated, (req, res) => {
-    res.render('users/login', { user: User() })
+// Sign in Route
+router.get('/sign-in', checkNotAuthenticated, (req, res) => {
+    res.render('users/sign-in', { user: User() })
 })
 
-router.post('/login', checkNotAuthenticated, passport.authenticate('local', {
-    successRedirect: '/myDiary',
-    failureRedirect: '/login',
+router.post('/sign-in', checkNotAuthenticated, passport.authenticate('local', {
+    successRedirect: '/my-diary',
+    failureRedirect: '/sign-in',
     failureFlash: true
 }))
 
@@ -77,19 +76,28 @@ router.get('/register', checkNotAuthenticated, (req, res) => {
     res.render('users/register', { user: new User() })
 })
 
-// Create User Route
+// Sign Up Route
 router.post('/register', checkNotAuthenticated, async (req, res) => {
     try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        const user = new User({    
-            name: req.body.name,
-            email: req.body.email,
-            password: hashedPassword
-        })
-
-        const newUser = await user.save()
-        // res.redirect(`users/${newUser.id}`)
-        res.redirect('/login')
+        if (await User.findOne({email: req.body.email.toLowerCase()})) {
+            const user = new User({})
+            let locals = {errorMessage: 'Email already in use'}
+            res.render('users/register', {
+                title: 'Sign Up',
+                user: user,
+                locals: locals
+            })
+        } else {
+            const hashedPassword = await bcrypt.hash(req.body.password, 10)
+            const user = new User({    
+                name: req.body.name,
+                email: req.body.email,
+                password: hashedPassword
+            })
+            const newUser = await user.save()
+            // res.redirect(`users/${newUser.id}`)
+            res.redirect('/sign-in')
+        }
     } catch(err) {
         const user = new User({})
         let locals = {errorMessage: 'Error creating User'}
@@ -103,19 +111,19 @@ router.post('/register', checkNotAuthenticated, async (req, res) => {
 
 router.delete('/logout', (req, res) => {
     req.logout()
-    res.redirect('/login')
+    res.redirect('/sign-in')
 })
 
 function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next()
     }
-    res.redirect('/login')
+    res.redirect('/sign-in')
 }
 
 function checkNotAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
-        return res.redirect('/myDiary')
+        return res.redirect('/my-diary')
     }
     next()
 }

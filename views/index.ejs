@@ -1,1 +1,71 @@
-Middle / main page
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&family=Roboto:wght@300;400;700&family=Yellowtail&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="home-page.css">
+    <title>X Food Diary</title>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="header">
+        <div id="logo"></div>
+        <div class="header-links">
+            <div id="help">Help</div>
+            <div id="how-it-works">How it works</div>
+            <div id="my-diary">My Diary</div>
+        </div>
+        <button id="sign-in-button" onclick="location.href='/sign-in'" type="button">Sign in</button>
+        <div class="collapsible-menu">
+            <input type="checkbox" id="menu">
+            <label for="menu"></label>
+            <div class="menu-content">
+                <a href="/sign-in">Sign in</a>
+                <a href="">Help</a>
+                <a href="">How it works</a>
+                <a href="">My Diary</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="center-content">
+        <h1>X Food Diary</h1>
+        <p id="p1">Easily keep track of all your food and nutritional intake
+            with X Food Diary</p>
+        <button id="try-for-free-button" onclick="location.href='/register'" type="button">TRY FOR FREE</button>
+        <ul id="list" class="no-bullets">
+            <li><div class="checkmark"></div>Easy To Use</li>
+            <li><div class="checkmark"></div>Completely Free</li>
+            <li><div class="checkmark"></div>Accurate Data</li>
+        </ul>
+    </div>
+
+    <div class="shapes">
+        <div id="circle-1"></div>
+        <div id="circle-2"></div>
+        <div id="circle-3"></div>
+        <div id="circle-4"></div>
+        <div id="egg-1"></div>
+    </div>
+
+    <div class="lower-content">
+        <div id="lower-text-container">
+            <h2>Taking steps to improve
+                your health</h2>
+            <p id="p2">As we all know, our diets are very important, and not one
+                fits all. Easily find a diet that suits you and your needs with
+                X Food Diary. Keep track of what you're eating and how
+                you're feeling. Know how many calories, fats,
+                carbohydrates, fibre, proteins and more that you're eating.</p>
+        </div>
+        <div id="lower-image-container">
+            <div id="lower-image"></div>
+        </div>
+    </div>
+</body>
+<script src="main.js"></script>
+</html>
