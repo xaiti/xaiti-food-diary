@@ -39,8 +39,30 @@ router.get('/', (req, res) => {
 
 // my-diary Route
 router.get('/my-diary', checkAuthenticated, async (req, res) => {
-    console.log(req.user)
-    res.render('my-diary', { username: req.user.name })
+    // console.log('get body:', req.body)
+    console.log(req.user.breakfast)
+    // console.log(req.user)
+    res.render('my-diary', {
+        username: req.user.name,
+        user: req.user
+    })
+})
+
+router.post('/my-diary', async (req, res) => {
+    console.log('post body:', req.body)
+    try {
+        await User.findOneAndUpdate(
+        {
+            _id: req.user._id
+        }, {
+            $push: {
+                breakfast: req.body.test,
+            }
+        })
+        res.redirect('/my-diary')
+    } catch(err) {
+            console.log(err)
+        }
 })
 
 // All Users Route (temporary)
@@ -71,12 +93,11 @@ router.post('/sign-in', checkNotAuthenticated, passport.authenticate('local', {
     failureFlash: true
 }))
 
-// New User Route
+// Sign Up Route
 router.get('/register', checkNotAuthenticated, (req, res) => {
     res.render('users/register', { user: new User() })
 })
 
-// Sign Up Route
 router.post('/register', checkNotAuthenticated, async (req, res) => {
     try {
         if (await User.findOne({email: req.body.email.toLowerCase()})) {

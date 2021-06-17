@@ -5,10 +5,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&family=Roboto:wght@300;400;700&family=Yellowtail&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="my-diary.css">
+    <!-- time picker -->
+    <link href="https://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.js"></script>
+    <!-- css -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/my-diary.css">
     <title>X Food Diary</title>
 </head>
 <body>
@@ -26,7 +31,102 @@
         </form>
     </div>
 
-    <h1>Signed in as <%= username %> </h1>
+    <h1>Signed in as <%= username %> / <%= user.name %> </h1>
+
+    <div class="overlay"></div>
+    <div class="food-search-container">
+        <div class="food-search-card" id="card">
+            <input type="search" class="food-search-box" onchange="api(this.value)" placeholder="Search foods to add">
+            <div class="search-results-container"></div>
+        </div>
+    </div>
+
+    <div class="food-diary-container">
+        <table class="food-diary">
+            <thead class="food-diary-header">
+                <tr>
+                    <th>Food</th>
+                    <th>Serving</th>
+                    <th>Time</th>
+                    <th class="table-nutrition-header">Calories</th>
+                    <th class="table-nutrition-header">Fat</th>
+                    <th class="table-nutrition-header">Sat Fat</th>
+                    <th class="table-nutrition-header">Carb</th>
+                    <th class="table-nutrition-header">Protein</th>
+                    <th class="table-nutrition-header">Fibre</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="food-diary-sub-header breakfast-head">
+                    <td style="text-align: left;">Breakfast &nbsp;&nbsp; <button class="breakfast-button add-food-button">+</button></td>
+                    <td></td>
+                    <td></td>
+                    <td><div class="table-nutrition-data"><div class="breakfast-cal">0</div><div class="gram-symbol">g</div></div></td>
+                    <td><div class="table-nutrition-data"><div class="breakfast-fat">0</div><div class="gram-symbol">g</div></div></td>
+                    <td><div class="table-nutrition-data"><div class="breakfast-sat-fat">0</div><div class="gram-symbol">g</div></div></td>
+                    <td><div class="table-nutrition-data"><div class="breakfast-carb">0</div><div class="gram-symbol">g</div></div></td>
+                    <td><div class="table-nutrition-data"><div class="breakfast-protein">0</div><div class="gram-symbol">g</div></div></td>
+                    <td><div class="table-nutrition-data"><div class="breakfast-fibre">0</div><div class="gram-symbol">g</div></div></td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr class="food-diary-sub-header">
+                    <td style="text-align: left;">Lunch &nbsp;&nbsp; <button class="lunch-button add-food-button">+</button></td>
+                    <td></td>
+                    <td></td>
+                    <td><div class="table-nutrition-data"><div class="lunch-cal">0</div><div class="gram-symbol">g</div></div></td>
+                    <td><div class="table-nutrition-data"><div class="lunch-fat">0</div><div class="gram-symbol">g</div></div></td>
+                    <td><div class="table-nutrition-data"><div class="lunch-sat-fat">0</div><div class="gram-symbol">g</div></div></td>
+                    <td><div class="table-nutrition-data"><div class="lunch-carb">0</div><div class="gram-symbol">g</div></div></td>
+                    <td><div class="table-nutrition-data"><div class="lunch-protein">0</div><div class="gram-symbol">g</div></div></td>
+                    <td><div class="table-nutrition-data"><div class="lunch-fibre">0</div><div class="gram-symbol">g</div></div></td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr class="food-diary-sub-header">
+                    <td style="text-align: left;">Dinner &nbsp;&nbsp; <button class="dinner-button add-food-button">+</button></td>
+                    <td></td>
+                    <td></td>
+                    <td><div class="table-nutrition-data"><div class="dinner-cal">0</div><div class="gram-symbol">g</div></div></td>
+                    <td><div class="table-nutrition-data"><div class="dinner-fat">0</div><div class="gram-symbol">g</div></div></td>
+                    <td><div class="table-nutrition-data"><div class="dinner-sat-fat">0</div><div class="gram-symbol">g</div></div></td>
+                    <td><div class="table-nutrition-data"><div class="dinner-carb">0</div><div class="gram-symbol">g</div></div></td>
+                    <td><div class="table-nutrition-data"><div class="dinner-protein">0</div><div class="gram-symbol">g</div></div></td>
+                    <td><div class="table-nutrition-data"><div class="dinner-fibre">0</div><div class="gram-symbol">g</div></div></td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr class="food-diary-sub-header">
+                    <td style="text-align: left;">Snacks &nbsp;&nbsp; <button class="snack-button add-food-button">+</button></td>
+                    <td></td>
+                    <td></td>
+                    <td><div class="table-nutrition-data"><div class="snack-cal">0</div><div class="gram-symbol">g</div></div></td>
+                    <td><div class="table-nutrition-data"><div class="snack-fat">0</div><div class="gram-symbol">g</div></div></td>
+                    <td><div class="table-nutrition-data"><div class="snack-sat-fat">0</div><div class="gram-symbol">g</div></div></td>
+                    <td><div class="table-nutrition-data"><div class="snack-carb">0</div><div class="gram-symbol">g</div></div></td>
+                    <td><div class="table-nutrition-data"><div class="snack-protein">0</div><div class="gram-symbol">g</div></div></td>
+                    <td><div class="table-nutrition-data"><div class="snack-fibre">0</div><div class="gram-symbol">g</div></div></td>
+                </tr>
+            </tbody><tbody>
+                <tr class="food-diary-sub-header">
+                    <td style="text-align:center">Daily total</td>
+                    <td></td>
+                    <td></td>
+                    <td><div class="table-nutrition-data"><div class="total-cal">0</div><div class="gram-symbol">g</div></div></td>
+                    <td><div class="table-nutrition-data"><div class="total-fat">0</div><div class="gram-symbol">g</div></div></td>
+                    <td><div class="table-nutrition-data"><div class="total-sat-fat">0</div><div class="gram-symbol">g</div></div></td>
+                    <td><div class="table-nutrition-data"><div class="total-carb">0</div><div class="gram-symbol">g</div></div></td>
+                    <td><div class="table-nutrition-data"><div class="total-protein">0</div><div class="gram-symbol">g</div></div></td>
+                    <td><div class="table-nutrition-data"><div class="total-fibre">0</div><div class="gram-symbol">g</div></div></td>
+                </tr>
+            </tbody>
+        </table>
+       
+        <form action="/my-diary" method="POST">
+                <input type="text" name="test" placeholder="tester" id="test">
+            <button type="submit">test</button>
+        </form>
+    </div>
 </body>
-<script src="main.js"></script>
+<script src="js/diary.js"></script>
 </html>

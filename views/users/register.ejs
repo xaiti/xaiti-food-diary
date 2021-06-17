@@ -6,15 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="sign-in.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/sign-in.css">
     <title>Sign up</title>
 </head>
 <body>
     <div class="background"></div>
-    <!-- <div class="ring ring1"></div>
-    <div class="ring ring2"></div>
-    <div class="ring ring3"></div> -->
     <div class="wrapper">
         <div class="sign-up-box">
             <div class="sign-up-box-content">
@@ -23,9 +20,9 @@
                 <div class="errorMessage"><%- include('../partials/errorMessage.ejs') %></div>
                 <form action="/register" method="POST">
                     <div class="user-details">
-                            <input type="text" name="name" placeholder="Name" value="<%= user.name %>">
-                            <input type="email" name="email" placeholder="Email" value="<%= user.email %>">
-                            <input type="password" name="password" placeholder="Password" value="<%= user.password %>">
+                        <input type="text" name="name" placeholder="Name" value="<%= user.name %>">
+                        <input type="email" name="email" placeholder="Email" value="<%= user.email %>">
+                        <input type="password" name="password" placeholder="Password" value="<%= user.password %>">
                     </div>
                     <button class="submit" type="submit">CREATE ACCOUNT</button>
                 </form>

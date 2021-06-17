@@ -1,0 +1,226 @@
+:root {
+    --bg-color-light: #2578be;
+    --bg-color-less-light: #2c569a;
+    --bg-color-dark: #333475;
+
+    --font-color-main: #fff;
+    --font-color-dim: #b2aeac;
+    --font-color-less-dim: #e0e5eb;
+
+    --button-color: #db545a;
+    --button-color-dark: #d63b42;
+    --button-color-filter: invert(94%) sepia(100%) saturate(0%) hue-rotate(213deg) brightness(106%) contrast(107%);;
+}
+
+* {
+    font-size: 1em;
+    font-family: 'Open Sans', sans-serif;
+}
+body {
+    height: 100%;
+    background-image: linear-gradient(315deg, var(--bg-color-less-light) 0%, var(--bg-color-light) 100%);
+    background-attachment: fixed;
+    color: var(--font-color-main);
+
+    /* display: flex; */
+    /* flex-direction: column;
+    justify-content: center; */
+}
+.background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(140deg, var(--bg-color-light) 0%, var(--bg-color-dark) 100%);
+    background-attachment: fixed;
+    clip-path: polygon(35% 0, 100% 0, 100% 100%, 15% 100%);
+    z-index: -1;
+}
+
+
+
+/* ================================================== */
+
+/* HEADER */
+
+/* ================================================== */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1140px;
+    height: 85px;
+    margin: 0 auto;
+    text-transform: capitalize;
+}
+#logo {
+    width: 111px;
+    height: 85px;
+    background: 
+        url(img/x-logo.svg) 
+        center / contain 
+        no-repeat;
+    filter: var(--button-color-filter);
+}
+.header-links {
+    display: flex;
+    align-items: center;
+    color: var(--font-color-less-dim);
+}
+.header-links * {
+    padding: 10px 20px;
+}
+.header-links *:hover {
+    color: var(--button-color);
+    cursor: pointer;
+}
+.sign-out-button {
+    width: 111px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    background: var(--button-color);
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 10px 2px;
+    cursor: pointer;
+}
+.sign-out-button:hover {
+    color: #ffffff;
+    background-color: var(--button-color-dark);
+}
+
+
+
+/* ================================================== */
+/* Food Search Container */
+
+.overlay {
+    display: none;
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    background: #000;
+    opacity:0.6;
+}
+
+.food-search-container {
+    display: none;
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    transform: translate(-50%, -75px);
+    z-index: 10;
+}
+
+.food-search-card {
+    background: var(--bg-color-less-light);
+    padding: 50px;
+    border-radius: 15px;
+    border: 2px solid #222222;
+}
+
+.food-search-box {
+    width: 500px;
+    height: 50px;
+    background-color: transparent;
+    color: var(--font-color-main);
+    padding: 6px 12px;
+}
+
+.search-results-container { 
+    width: 500px;
+    /* height: 264px; */
+    background-color: var(--bg-color-less-light);
+    border: 2px solid #222222;
+    cursor: pointer;
+}
+/* Search Result Item */
+.search-result-item {
+    padding: 6px 12px;
+    display: grid;
+    grid-template-columns: auto 12px 31px;
+    grid-template-rows: auto;
+    grid-template-areas: 
+        "name . cal"
+        "sub-info . cal";
+    background: rgba(0, 0, 0, 0.15);
+}
+.search-result-item:hover {
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.search-result-item-name {
+    grid-area: name;
+}
+.search-result-item-sub-info {
+    grid-area: sub-info;
+    font-size: 0.8em;
+    color: var(--font-color-less-dim);
+}
+.search-result-item-cal-container {
+    grid-area: cal;
+    align-self: center;
+    text-align: center;
+}
+.search-result-item-cal {
+    color: yellowgreen;
+    font-weight: 700;
+}
+.search-result-item-cal-text {
+    color: var(--font-color-less-dim);
+    font-size: 0.9em;
+}
+
+
+
+.food-diary-container {
+    display: grid;
+    place-items: center;
+}
+table {
+    border-collapse: collapse;
+    justify-content: center;
+    text-align: center;
+    margin: 10px;
+}
+td, th {
+    border: 1px solid #222222;
+    padding: 8px;
+    max-width: 255px;
+}
+.food-diary-header {
+    background-color: rgba(0, 0, 0, 0.15);
+}
+.food-diary-sub-header {
+    background-color: #00000050;
+}
+
+.add-food-button {
+    float: right;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    background: var(--bg-color-less-light);
+}
+
+.table-nutrition-header {
+    width: 5.25em;
+}
+.table-nutrition-data {
+    display: flex;
+    justify-content: center;
+}
+.gram-symbol {
+    color: var(--font-color-dim);
+    font-size: 0.9em;
+}
+
+/* next update */
+/* #time {
+    width: 50px;
+} */
