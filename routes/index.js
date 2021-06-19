@@ -39,25 +39,26 @@ router.get('/', (req, res) => {
 
 // my-diary Route
 router.get('/my-diary', checkAuthenticated, async (req, res) => {
-    // console.log('get body:', req.body)
-    console.log(req.user.breakfast)
     // console.log(req.user)
+    console.log(req.user)
+    var userBreakfast = req.user.breakfast ? req.user.breakfast : ''
     res.render('my-diary', {
         username: req.user.name,
-        user: req.user
+        user: req.user,
+        breakfast: userBreakfast
     })
 })
 
 router.post('/my-diary', async (req, res) => {
-    console.log('post body:', req.body)
+    var bodyData = req.body.breakfast ? { breakfast: req.body.breakfast }
+                 : req.body.lunch ? { lunch: req.body.lunch }
+                 : req.body.dinner ? { dinner: req.body.dinner }
+                 : { snack: req.body.snack }
     try {
-        await User.findOneAndUpdate(
+        await User.updateOne(
+        { _id: req.user._id }, 
         {
-            _id: req.user._id
-        }, {
-            $push: {
-                breakfast: req.body.test,
-            }
+            $push: bodyData
         })
         res.redirect('/my-diary')
     } catch(err) {

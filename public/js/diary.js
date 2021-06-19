@@ -1,4 +1,7 @@
-
+fetch('/my-diary').then(response => response.json())
+    .then(data => {
+        console.log(data)
+    })
 
 async function api(searchTerms) {
     // const searchTerms = document.querySelector('.food-search-box').value;
@@ -94,7 +97,7 @@ async function api(searchTerms) {
                     breakfastActiveDiv.className = 'breakfast-active food-active';
                     breakfastButton.appendChild(breakfastActiveDiv);
                     var breakfastActive = document.querySelector('.breakfast-active'); // js doesn't seem to like this?
-                    console.log(breakfastActive ? 'on da block' : 'never heard of it mate');
+                    console.log(breakfastActive ? 'breakfast on da block' : 'breakfast? never heard of it mate');
                 }
 
                 // lunch button - show overlay/food search & create/append active div
@@ -131,27 +134,57 @@ async function api(searchTerms) {
                 }
 
                 searchResultItem.onclick = async function(e) {
-                    console.log(e)
                     var selectedItemID = e.currentTarget.querySelector('.search-result-item-id').innerHTML
                     var selectedItemURL = 'https://api.nutritionix.com/v1_1/item?id='+selectedItemID+'&appId=246713f5&appKey=6328f24ae2491f74e8af49fbbc09bc64'
-                    
-                    console.log(document.getElementById('test').value)
-                    fetch('/my-diary', {
-                        method: 'POST',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
-                        body: {
-                            test: 'cock' //document.getElementById('test').value
-                        }
-                    }).then(response => response.json())
-                        .then(data => {
-                            console.log(data)
-                        })
+
+                    // var bodyData;
 
                     fetch(selectedItemURL).then(response => response.json())
                         .then(data => {
+
+                            var food_id = data.item_id;
+                            var food_name = data.item_name;
+                            var food_brand_name = data.brand_name;
+                            var food_serving_qty = Math.round(data.nf_serving_size_qty * 10) / 10;
+                            var food_serving_unit = data.nf_serving_size_unit;
+                            var food_serving_weight = data.nf_serving_weight_grams;
+                            var food_cal = Math.round(data.nf_calories);
+                            var food_fat = Math.round(data.nf_total_fat * 10) / 10;
+                            var food_sat_fat = Math.round(data.nf_saturated_fat * 10) / 10;
+                            var food_carb =  Math.round(data.nf_total_carbohydrate * 10) / 10;
+                            var food_protein = Math.round(data.nf_protein * 10) / 10;
+                            var food_fibre = Math.round(data.nf_dietary_fiber * 10) / 10;
+                            var food_sugar = Math.round(data.nf_sugars * 10) / 10;
+                            var food_info = {
+                                id: food_id,
+                                brand_name: food_brand_name,
+                                serving_qty: food_serving_qty,
+                                serving_unit: food_serving_unit,
+                                serving_weight: food_serving_weight,
+                                brand_name: food_brand_name,
+                                cal: food_cal,
+                                fat: food_fat,
+                                sat_fat: food_sat_fat,
+                                carb: food_carb,
+                                protein: food_protein,
+                                fibre: food_fibre,
+                                sugar: food_sugar
+                            }
+
+                            var bodyData = document.querySelector('.breakfast-active') ? JSON.stringify({ breakfast: {[food_name]: food_info} })
+                                         : document.querySelector('.lunch-active') ? JSON.stringify({ lunch: {[food_name]: food_info} })
+                                         : document.querySelector('.dinner-active') ? JSON.stringify({ dinner: {[food_name]: food_info} })
+                                         : JSON.stringify({ snack: {[food_name]: food_info} })
+
+                            console.log(bodyData)
+                            fetch('/my-diary', {
+                                method: 'POST',
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json'
+                                },
+                                body: bodyData
+                            })
 
                             // get desired row
                             var currentRow = document.querySelector('.breakfast-active') ? document.querySelector('.food-diary').getElementsByTagName('tbody')[0]
@@ -165,12 +198,12 @@ async function api(searchTerms) {
                             // insert a cell at the end of the row & append a text node to the cell
                             var nameC = newRow.insertCell();
                             var nameCon = document.createElement('div'); nameCon.style.textAlign = 'left';
-                            var nameT = document.createTextNode(data.item_name);
+                            var nameT = document.createTextNode(food_name);
                             nameCon.appendChild(nameT); nameC.appendChild(nameCon);
 
-                            var roundedServingQty = Math.round(data.nf_serving_size_qty * 10) / 10;
+                            
                             var servingC = newRow.insertCell();
-                            var servingT = document.createTextNode(roundedServingQty + ', ' + data.nf_serving_size_unit);
+                            var servingT = document.createTextNode(food_serving_qty + ', ' + food_serving_unit);
                             servingC.appendChild(servingT);
 
                             var today = new Date();
@@ -205,52 +238,47 @@ async function api(searchTerms) {
                                            : document.querySelector('.lunch-active') ? 'lunch-cal-c'
                                            : document.querySelector('.dinner-active') ? 'dinner-cal-c'
                                            : 'snack-cal-c';
-                            var calT = document.createTextNode(Math.round(data.nf_calories));
+                            var calT = document.createTextNode(Math.round(food_cal));
                             calC.appendChild(calT);
 
-                            var roundedFat = Math.round(data.nf_total_fat * 10) / 10;
                             var fatC = newRow.insertCell();
                             fatC.className = document.querySelector('.breakfast-active') ? 'breakfast-fat-c'
                                            : document.querySelector('.lunch-active') ? 'lunch-fat-c'
                                            : document.querySelector('.dinner-active') ? 'dinner-fat-c'
                                            : 'snack-fat-c';
-                            var fatT = document.createTextNode(roundedFat);
+                            var fatT = document.createTextNode(food_fat);
                             fatC.appendChild(fatT);
 
-                            var roundedSatFat = Math.round(data.nf_saturated_fat * 10) / 10;
                             var satFatC = newRow.insertCell();
                             satFatC.className = document.querySelector('.breakfast-active') ? 'breakfast-sat-fat-c'
                                               : document.querySelector('.lunch-active') ? 'lunch-sat-fat-c'
                                               : document.querySelector('.dinner-active') ? 'dinner-sat-fat-c'
                                               : 'snack-sat-fat-c';
-                            var satFatT = document.createTextNode(roundedSatFat);
+                            var satFatT = document.createTextNode(food_sat_fat);
                             satFatC.appendChild(satFatT);
 
-                            var roundedCarb = Math.round(data.nf_total_carbohydrate * 10) / 10;
                             var carbC = newRow.insertCell();
                             carbC.className = document.querySelector('.breakfast-active') ? 'breakfast-carb-c'
                                             : document.querySelector('.lunch-active') ? 'lunch-carb-c'
                                             : document.querySelector('.dinner-active') ? 'dinner-carb-c'
                                             : 'snack-carb-c';
-                            var carbT = document.createTextNode(roundedCarb);
+                            var carbT = document.createTextNode(food_carb);
                             carbC.appendChild(carbT);
 
-                            var roundedProtein = Math.round(data.nf_protein * 10) / 10;
                             var proteinC = newRow.insertCell();
                             proteinC.className = document.querySelector('.breakfast-active') ? 'breakfast-protein-c'
                                                : document.querySelector('.lunch-active') ? 'lunch-protein-c'
                                                : document.querySelector('.dinner-active') ? 'dinner-protein-c'
                                                : 'snack-protein-c';
-                            var proteinT = document.createTextNode(roundedProtein);
+                            var proteinT = document.createTextNode(food_protein);
                             proteinC.appendChild(proteinT);
 
-                            var roundedFibre = Math.round(data.nf_dietary_fiber * 10) / 10;
                             var fibreC = newRow.insertCell();
                             fibreC.className = document.querySelector('.breakfast-active') ? 'breakfast-fibre-c'
                                              : document.querySelector('.lunch-active') ? 'lunch-fibre-c'
                                              : document.querySelector('.dinner-active') ? 'dinner-fibre-c'
                                              : 'snack-fibre-c';
-                            var fibreT = document.createTextNode(roundedFibre);
+                            var fibreT = document.createTextNode(food_fibre);
                             fibreC.appendChild(fibreT);
 
 

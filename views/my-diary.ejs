@@ -68,6 +68,9 @@
                     <td><div class="table-nutrition-data"><div class="breakfast-protein">0</div><div class="gram-symbol">g</div></div></td>
                     <td><div class="table-nutrition-data"><div class="breakfast-fibre">0</div><div class="gram-symbol">g</div></div></td>
                 </tr>
+                <% breakfast.forEach(breakfast => {%>
+                    <tr><td><%= breakfast %></td></tr>
+                <% }) %> 
             </tbody>
             <tbody>
                 <tr class="food-diary-sub-header">
@@ -121,11 +124,6 @@
                 </tr>
             </tbody>
         </table>
-       
-        <form action="/my-diary" method="POST">
-                <input type="text" name="test" placeholder="tester" id="test">
-            <button type="submit">test</button>
-        </form>
     </div>
 </body>
 <script src="js/diary.js"></script>

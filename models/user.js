@@ -14,6 +14,9 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     breakfast: [],
+    lunch: [],
+    dinner: [],
+    snack: [],
 })
 
 module.exports = mongoose.model('User', userSchema)
