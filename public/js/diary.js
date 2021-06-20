@@ -1,29 +1,3 @@
-
-
-var ct1;var ct3
-function test1() {
-    console.log('first function running...');
-    console.log('1st complete');
-    
-    function test3(){
-        console.log('test3 ran')
-    }
-    ct3 = test3();
-}
-ct1 = test1();
-console.log('out of func', ct1)
-function test2() {
-    console.log('second function running...');
-    console.log('2nd complete');
-    ct1;
-    console.log(ct1);
-}
-
-document.getElementById('help').onclick = function() { 
-    console.log('help button')
-    ct3
-}
-
 // Add food to desired slots & show / hide overlay
 // define overlay variables for showing/hiding food search
 var overlay = document.querySelector('.overlay');
