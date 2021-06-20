@@ -15,8 +15,8 @@ const methodOverride = require('method-override')
 const initializePassport = require('../passport-config')
 initializePassport(
     passport,
-    async (email) => await User.findOne({email: email}),
-    async (id) => await User.findOne({id: id})
+    async (email) => await User.findOne({ email: email }),
+    async (id) => await User.findOne({ id: id })
     // email => User.find(user => user.email === email),
     // id => User.find(user => user.id === id)
 )
@@ -40,12 +40,21 @@ router.get('/', (req, res) => {
 // my-diary Route
 router.get('/my-diary', checkAuthenticated, async (req, res) => {
     // console.log(req.user)
-    console.log(req.user)
+    // for (var i = 0; i < req.user.snack.length; i++) {
+    //     console.log(req.user.snack[i])
+    // }
+    
     var userBreakfast = req.user.breakfast ? req.user.breakfast : ''
+    var userLunch = req.user.lunch ? req.user.lunch : ''
+    var userDinner = req.user.dinner ? req.user.dinner : ''
+    var userSnack = req.user.snack ? req.user.snack : ''
     res.render('my-diary', {
         username: req.user.name,
         user: req.user,
-        breakfast: userBreakfast
+        breakfast: userBreakfast,
+        lunch: userLunch,
+        dinner: userDinner,
+        snack: userSnack
     })
 })
 

@@ -94,6 +94,17 @@ body {
 
 
 /* ================================================== */
+/* User's Diary */
+h1 {
+    display: flex;
+    justify-content: center;
+    margin: 15px;
+    font-size: 24px;
+}
+
+
+
+/* ================================================== */
 /* Food Search Container */
 
 .overlay {

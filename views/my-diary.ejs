@@ -31,7 +31,7 @@
         </form>
     </div>
 
-    <h1>Signed in as <%= username %> / <%= user.name %> </h1>
+    <h1 onclick="test()"><%= user.name + "'s Food Diary" %></h1>
 
     <div class="overlay"></div>
     <div class="food-search-container">
@@ -69,7 +69,17 @@
                     <td><div class="table-nutrition-data"><div class="breakfast-fibre">0</div><div class="gram-symbol">g</div></div></td>
                 </tr>
                 <% breakfast.forEach(breakfast => {%>
-                    <tr><td><%= breakfast %></td></tr>
+                    <tr>
+                        <td><div style="text-align: left;"><%= breakfast.item_name %></div></td>
+                        <td><%= breakfast.serving_qty + ', ' + breakfast.serving_unit %></td>
+                        <td></td>
+                        <td class="breakfast-cal-c"><%= breakfast.cal %></td>
+                        <td class="breakfast-fat-c"><%= breakfast.fat %></td>
+                        <td class="breakfast-sat-fat-c"><%= breakfast.sat_fat %></td>
+                        <td class="breakfast-carb-c"><%= breakfast.carb %></td>
+                        <td class="breakfast-protein-c"><%= breakfast.protein %></td>
+                        <td class="breakfast-fibre-c"><%= breakfast.fibre %></td>
+                    </tr>
                 <% }) %> 
             </tbody>
             <tbody>
@@ -84,6 +94,19 @@
                     <td><div class="table-nutrition-data"><div class="lunch-protein">0</div><div class="gram-symbol">g</div></div></td>
                     <td><div class="table-nutrition-data"><div class="lunch-fibre">0</div><div class="gram-symbol">g</div></div></td>
                 </tr>
+                <% lunch.forEach(lunch => {%>
+                    <tr>
+                        <td><div style="text-align: left;"><%= lunch.item_name %></div></td>
+                        <td><%= lunch.serving_qty + ', ' + lunch.serving_unit %></td>
+                        <td></td>
+                        <td class="lunch-cal-c"><%= lunch.cal %></td>
+                        <td class="lunch-fat-c"><%= lunch.fat %></td>
+                        <td class="lunch-sat-fat-c"><%= lunch.sat_fat %></td>
+                        <td class="lunch-carb-c"><%= lunch.carb %></td>
+                        <td class="lunch-protein-c"><%= lunch.protein %></td>
+                        <td class="lunch-fibre-c"><%= lunch.fibre %></td>
+                    </tr>
+                <% }) %> 
             </tbody>
             <tbody>
                 <tr class="food-diary-sub-header">
@@ -97,6 +120,19 @@
                     <td><div class="table-nutrition-data"><div class="dinner-protein">0</div><div class="gram-symbol">g</div></div></td>
                     <td><div class="table-nutrition-data"><div class="dinner-fibre">0</div><div class="gram-symbol">g</div></div></td>
                 </tr>
+                <% dinner.forEach(dinner => {%>
+                    <tr>
+                        <td><div style="text-align: left;"><%= dinner.item_name %></div></td>
+                        <td><%= dinner.serving_qty + ', ' + dinner.serving_unit %></td>
+                        <td></td>
+                        <td class="dinner-cal-c"><%= dinner.cal %></td>
+                        <td class="dinner-fat-c"><%= dinner.fat %></td>
+                        <td class="dinner-sat-fat-c"><%= dinner.sat_fat %></td>
+                        <td class="dinner-carb-c"><%= dinner.carb %></td>
+                        <td class="dinner-protein-c"><%= dinner.protein %></td>
+                        <td class="dinner-fibre-c"><%= dinner.fibre %></td>
+                    </tr>
+                <% }) %> 
             </tbody>
             <tbody>
                 <tr class="food-diary-sub-header">
@@ -110,6 +146,19 @@
                     <td><div class="table-nutrition-data"><div class="snack-protein">0</div><div class="gram-symbol">g</div></div></td>
                     <td><div class="table-nutrition-data"><div class="snack-fibre">0</div><div class="gram-symbol">g</div></div></td>
                 </tr>
+                <% snack.forEach(snack => {%>
+                    <tr>
+                        <td><div style="text-align: left;"><%= snack.item_name %></div></td>
+                        <td><%= snack.serving_qty + ', ' + snack.serving_unit %></td>
+                        <td></td>
+                        <td class="snack-cal-c"><%= snack.cal %></td>
+                        <td class="snack-fat-c"><%= snack.fat %></td>
+                        <td class="snack-sat-fat-c"><%= snack.sat_fat %></td>
+                        <td class="snack-carb-c"><%= snack.carb %></td>
+                        <td class="snack-protein-c"><%= snack.protein %></td>
+                        <td class="snack-fibre-c"><%= snack.fibre %></td>
+                    </tr>
+                <% }) %> 
             </tbody><tbody>
                 <tr class="food-diary-sub-header">
                     <td style="text-align:center">Daily total</td>
