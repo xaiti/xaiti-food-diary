@@ -222,7 +222,7 @@ td, th {
 .table-nutrition-header {
     width: 5.25em;
 }
-.table-nutrition-data {
+.gram-container {
     display: flex;
     justify-content: center;
 }
@@ -231,7 +231,35 @@ td, th {
     font-size: 0.9em;
 }
 
-/* next update */
-/* #time {
-    width: 50px;
-} */
+.name-con {
+    text-align: left;
+    position: relative;
+}
+
+/* ================================================== */
+
+.name-con:hover > .remove-food-item,
+.remove-food-item:hover {
+    display: block;
+}
+.name-con::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 100%;
+    width: 40px;
+}
+
+.remove-food-item {
+    display: none;
+    float: right;
+    position: absolute;
+    left: -33px;
+    top: 7px;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    background: #d63b42;
+    cursor: pointer;
+}

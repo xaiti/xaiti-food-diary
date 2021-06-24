@@ -1,22 +1,15 @@
 const mongoose = require('mongoose')
 
+var stringRequired = { type: String, required: true }
+
 const userSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    breakfast: [],
-    lunch: [],
-    dinner: [],
-    snack: [],
+    name: stringRequired,
+    email: stringRequired,
+    password: stringRequired,
+    breakfast: [ ],
+    lunch: [ ],
+    dinner: [ ],
+    snack: [ ],
 })
 
 module.exports = mongoose.model('User', userSchema)

@@ -15,3 +15,8 @@ button {
 button:focus {
     outline: none;
 }
+
+/* Hidden class */
+.hidden {
+    display: none;
+}

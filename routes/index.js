@@ -34,45 +34,52 @@ router.use(methodOverride('_method'))
 
 // Home Page Route
 router.get('/', (req, res) => {
-    res.render('index')
+    res.render('index', {
+        user: req.user,
+    })
 })
 
 // my-diary Route
 router.get('/my-diary', checkAuthenticated, async (req, res) => {
-    // console.log(req.user)
-    // for (var i = 0; i < req.user.snack.length; i++) {
-    //     console.log(req.user.snack[i])
-    // }
-    
-    var userBreakfast = req.user.breakfast ? req.user.breakfast : ''
-    var userLunch = req.user.lunch ? req.user.lunch : ''
-    var userDinner = req.user.dinner ? req.user.dinner : ''
-    var userSnack = req.user.snack ? req.user.snack : ''
     res.render('my-diary', {
         username: req.user.name,
         user: req.user,
-        breakfast: userBreakfast,
-        lunch: userLunch,
-        dinner: userDinner,
-        snack: userSnack
+        breakfast: req.user.breakfast,
+        lunch: req.user.lunch,
+        dinner: req.user.dinner,
+        snack: req.user.snack
     })
 })
 
 router.post('/my-diary', async (req, res) => {
-    var bodyData = req.body.breakfast ? { breakfast: req.body.breakfast }
+    var mealData = req.body.breakfast ? { breakfast: req.body.breakfast }
                  : req.body.lunch ? { lunch: req.body.lunch }
                  : req.body.dinner ? { dinner: req.body.dinner }
                  : { snack: req.body.snack }
+
     try {
-        await User.updateOne(
-        { _id: req.user._id }, 
-        {
-            $push: bodyData
-        })
-        res.redirect('/my-diary')
+        if (req.body.item_id) {
+            await User.updateOne({ _id: req.user._id },
+                { $pull: { [req.body.meal]: { id: req.body.item_id } } },
+                // { multi: true }
+            )
+            res.redirect('/my-diary')
+        } else {
+            await User.updateOne({ _id: req.user._id }, 
+                { $push: mealData }
+            )
+            res.redirect('/my-diary')
+        }
     } catch(err) {
             console.log(err)
         }
+})
+
+// dummy data
+router.post('/dummy', async (req, res) => {
+    await User.updateOne({ _id: req.user._id }, 
+        { $push: { snack: req.body.snack } }
+    )
 })
 
 // All Users Route (temporary)
@@ -140,9 +147,10 @@ router.post('/register', checkNotAuthenticated, async (req, res) => {
     }
 })
 
+// Sign-out
 router.delete('/logout', (req, res) => {
     req.logout()
-    res.redirect('/sign-in')
+    res.redirect('/')
 })
 
 function checkAuthenticated(req, res, next) {

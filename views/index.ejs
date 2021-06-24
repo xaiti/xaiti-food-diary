@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="css/home-page.css">
     <title>X Food Diary</title>
 </head>
+
+<% var sign = user ? 'Sign out' : 'Sign in' %> 
+
 <body>
     <div class="background"></div>
     <div class="header">
@@ -17,17 +20,24 @@
         <div class="header-links">
             <div id="help">Help</div>
             <div id="how-it-works">How it works</div>
-            <div id="my-diary">My Diary</div>
+            <div id="my-diary" onclick="location.href='/my-diary'">My Diary</div>
         </div>
-        <button id="sign-in-button" onclick="location.href='/sign-in'" type="button">Sign in</button>
+        <% var signHref = user ? '/logout?_method=DELETE' : '/sign-in' %> 
+
+        <button id="sign-in-out-button" onclick="location.href='/sign-in'" type="button" style="display: <%= user ? 'none' : 'block' %>">Sign in</button>
+        <% var signout = user ? 'none' : 'block' %>
+        <form action="/logout?_method=DELETE" method="POST" style="display: <%= user ? 'block' : 'none' %>">
+            <button id="sign-in-out-button" type="submit">Sign out</button>
+        </form>
+
         <div class="collapsible-menu">
             <input type="checkbox" id="menu">
             <label for="menu"></label>
             <div class="menu-content">
-                <a href="/sign-in">Sign in</a>
+                <a href="/sign-in"><%= sign %></a>
                 <a href="">Help</a>
-                <a href="">How it works</a>
-                <a href="">My Diary</a>
+                <a href="/sign-in">How it works</a>
+                <a onclick="location.href='/my-diary'">My Diary</a>
             </div>
         </div>
     </div>
@@ -38,9 +48,9 @@
             with X Food Diary</p>
         <button id="try-for-free-button" onclick="location.href='/register'" type="button">TRY FOR FREE</button>
         <ul id="list" class="no-bullets">
-            <li><div class="checkmark"></div>Easy To Use</li>
+            <li><div class="checkmark"></div>Easy To Use</li> 
+            <li><div class="checkmark"></div>Powered By Nutritionix</li>
             <li><div class="checkmark"></div>Completely Free</li>
-            <li><div class="checkmark"></div>Accurate Data</li>
         </ul>
     </div>
 
@@ -67,5 +77,4 @@
         </div>
     </div>
 </body>
-<script src="main.js"></script>
 </html>
