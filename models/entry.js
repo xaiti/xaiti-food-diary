@@ -1,16 +1,16 @@
 const mongoose = require('mongoose')
 
-const foodEntrySchema = new mongoose.Schema({
-    user_id: { type: String },
-    date: { type: Date },
+const entrySchema = new mongoose.Schema({
+    user_email: { type: String, required: true },
+    date: { type: Date, required: true },
     food: { 
         breakfast: [ ],
         lunch: [ ],
         dinner: [ ],
         snack: [ ]
     },
-    water: { type: Number },
+    water: Number,
     exercise: { }
 })
 
-module.exports = mongoose.model('FoodEntry', foodEntrySchema)
+module.exports = mongoose.model('Entry', entrySchema)

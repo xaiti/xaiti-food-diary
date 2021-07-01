@@ -2,6 +2,7 @@
     --bg-color-light: #2578be;
     --bg-color-less-light: #2c569a;
     --bg-color-dark: #333475;
+    --bg-color-dark-2-3rds-o: #333476ab;
 
     --font-color-main: #fff;
     --font-color-dim: #b2aeac;
@@ -188,6 +189,39 @@ h1 {
 
 
 
+/* ================================================== */
+/* Date picker */
+
+.date-picker-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-color-dark-2-3rds-o);
+    width: 1050px;
+    height: 34px;
+    border: 1px solid #222222;
+    margin: 0 auto;
+}
+
+.previous-day::before {
+    content: "\f053";
+}
+.next-day::before {
+    content: "\f054";
+}
+.previous-day::before,
+.next-day::before {
+    color: var(--font-color-main);
+    font-size: 1em;
+    cursor: pointer;
+    padding: 9px;
+}
+
+
+
+/* ================================================== */
+/* Food diary */
+
 .food-diary-container {
     display: grid;
     place-items: center;
@@ -196,6 +230,7 @@ table {
     border-collapse: collapse;
     justify-content: center;
     text-align: center;
+    width: 1050px;
     margin: 10px;
 }
 td, th {
@@ -236,7 +271,10 @@ td, th {
     position: relative;
 }
 
+
+
 /* ================================================== */
+/* Remove food item button */
 
 .name-con:hover > .remove-food-item,
 .remove-food-item:hover {
@@ -263,3 +301,5 @@ td, th {
     background: #d63b42;
     cursor: pointer;
 }
+
+

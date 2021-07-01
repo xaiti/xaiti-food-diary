@@ -1,6 +1,47 @@
+// Date function
+var date = new Date();
+
+function newDate() {
+    diaryDate = new Date(date.setUTCHours(0,0,0,0));
+
+    var day = String(date.getDate()).padStart(2, '0');
+    var month = String(date.getMonth() + 1).padStart(2, '0');
+    var year = date.getFullYear(); // if needed later
+
+    const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var dayName = dayNames[date.getDay()];
+
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var monthName = monthNames[date.getMonth()]; // if needed later
+
+    // if user is viewing todays diary, change 'dayName' to 'today'
+    var now = new Date();
+    var today = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+    if (today.getTime() == diaryDate.getTime()) {
+        dayName = 'Today';
+    }
+
+    dayDDMM = `${dayName}, ${day}/${month}`;
+    document.querySelector('.date').innerHTML = dayDDMM;
+} newDate();
+
+var prevDayButton = document.querySelector('.previous-day')
+prevDayButton.addEventListener('click', function() {
+    date.setDate(date.getDate() - 1);
+    newDate();
+    this.nextElementSibling.innerHTML = dayDDMM;
+})
+
+var nextDayButton = document.querySelector('.next-day')
+nextDayButton.addEventListener('click', function() {
+    date.setDate(date.getDate() + 1);
+    newDate();
+    this.previousElementSibling.innerHTML = dayDDMM;
+})
+
+
 // Total food values
 function totalFoodValues() {
-
     // total breakfast values
     var breakfastCal = document.querySelectorAll('.breakfast-cal-c');
     var breakfastFat = document.querySelectorAll('.breakfast-fat-c');
@@ -143,25 +184,25 @@ function totalFoodValues() {
 
 // Remove food item from table & database
 function removeFoodItem() {
-    
     var removeButton = document.querySelectorAll('.remove-food-item');
 
     for (i = 0; i < removeButton.length; i++) {
         removeButton[i].addEventListener('click', function() {
             // send the food item we want to remove from the db
-            fetch('/my-diary', {
+            fetch('/remove-food-item', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    meal: this.parentNode.parentNode.parentNode.getAttribute('data-meal'),
+                    meal: `food.${this.parentNode.parentNode.parentNode.getAttribute('data-meal')}`,
                     item_id: this.getAttribute('data-id'),
                 })
             });
             // remove food item from dom
-            this.parentNode.parentNode.remove()
+            this.parentNode.parentNode.remove();
+            totalFoodValues();
         });
     }
 } removeFoodItem();
@@ -331,22 +372,25 @@ async function api(searchTerms) {
                                     'Accept': 'application/json',
                                     'Content-Type': 'application/json'
                                 },
-                                body: JSON.stringify({[meal]: {
-                                    id: food_id,
-                                    item_name: food_name,
-                                    brand_name: food_brand_name,
-                                    serving_qty: food_serving_qty,
-                                    serving_unit: food_serving_unit,
-                                    serving_weight: food_serving_weight,
-                                    brand_name: food_brand_name,
-                                    cal: food_cal,
-                                    fat: food_fat,
-                                    sat_fat: food_sat_fat,
-                                    carb: food_carb,
-                                    protein: food_protein,
-                                    fiber: food_fibre,
-                                    sugar: food_sugar
-                                }})
+                                body: JSON.stringify({
+                                    [meal]: {
+                                        id: food_id,
+                                        item_name: food_name,
+                                        brand_name: food_brand_name,
+                                        serving_qty: food_serving_qty,
+                                        serving_unit: food_serving_unit,
+                                        serving_weight: food_serving_weight,
+                                        brand_name: food_brand_name,
+                                        cal: food_cal,
+                                        fat: food_fat,
+                                        sat_fat: food_sat_fat,
+                                        carb: food_carb,
+                                        protein: food_protein,
+                                        fiber: food_fibre,
+                                        sugar: food_sugar
+                                    },
+                                    date: diaryDate
+                                })
                             })
 
                             // get desired row
@@ -377,42 +421,42 @@ async function api(searchTerms) {
                                            : document.querySelector('.lunch-active') ? 'lunch-fat-c'
                                            : document.querySelector('.dinner-active') ? 'dinner-fat-c'
                                            : 'snack-fat-c';
-                            fatT.innerHTML = food_fat;
+                            fatC.innerHTML = food_fat;
 
                             var satFatC = newRow.insertCell();
                             satFatC.className = document.querySelector('.breakfast-active') ? 'breakfast-sat-fat-c'
                                               : document.querySelector('.lunch-active') ? 'lunch-sat-fat-c'
                                               : document.querySelector('.dinner-active') ? 'dinner-sat-fat-c'
                                               : 'snack-sat-fat-c';
-                            satFatT.innerHTML = food_sat_fat;
+                            satFatC.innerHTML = food_sat_fat;
 
                             var carbC = newRow.insertCell();
                             carbC.className = document.querySelector('.breakfast-active') ? 'breakfast-carb-c'
                                             : document.querySelector('.lunch-active') ? 'lunch-carb-c'
                                             : document.querySelector('.dinner-active') ? 'dinner-carb-c'
                                             : 'snack-carb-c';
-                            carbT.innerHTML = food_carb;
+                            carbC.innerHTML = food_carb;
 
                             var proteinC = newRow.insertCell();
                             proteinC.className = document.querySelector('.breakfast-active') ? 'breakfast-protein-c'
                                                : document.querySelector('.lunch-active') ? 'lunch-protein-c'
                                                : document.querySelector('.dinner-active') ? 'dinner-protein-c'
                                                : 'snack-protein-c';
-                            proteinT.innerHTML = food_protein;
+                            proteinC.innerHTML = food_protein;
 
                             var fibreC = newRow.insertCell();
                             fibreC.className = document.querySelector('.breakfast-active') ? 'breakfast-fiber-c'
                                              : document.querySelector('.lunch-active') ? 'lunch-fiber-c'
                                              : document.querySelector('.dinner-active') ? 'dinner-fiber-c'
                                              : 'snack-fiber-c';
-                            fibreT.innerHTML = food_fibre;
+                            fibreC.innerHTML = food_fibre;
 
                             var sugarC = newRow.insertCell();
                             sugarC.className = document.querySelector('.breakfast-active') ? 'breakfast-sugar-c'
                                              : document.querySelector('.lunch-active') ? 'lunch-sugar-c'
                                              : document.querySelector('.dinner-active') ? 'dinner-sugar-c'
                                              : 'snack-sugar-c';
-                            sugarT.innerHTML = food_sugar;
+                            sugarC.innerHTML = food_sugar;
 
                             // close search after selecting food item & remove active div
                             overlay.style.display = 'none';
@@ -446,8 +490,8 @@ function dummy(){
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({snack: {
-            id: "513fceb475b8dbbc21000fd3",
+        body: JSON.stringify({ snack: {
+            id: 'bitofgreenonthetopright',
             item_name : 'banananana',
             brand_name: 'not ripe',
             serving_qty: 1,
@@ -460,7 +504,7 @@ function dummy(){
             protein: 1.3,
             fiber: 3.1,
             sugar: 14.4
-        }})
+        } })
     })
     reload()
 }
