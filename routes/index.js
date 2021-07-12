@@ -209,7 +209,7 @@ router.get('/', async (req, res) => {
 
 // Sign in Route
 router.get('/sign-in', checkNotAuthenticated, (req, res) => {
-    res.render('users/sign-in', { user: User()})
+    res.render('users/sign-in', { user: User() })
 })
 
 router.post('/sign-in', checkNotAuthenticated, passport.authenticate('local', {

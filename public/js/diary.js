@@ -22,6 +22,7 @@ function newDate() {
     }
 
     dayDDMM = `${dayName}, ${day}/${month}`;
+    ddmmyyyy = `${day}-${month}-${year}`
     document.querySelector('.date').innerHTML = dayDDMM;
 } newDate();
 
@@ -30,13 +31,29 @@ prevDayButton.addEventListener('click', function() {
     date.setDate(date.getDate() - 1);
     newDate();
     this.nextElementSibling.innerHTML = dayDDMM;
+    // window.location.href = `http://localhost:3003/my-diary/${ddmmyyyy}`;
+    // fetch('/date', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Accept': 'application/json',
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({
+    //         date: ddmmyy,
+    //     })
+    // });
 })
+
+console.log(window.location.href)
+console.log(window.location)
+
 
 var nextDayButton = document.querySelector('.next-day')
 nextDayButton.addEventListener('click', function() {
     date.setDate(date.getDate() + 1);
     newDate();
     this.previousElementSibling.innerHTML = dayDDMM;
+    // window.location.href = `http://localhost:3003/my-diary/${ddmmyy}`;
 })
 
 
