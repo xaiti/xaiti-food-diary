@@ -1,5 +1,8 @@
 // Date function
-var date = new Date();
+var url = window.location.href
+var urlDate = url.substring(url.lastIndexOf('/') + 1)
+if (urlDate == 'my-diary') { urlDate = new Date() }
+var date = new Date(urlDate);
 
 function newDate() {
     diaryDate = new Date(date.setUTCHours(0,0,0,0));
@@ -17,12 +20,11 @@ function newDate() {
     // if user is viewing todays diary, change 'dayName' to 'today'
     var now = new Date();
     var today = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
-    if (today.getTime() == diaryDate.getTime()) {
-        dayName = 'Today';
-    }
+    if (today.getTime() == diaryDate.getTime()) { dayName = 'Today' }
 
     dayDDMM = `${dayName}, ${day}/${month}`;
     ddmmyyyy = `${day}-${month}-${year}`
+    yyyymmdd = `${year}-${month}-${day}`
     document.querySelector('.date').innerHTML = dayDDMM;
 } newDate();
 
@@ -31,30 +33,17 @@ prevDayButton.addEventListener('click', function() {
     date.setDate(date.getDate() - 1);
     newDate();
     this.nextElementSibling.innerHTML = dayDDMM;
-    // window.location.href = `http://localhost:3003/my-diary/${ddmmyyyy}`;
-    // fetch('/date', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({
-    //         date: ddmmyy,
-    //     })
-    // });
+    window.location.href = `http://localhost:3003/my-diary/${yyyymmdd}`;
 })
-
-console.log(window.location.href)
-console.log(window.location)
-
 
 var nextDayButton = document.querySelector('.next-day')
 nextDayButton.addEventListener('click', function() {
     date.setDate(date.getDate() + 1);
     newDate();
     this.previousElementSibling.innerHTML = dayDDMM;
-    // window.location.href = `http://localhost:3003/my-diary/${ddmmyy}`;
+    window.location.href = `http://localhost:3003/my-diary/${yyyymmdd}`;
 })
+
 
 
 // Total food values
@@ -213,8 +202,9 @@ function removeFoodItem() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    meal: `food.${this.parentNode.parentNode.parentNode.getAttribute('data-meal')}`,
+                    meal: this.parentNode.parentNode.parentNode.getAttribute('data-meal'),
                     item_id: this.getAttribute('data-id'),
+                    date: diaryDate
                 })
             });
             // remove food item from dom
@@ -378,10 +368,10 @@ async function api(searchTerms) {
                             var food_sugar = Math.round(data.nf_sugars * 10) / 10;
 
                             // save selected food item to database
-                            var meal = document.querySelector('.breakfast-active') ? 'breakfast'
-                                             : document.querySelector('.lunch-active') ? 'lunch'
-                                             : document.querySelector('.dinner-active') ? 'dinner'
-                                             : 'snack'
+                            var meal = document.querySelector('.breakfast-active') ? 'food.breakfast'
+                                     : document.querySelector('.lunch-active') ? 'food.lunch'
+                                     : document.querySelector('.dinner-active') ? 'food.dinner'
+                                     : 'food.snack'
 
                             fetch('/my-diary', {
                                 method: 'POST',
@@ -390,7 +380,8 @@ async function api(searchTerms) {
                                     'Content-Type': 'application/json'
                                 },
                                 body: JSON.stringify({
-                                    [meal]: {
+                                    meal: meal,
+                                    food_item: {
                                         id: food_id,
                                         item_name: food_name,
                                         brand_name: food_brand_name,
@@ -496,32 +487,37 @@ async function api(searchTerms) {
 
 // Add dummy data to db
 // reload page function
-var reload = () => setTimeout(() => {
-    window.location.reload(true)
-}, 100);
+// var reload = () => setTimeout(() => {
+//     window.location.reload(true)
+// }, 200);
 
-function dummy(){
+var nameHeader = document.querySelector('.name-header');
+nameHeader.addEventListener('click', function() {
     fetch('/dummy', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ snack: {
-            id: 'bitofgreenonthetopright',
-            item_name : 'banananana',
-            brand_name: 'not ripe',
-            serving_qty: 1,
-            serving_unit: '7"',
-            serving_weight: 118,
-            cal: 105,
-            fat: 0.4,
-            sat_fat: 0.1,
-            carb: 27,
-            protein: 1.3,
-            fiber: 3.1,
-            sugar: 14.4
-        } })
+        body: JSON.stringify({
+            snack: {
+                id: 'bitofgreenonthetopright',
+                item_name : 'banananana',
+                brand_name: 'not ripe',
+                serving_qty: 1,
+                serving_unit: '7"',
+                serving_weight: 118,
+                cal: 105,
+                fat: 0.4,
+                sat_fat: 0.1,
+                carb: 27,
+                protein: 1.3,
+                fiber: 3.1,
+                sugar: 14.4
+            },
+            date: diaryDate,
+            yyyymmdd: yyyymmdd
+        })
     })
-    reload()
-}
+    // reload()
+})

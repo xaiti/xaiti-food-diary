@@ -11,11 +11,9 @@ const passport = require('passport')
 const flash = require('express-flash')
 const session = require('express-session')
 const methodOverride = require('method-override')
-// const cookieParser = require('cookie-parser')
 
 const initializePassport = require('../passport-config')
 const { rawListeners } = require('../models/user')
-const entry = require('../models/entry')
 initializePassport(
     passport,
     async (email) => await User.findOne({ email: email }),
@@ -41,9 +39,9 @@ router.get('/', (req, res) => {
 })
 
 // my-diary Route
-router.get('/my-diary', checkAuthenticated, async (req, res) => {
-    const today = new Date()
-    const entry = await Entry.findOne({ user_email: req.user.email, date: new Date(today.setUTCHours(0,0,0,0)) })
+async function sendDiary(date, req, res) {
+    // declare global entry variable
+    entry = await Entry.findOne({ user_email: req.user.email, date: date })
     res.render('my-diary', {
         user: req.user,
         entry: entry,
@@ -52,48 +50,65 @@ router.get('/my-diary', checkAuthenticated, async (req, res) => {
         dinner: entry ? entry.food.dinner : [],
         snack: entry ? entry.food.snack : []
     })
+}
+
+router.get('/my-diary/:date', checkAuthenticated, async (req, res) => {
+    console.log(req.params)
+    var dateDate = new Date(req.params.date)
+    var date = new Date(dateDate.setUTCHours(0,0,0,0))
+    sendDiary(date, req, res)
 })
 
-// push selected food to database
+router.get('/my-diary', checkAuthenticated, async (req, res) => {
+    const todayDate = new Date()
+    var today = new Date(todayDate.setUTCHours(0,0,0,0))
+    sendDiary(today, req, res)
+})
+
+// query route
+// router.get('/my-diary/?:date', checkAuthenticated, async (req, res) => {
+//     console.log(req.query.date)
+//     // get date from params here
+//     sendDiary(date, req, res)
+// })
+
+// New Entry
+async function newEntry(req, res, location) {
+    const newEntry = new Entry({
+        user_email: req.user.email,
+        date: req.body.date
+    })
+    newEntry.save()
+    res.redirect(307, location)
+}
+
+// Update Entry
+async function updateEntry(req, method) {
+    await Entry.updateOne({ user_email: req.user.email, date: req.body.date }, method)
+}
+
+// Push selected food to database
 router.post('/my-diary', async (req, res) => {
-    var mealData = req.body.breakfast ? { 'food.breakfast': req.body.breakfast }
-                 : req.body.lunch ? { 'food.lunch': req.body.lunch }
-                 : req.body.dinner ? { 'food.dinner': req.body.dinner }
-                 : { 'food.snack': req.body.snack }
-    const entryCheck = { user_email: req.user.email, date: req.body.date }
-    const entry = await Entry.findOne(entryCheck)
-
-    try {
-        if (entry == null) {
-            const newEntry = new Entry({
-                user_email: req.user.email,
-                date: req.body.date
-            })
-            newEntry.save()
-            res.redirect(307, '/my-diary')
-        } else {
-            await Entry.updateOne(entryCheck, 
-                { $push: mealData }
-            )
-        }
-    } catch(err) {
-            console.log(err)
-        }
+    if (await Entry.findOne({ user_email: req.user.email, date: req.body.date }) == null) {
+        newEntry(req, res, '/my-diary')
+    } else {
+        updateEntry(req, { $push: { [req.body.meal]: req.body.food_item } })
+    }
 })
+
 
 // Remove food item from database
 router.post('/remove-food-item', async (req, res) => {
-    await Entry.updateOne({ user_email : req.user.email },
-        { $pull: { [req.body.meal]: { id: req.body.item_id } } }
-    )
-    console.log(req.body.meal)
+    updateEntry(req, { $pull: { [req.body.meal]: { id: req.body.item_id } } })
 })
 
 // Dummy data
 router.post('/dummy', async (req, res) => {
-    await Entry.updateOne({ user_email: req.user.email }, 
-        { $push: { 'food.snack': req.body.snack } }
-    )
+    if (entry == null) {
+        newEntry(req, res, '/dummy')
+    } else {
+        updateEntry(req, { $push: { 'food.snack': req.body.snack } })
+    }
 })
 
 var dummyEntry = async () => {

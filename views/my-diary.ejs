@@ -12,8 +12,8 @@
     <script src="https://kit.fontawesome.com/2b49677963.js" crossorigin="anonymous"></script>
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> -->
     <!-- css -->
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/my-diary.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/my-diary.css">
     <title>X Food Diary</title>
 </head>
 <body>
@@ -31,7 +31,7 @@
     </div>
 
     <!-- send dummy data to db -->
-    <h1 onclick="dummy()"><%= `${user.name}'s Food Diary` %></h1>
+    <h1 class="name-header"><%= `${user.name}'s Food Diary` %></h1>
 
     <div class="overlay"></div>
     <div class="food-search-container">
@@ -62,7 +62,7 @@
                     <th class="table-nutrition-header">Sugar</th>
                 </tr>
             </thead>
-            <tbody data-meal="breakfast">
+            <tbody data-meal="food.breakfast">
                 <tr class="food-diary-sub-header breakfast-head">
                     <td style="text-align: left;">Breakfast &nbsp;&nbsp; <button class="breakfast-button add-food-button">+</button></td>
                     <td></td>
@@ -88,7 +88,7 @@
                     </tr>
                 <% }) %> 
             </tbody>
-            <tbody data-meal="lunch">
+            <tbody data-meal="food.lunch">
                 <tr class="food-diary-sub-header">
                     <td style="text-align: left;">Lunch &nbsp;&nbsp; <button class="lunch-button add-food-button">+</button></td>
                     <td></td>
@@ -114,7 +114,7 @@
                     </tr>
                 <% }) %> 
             </tbody>
-            <tbody data-meal="dinner">
+            <tbody data-meal="food.dinner">
                 <tr class="food-diary-sub-header">
                     <td style="text-align: left;">Dinner &nbsp;&nbsp; <button class="dinner-button add-food-button">+</button></td>
                     <td></td>
@@ -140,7 +140,7 @@
                     </tr>
                 <% }) %> 
             </tbody>
-            <tbody data-meal="snack">
+            <tbody data-meal="food.snack">
                 <tr class="food-diary-sub-header">
                     <td style="text-align: left;">Snacks &nbsp;&nbsp; <button class="snack-button add-food-button">+</button></td>
                     <td></td>
@@ -181,5 +181,5 @@
         </table>
     </div>
 </body>
-<script src="js/diary.js"></script>
+<script src="/js/diary.js"></script>
 </html>
