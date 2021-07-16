@@ -1,101 +1,6 @@
-:root {
-    --bg-color-light: #2578be;
-    --bg-color-less-light: #2c569a;
-    --bg-color-dark: #333475;
-    --bg-color-dark-2-3rds-o: #333476ab;
-
-    --font-color-main: #fff;
-    --font-color-dim: #b2aeac;
-    --font-color-less-dim: #e0e5eb;
-
-    --button-color: #db545a;
-    --button-color-dark: #d63b42;
-    --button-color-filter: invert(94%) sepia(100%) saturate(0%) hue-rotate(213deg) brightness(106%) contrast(107%);;
-}
-
-* {
-    font-size: 1em;
-    font-family: 'Open Sans', sans-serif;
-}
-body {
-    height: 100%;
-    background-image: linear-gradient(315deg, var(--bg-color-less-light) 0%, var(--bg-color-light) 100%);
-    background-attachment: fixed;
-    color: var(--font-color-main);
-
-    /* display: flex; */
-    /* flex-direction: column;
-    justify-content: center; */
-}
-.background {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background-image: linear-gradient(140deg, var(--bg-color-light) 0%, var(--bg-color-dark) 100%);
-    background-attachment: fixed;
-    clip-path: polygon(35% 0, 100% 0, 100% 100%, 15% 100%);
-    z-index: -1;
-}
-
-
-
-/* ================================================== */
-
-/* HEADER */
-
-/* ================================================== */
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1140px;
-    height: 85px;
-    margin: 0 auto;
-    text-transform: capitalize;
-}
-#logo {
-    width: 111px;
-    height: 85px;
-    background: 
-        url(img/x-logo.svg) 
-        center / contain 
-        no-repeat;
-    filter: var(--button-color-filter);
-}
-.header-links {
-    display: flex;
-    align-items: center;
-    color: var(--font-color-less-dim);
-}
-.header-links * {
-    padding: 10px 20px;
-}
-.header-links *:hover {
-    color: var(--button-color);
-    cursor: pointer;
-}
-.sign-out-button {
-    width: 111px;
-    text-align: center;
-    font-size: 15px;
-    font-weight: 700;
-    color: #fff;
-    background: var(--button-color);
-    border-radius: 6px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    padding: 10px 2px;
-    cursor: pointer;
-}
-.sign-out-button:hover {
-    color: #ffffff;
-    background-color: var(--button-color-dark);
-}
-
-
-
 /* ================================================== */
 /* User's Diary */
+
 h1 {
     display: flex;
     justify-content: center;
@@ -301,5 +206,3 @@ td, th {
     background: #d63b42;
     cursor: pointer;
 }
-
-
