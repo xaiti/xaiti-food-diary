@@ -13,7 +13,6 @@ const session = require('express-session')
 const methodOverride = require('method-override')
 
 const initializePassport = require('../passport-config')
-const { rawListeners } = require('../models/user')
 initializePassport(
     passport,
     async (email) => await User.findOne({ email: email }),
@@ -34,6 +33,8 @@ router.use(methodOverride('_method'))
 // Home Page Route
 router.get('/', (req, res) => {
     res.render('index', {
+        title: 'X Food Diary',
+        css: 'home-page',
         user: req.user,
     })
 })
@@ -43,6 +44,8 @@ async function sendDiary(date, req, res) {
     // declare global entry variable
     entry = await Entry.findOne({ user_email: req.user.email, date: date })
     res.render('my-diary', {
+        title: 'X Food Diary',
+        css: 'my-diary',
         user: req.user,
         entry: entry,
         breakfast: entry ? entry.food.breakfast : [],
@@ -219,7 +222,7 @@ router.get('/', async (req, res) => {
 
 // Sign in Route
 router.get('/sign-in', checkNotAuthenticated, (req, res) => {
-    res.render('users/sign-in', { user: User() })
+    res.render('users/sign-in', { title: 'Sign In', css: 'sign-in', user: User() })
 })
 
 router.post('/sign-in', checkNotAuthenticated, passport.authenticate('local', {
@@ -230,22 +233,23 @@ router.post('/sign-in', checkNotAuthenticated, passport.authenticate('local', {
 
 // Sign Up Route
 router.get('/register', checkNotAuthenticated, (req, res) => {
-    res.render('users/register', { user: new User() })
+    res.render('users/register', { title: 'Sign Up', css: 'sign-in', user: new User() })
 })
 
 router.post('/register', checkNotAuthenticated, async (req, res) => {
     try {
-        if (await User.findOne({email: req.body.email.toLowerCase()})) {
-            const user = new User({})
-            let locals = {errorMessage: 'Email already in use'}
+        if (await User.findOne({ email: req.body.email.toLowerCase() })) {
+            const user = new User({ })
+            let locals = { errorMessage: 'Email already in use' }
             res.render('users/register', {
                 title: 'Sign Up',
+                css: 'sign-in',
                 user: user,
                 locals: locals
             })
         } else {
             const hashedPassword = await bcrypt.hash(req.body.password, 10)
-            const user = new User({    
+            const user = new User({
                 name: req.body.name,
                 email: req.body.email,
                 password: hashedPassword
@@ -255,8 +259,8 @@ router.post('/register', checkNotAuthenticated, async (req, res) => {
             res.redirect('/sign-in')
         }
     } catch(err) {
-        const user = new User({})
-        let locals = {errorMessage: 'Error creating User'}
+        const user = new User({ })
+        let locals = { errorMessage: 'Error creating User' }
         res.render('users/register', {
             user: user,
             locals: locals
@@ -266,7 +270,7 @@ router.post('/register', checkNotAuthenticated, async (req, res) => {
 })
 
 // Sign-out
-router.delete('/logout', (req, res) => {
+router.delete('/sign-out', (req, res) => {
     req.logout()
     res.redirect('/')
 })
