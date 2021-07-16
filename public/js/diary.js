@@ -19,12 +19,11 @@ function newDate() {
 
     // if user is viewing todays diary, change 'dayName' to 'today'
     var now = new Date();
-    var today = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+    today = new Date(now.setUTCHours(0,0,0,0));
     if (today.getTime() == diaryDate.getTime()) { dayName = 'Today' }
 
     dayDDMM = `${dayName}, ${day}/${month}`;
-    ddmmyyyy = `${day}-${month}-${year}`
-    yyyymmdd = `${year}-${month}-${day}`
+    yyyymmdd = `${year}-${month}-${day}`;
     document.querySelector('.date').innerHTML = dayDDMM;
 } newDate();
 
@@ -33,7 +32,7 @@ prevDayButton.addEventListener('click', function() {
     date.setDate(date.getDate() - 1);
     newDate();
     this.nextElementSibling.innerHTML = dayDDMM;
-    window.location.href = `http://localhost:3003/my-diary/${yyyymmdd}`;
+    window.location.href = diaryDate.getTime() == today.getTime() ? `http://localhost:3003/my-diary` : `http://localhost:3003/my-diary/${yyyymmdd}`;
 })
 
 var nextDayButton = document.querySelector('.next-day')
@@ -41,7 +40,7 @@ nextDayButton.addEventListener('click', function() {
     date.setDate(date.getDate() + 1);
     newDate();
     this.previousElementSibling.innerHTML = dayDDMM;
-    window.location.href = `http://localhost:3003/my-diary/${yyyymmdd}`;
+    window.location.href = diaryDate.getTime() == today.getTime() ? `http://localhost:3003/my-diary` : `http://localhost:3003/my-diary/${yyyymmdd}`;
 })
 
 
@@ -477,6 +476,9 @@ async function api(searchTerms) {
 
                             // Update remove food item buttons
                             removeFoodItem();
+
+                            // Reload the page 
+                            // reload();
                         })
                 }
             }
@@ -486,10 +488,10 @@ async function api(searchTerms) {
 
 
 // Add dummy data to db
-// reload page function
-// var reload = () => setTimeout(() => {
-//     window.location.reload(true)
-// }, 200);
+// Reload page function
+var reload = () => setTimeout(() => {
+    window.location.reload(true)
+}, 100);
 
 var nameHeader = document.querySelector('.name-header');
 nameHeader.addEventListener('click', function() {
@@ -515,9 +517,8 @@ nameHeader.addEventListener('click', function() {
                 fiber: 3.1,
                 sugar: 14.4
             },
-            date: diaryDate,
-            yyyymmdd: yyyymmdd
+            date: diaryDate
         })
     })
-    // reload()
+    reload()
 })
