@@ -1,40 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/sign-in.css">
-    <title>Sign up</title>
-</head>
-<body>
-    <div class="background"></div>
-    <div class="wrapper">
-        <div class="sign-up-box">
-            <div class="sign-up-box-content">
-                <h2 class="title">Sign up</h2>
-                <p>Create your free account easily with little information</p>
-                <div class="errorMessage"><%- include('../partials/errorMessage.ejs') %></div>
-                <form action="/register" method="POST">
-                    <div class="user-details">
-                        <input type="text" name="name" placeholder="Name" value="<%= user.name %>">
-                        <input type="email" name="email" placeholder="Email" value="<%= user.email %>">
-                        <input type="password" name="password" placeholder="Password" value="<%= user.password %>">
-                    </div>
-                    <button class="submit" type="submit">CREATE ACCOUNT</button>
-                </form>
-                <p>Already have an account? <a href="/sign-in">Sign in</a></p>
-            </div>
-        </div>
-
-        <div class="side-text">
-            <h1>X<br>Food Diary</h1>
-            <p>Your personal diary is only one click away</p>
+<div class="wrapper">
+    <div class="sign-up-box">
+        <div class="sign-up-box-content">
+            <h2 class="title">Sign up</h2>
+            <p>Create your free account easily with little information</p>
+            <div class="errorMessage"><%- include('../partials/errorMessage.ejs') %></div>
+            <form action="/register" method="POST">
+                <div class="user-details">
+                    <input type="text" name="name" placeholder="Name" value="<%= user.name %>">
+                    <input type="email" name="email" placeholder="Email" value="<%= user.email %>">
+                    <input type="password" name="password" placeholder="Password" value="<%= user.password %>">
+                </div>
+                <button class="submit" type="submit">CREATE ACCOUNT</button>
+            </form>
+            <p>Already have an account? <a href="/sign-in">Sign in</a></p>
         </div>
     </div>
-</body>
-</html>
 
+    <div class="side-text">
+        <h1>X<br>Food Diary</h1>
+        <p>Your personal diary is only one click away</p>
+    </div>
+</div>

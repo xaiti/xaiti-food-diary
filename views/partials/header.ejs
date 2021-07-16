@@ -1,10 +1,29 @@
-<header>
-    <nav>
-        <a href="/">MyCum</a>
-        <ul>
-            <li><a href="/users">Users</a></li>
-            <li><a href="/register">Sign up</a></li>
-            <li><a href="/login">Login</a></li>
-        </ul>
-    </nav>
-</header>
+<% var sign = user ? 'Sign out' : 'Sign in' %>
+<% var signHref = user ? '/sign-out?_method=DELETE' : '/sign-in' %>
+<% var post_get = user ? 'POST' : 'GET' %> 
+
+<div class="header">
+    <div class="logo" onclick="location.href='/'"></div>
+    <div class="header-links">
+        <a class="help" href="#">Help</a>
+        <a class="how-it-works" href="#">How it works</a>
+        <a class="my-diary" href="/my-diary">My Diary</a>
+    </div>
+    
+    <form action=<%= signHref %> method=<%= post_get %> >
+        <button class="sign-in-out-button" type="submit"><%= sign %></button>
+    </form>
+
+    <div class="collapsible-menu">
+        <input type="checkbox" id="menu">
+        <label for="menu"></label>
+        <div class="menu-content">
+            <form action=<%= signHref %> method=<% post_get %>>
+                <a href="#" onclick="this.parentNode.submit()"><%= sign %></a>
+                <a href="#">Help</a>
+                <a href="#">How it works</a>
+                <a href="/my-diary">My Diary</a>
+            </form>
+        </div>
+    </div>
+</div>
