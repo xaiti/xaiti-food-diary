@@ -53,15 +53,14 @@ async function sendDiary(date, req, res) {
 }
 
 router.get('/my-diary/:date', checkAuthenticated, async (req, res) => {
-    console.log(req.params)
-    var dateDate = new Date(req.params.date)
-    var date = new Date(dateDate.setUTCHours(0,0,0,0))
+    const dateDate = new Date(req.params.date)
+    const date = new Date(dateDate.setUTCHours(0,0,0,0))
     sendDiary(date, req, res)
 })
 
 router.get('/my-diary', checkAuthenticated, async (req, res) => {
     const todayDate = new Date()
-    var today = new Date(todayDate.setUTCHours(0,0,0,0))
+    const today = new Date(todayDate.setUTCHours(0,0,0,0))
     sendDiary(today, req, res)
 })
 
@@ -73,13 +72,12 @@ router.get('/my-diary', checkAuthenticated, async (req, res) => {
 // })
 
 // New Entry
-async function newEntry(req, res, location) {
+async function newEntry(req) {
     const newEntry = new Entry({
         user_email: req.user.email,
         date: req.body.date
     })
-    newEntry.save()
-    res.redirect(307, location)
+    await newEntry.save()
 }
 
 // Update Entry
@@ -89,13 +87,11 @@ async function updateEntry(req, method) {
 
 // Push selected food to database
 router.post('/my-diary', async (req, res) => {
-    if (await Entry.findOne({ user_email: req.user.email, date: req.body.date }) == null) {
-        newEntry(req, res, '/my-diary')
-    } else {
-        updateEntry(req, { $push: { [req.body.meal]: req.body.food_item } })
+    if (entry == null) {
+        await newEntry(req)
     }
+    updateEntry(req, { $push: { [req.body.meal]: req.body.food_item } })
 })
-
 
 // Remove food item from database
 router.post('/remove-food-item', async (req, res) => {
@@ -105,10 +101,9 @@ router.post('/remove-food-item', async (req, res) => {
 // Dummy data
 router.post('/dummy', async (req, res) => {
     if (entry == null) {
-        newEntry(req, res, '/dummy')
-    } else {
-        updateEntry(req, { $push: { 'food.snack': req.body.snack } })
+        await newEntry(req)
     }
+    updateEntry(req, { $push: { 'food.snack': req.body.snack } })
 })
 
 var dummyEntry = async () => {
