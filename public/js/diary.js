@@ -1,4 +1,5 @@
 // Date function
+var urlOrigin = window.location.origin;
 var url = window.location.href
 var urlDate = url.substring(url.lastIndexOf('/') + 1)
 if (urlDate == 'my-diary') { urlDate = new Date() }
@@ -32,7 +33,7 @@ prevDayButton.addEventListener('click', function() {
     date.setDate(date.getDate() - 1);
     newDate();
     this.nextElementSibling.innerHTML = dayDDMM;
-    window.location.href = diaryDate.getTime() == today.getTime() ? `http://localhost:3003/my-diary` : `http://localhost:3003/my-diary/${yyyymmdd}`;
+    window.location.href = diaryDate.getTime() == today.getTime() ? `${urlOrigin}/my-diary` : `${urlOrigin}/my-diary/${yyyymmdd}`;
 })
 
 var nextDayButton = document.querySelector('.next-day')
@@ -40,7 +41,7 @@ nextDayButton.addEventListener('click', function() {
     date.setDate(date.getDate() + 1);
     newDate();
     this.previousElementSibling.innerHTML = dayDDMM;
-    window.location.href = diaryDate.getTime() == today.getTime() ? `http://localhost:3003/my-diary` : `http://localhost:3003/my-diary/${yyyymmdd}`;
+    window.location.href = diaryDate.getTime() == today.getTime() ? `${urlOrigin}/my-diary` : `${urlOrigin}/my-diary/${yyyymmdd}`;
 })
 
 
