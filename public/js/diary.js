@@ -1,7 +1,7 @@
 // Date function
 var urlOrigin = window.location.origin;
-var url = window.location.href
-var urlDate = url.substring(url.lastIndexOf('/') + 1)
+var url = window.location.href;
+var urlDate = url.substring(url.lastIndexOf('/') + 1);
 if (urlDate == 'my-diary') { urlDate = new Date() }
 var date = new Date(urlDate);
 
@@ -28,7 +28,7 @@ function newDate() {
     document.querySelector('.date').innerHTML = dayDDMM;
 } newDate();
 
-var prevDayButton = document.querySelector('.previous-day')
+var prevDayButton = document.querySelector('.previous-day');
 prevDayButton.addEventListener('click', function() {
     date.setDate(date.getDate() - 1);
     newDate();
@@ -36,7 +36,7 @@ prevDayButton.addEventListener('click', function() {
     window.location.href = diaryDate.getTime() == today.getTime() ? `${urlOrigin}/my-diary` : `${urlOrigin}/my-diary/${yyyymmdd}`;
 })
 
-var nextDayButton = document.querySelector('.next-day')
+var nextDayButton = document.querySelector('.next-day');
 nextDayButton.addEventListener('click', function() {
     date.setDate(date.getDate() + 1);
     newDate();
@@ -57,7 +57,7 @@ function totalFoodValues() {
     var breakfastFiber = document.querySelectorAll('.breakfast-fiber-c');
     var breakfastSugar = document.querySelectorAll('.breakfast-sugar-c');
 
-    var breakfastCalNum = 0; var breakfastFatNum = 0; var breakfastSatFatNum = 0
+    var breakfastCalNum = 0; var breakfastFatNum = 0; var breakfastSatFatNum = 0;
     var breakfastCarbNum = 0; var breakfastProteinNum = 0; var breakfastFiberNum = 0; var breakfastSugarNum = 0;
 
     for (var i = 0; i < breakfastCal.length; i++) {
@@ -70,13 +70,13 @@ function totalFoodValues() {
         breakfastSugarNum += Number(breakfastSugar[i].innerHTML);
     }
 
-    document.querySelector('.breakfast-cal').innerHTML = breakfastCalNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.breakfast-fat').innerHTML = breakfastFatNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.breakfast-sat-fat').innerHTML = breakfastSatFatNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.breakfast-carb').innerHTML = breakfastCarbNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.breakfast-protein').innerHTML = breakfastProteinNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.breakfast-fiber').innerHTML = breakfastFiberNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.breakfast-sugar').innerHTML = breakfastSugarNum.toFixed(1).replace(/[.,]0$/, "")
+    document.querySelector('.breakfast-cal').innerHTML = breakfastCalNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.breakfast-fat').innerHTML = breakfastFatNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.breakfast-sat-fat').innerHTML = breakfastSatFatNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.breakfast-carb').innerHTML = breakfastCarbNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.breakfast-protein').innerHTML = breakfastProteinNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.breakfast-fiber').innerHTML = breakfastFiberNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.breakfast-sugar').innerHTML = breakfastSugarNum.toFixed(1).replace(/[.,]0$/, "");
 
     // total lunch values
     var lunchCal = document.querySelectorAll('.lunch-cal-c');
@@ -87,7 +87,7 @@ function totalFoodValues() {
     var lunchFiber = document.querySelectorAll('.lunch-fiber-c');
     var lunchSugar = document.querySelectorAll('.lunch-sugar-c');
 
-    var lunchCalNum = 0; var lunchFatNum = 0; var lunchSatFatNum = 0
+    var lunchCalNum = 0; var lunchFatNum = 0; var lunchSatFatNum = 0;
     var lunchCarbNum = 0; var lunchProteinNum = 0; var lunchFiberNum = 0; var lunchSugarNum = 0;
 
     for (var i = 0; i < lunchCal.length; i++) {
@@ -100,13 +100,13 @@ function totalFoodValues() {
         lunchSugarNum += Number(lunchSugar[i].innerHTML);
     }
 
-    document.querySelector('.lunch-cal').innerHTML = lunchCalNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.lunch-fat').innerHTML = lunchFatNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.lunch-sat-fat').innerHTML = lunchSatFatNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.lunch-carb').innerHTML = lunchCarbNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.lunch-protein').innerHTML = lunchProteinNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.lunch-fiber').innerHTML = lunchFiberNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.lunch-sugar').innerHTML = lunchSugarNum.toFixed(1).replace(/[.,]0$/, "")
+    document.querySelector('.lunch-cal').innerHTML = lunchCalNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.lunch-fat').innerHTML = lunchFatNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.lunch-sat-fat').innerHTML = lunchSatFatNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.lunch-carb').innerHTML = lunchCarbNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.lunch-protein').innerHTML = lunchProteinNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.lunch-fiber').innerHTML = lunchFiberNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.lunch-sugar').innerHTML = lunchSugarNum.toFixed(1).replace(/[.,]0$/, "");
 
     // total dinner values
     var dinnerCal = document.querySelectorAll('.dinner-cal-c');
@@ -117,7 +117,7 @@ function totalFoodValues() {
     var dinnerFiber = document.querySelectorAll('.dinner-fiber-c');
     var dinnerSugar = document.querySelectorAll('.dinner-sugar-c');
 
-    var dinnerCalNum = 0; var dinnerFatNum = 0; var dinnerSatFatNum = 0
+    var dinnerCalNum = 0; var dinnerFatNum = 0; var dinnerSatFatNum = 0;
     var dinnerCarbNum = 0; var dinnerProteinNum = 0; var dinnerFiberNum = 0; var dinnerSugarNum = 0;
 
     for (var i = 0; i < dinnerCal.length; i++) {
@@ -130,13 +130,13 @@ function totalFoodValues() {
         dinnerSugarNum += Number(dinnerSugar[i].innerHTML);
     }
 
-    document.querySelector('.dinner-cal').innerHTML = dinnerCalNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.dinner-fat').innerHTML = dinnerFatNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.dinner-sat-fat').innerHTML = dinnerSatFatNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.dinner-carb').innerHTML = dinnerCarbNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.dinner-protein').innerHTML = dinnerProteinNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.dinner-fiber').innerHTML = dinnerFiberNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.dinner-sugar').innerHTML = dinnerSugarNum.toFixed(1).replace(/[.,]0$/, "")
+    document.querySelector('.dinner-cal').innerHTML = dinnerCalNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.dinner-fat').innerHTML = dinnerFatNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.dinner-sat-fat').innerHTML = dinnerSatFatNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.dinner-carb').innerHTML = dinnerCarbNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.dinner-protein').innerHTML = dinnerProteinNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.dinner-fiber').innerHTML = dinnerFiberNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.dinner-sugar').innerHTML = dinnerSugarNum.toFixed(1).replace(/[.,]0$/, "");
 
     // total snack values
     var snackCal = document.querySelectorAll('.snack-cal-c');
@@ -147,7 +147,7 @@ function totalFoodValues() {
     var snackFiber = document.querySelectorAll('.snack-fiber-c');
     var snackSugar = document.querySelectorAll('.snack-sugar-c');
 
-    var snackCalNum = 0; var snackFatNum = 0; var snackSatFatNum = 0
+    var snackCalNum = 0; var snackFatNum = 0; var snackSatFatNum = 0;
     var snackCarbNum = 0; var snackProteinNum = 0; var snackFiberNum = 0; var snackSugarNum = 0;
 
     for (var i = 0; i < snackCal.length; i++) {
@@ -160,30 +160,30 @@ function totalFoodValues() {
         snackSugarNum += Number(snackSugar[i].innerHTML);
     }
 
-    document.querySelector('.snack-cal').innerHTML = snackCalNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.snack-fat').innerHTML = snackFatNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.snack-sat-fat').innerHTML = snackSatFatNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.snack-carb').innerHTML = snackCarbNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.snack-protein').innerHTML = snackProteinNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.snack-fiber').innerHTML = snackFiberNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.snack-sugar').innerHTML = snackSugarNum.toFixed(1).replace(/[.,]0$/, "")
+    document.querySelector('.snack-cal').innerHTML = snackCalNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.snack-fat').innerHTML = snackFatNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.snack-sat-fat').innerHTML = snackSatFatNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.snack-carb').innerHTML = snackCarbNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.snack-protein').innerHTML = snackProteinNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.snack-fiber').innerHTML = snackFiberNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.snack-sugar').innerHTML = snackSugarNum.toFixed(1).replace(/[.,]0$/, "");
 
-    // total total values
-    var totalCalNum = breakfastCalNum + lunchCalNum + dinnerCalNum + snackCalNum
-    var totalFatNum = breakfastFatNum + lunchFatNum + dinnerFatNum + snackFatNum
-    var totalSatFatNum = breakfastSatFatNum + lunchSatFatNum + dinnerSatFatNum + snackSatFatNum
-    var totalCarbNum = breakfastCarbNum + lunchCarbNum + dinnerCarbNum + snackCarbNum
-    var totalProteinNum = breakfastProteinNum +  lunchProteinNum + snackProteinNum + snackProteinNum
-    var totalFiberNum = breakfastFiberNum + lunchFiberNum + dinnerFiberNum + snackFiberNum
-    var totalSugarNum = breakfastSugarNum + lunchSugarNum + dinnerSugarNum + snackSugarNum
+    // total values
+    var totalCalNum = breakfastCalNum + lunchCalNum + dinnerCalNum + snackCalNum;
+    var totalFatNum = breakfastFatNum + lunchFatNum + dinnerFatNum + snackFatNum;
+    var totalSatFatNum = breakfastSatFatNum + lunchSatFatNum + dinnerSatFatNum + snackSatFatNum;
+    var totalCarbNum = breakfastCarbNum + lunchCarbNum + dinnerCarbNum + snackCarbNum;
+    var totalProteinNum = breakfastProteinNum +  lunchProteinNum + snackProteinNum + dinnerProteinNum;
+    var totalFiberNum = breakfastFiberNum + lunchFiberNum + dinnerFiberNum + snackFiberNum;
+    var totalSugarNum = breakfastSugarNum + lunchSugarNum + dinnerSugarNum + snackSugarNum;
 
-    document.querySelector('.total-cal').innerHTML = totalCalNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.total-fat').innerHTML = totalFatNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.total-sat-fat').innerHTML = totalSatFatNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.total-carb').innerHTML = totalCarbNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.total-protein').innerHTML = totalProteinNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.total-fiber').innerHTML = totalFiberNum.toFixed(1).replace(/[.,]0$/, "")
-    document.querySelector('.total-sugar').innerHTML = totalSugarNum.toFixed(1).replace(/[.,]0$/, "")
+    document.querySelector('.total-cal').innerHTML = totalCalNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-fat').innerHTML = totalFatNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-sat-fat').innerHTML = totalSatFatNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-carb').innerHTML = totalCarbNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-protein').innerHTML = totalProteinNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-fiber').innerHTML = totalFiberNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-sugar').innerHTML = totalSugarNum.toFixed(1).replace(/[.,]0$/, "");
 } totalFoodValues();    
 
 
@@ -280,29 +280,29 @@ overlay.onclick = function() {
 }
 
 async function api(searchTerms) {
-    let api_url = 'https://api.nutritionix.com/v1_1/search/'+searchTerms+'?results=0:05&fields=item_name,brand_name,nf_calories,nf_total_fat,nt_saturated_fat,nf_total_carbohydrate,nf_dietary_fiber,nf_sugars,nf_protein,nf_serving_weight_grams,nf_serving_size_qty,nf_serving_size_unit&appId=246713f5&appKey=6328f24ae2491f74e8af49fbbc09bc64'
+    let api_url = 'https://api.nutritionix.com/v1_1/search/'+searchTerms+'?results=0:05&fields=item_name,brand_name,nf_calories,nf_total_fat,nt_saturated_fat,nf_total_carbohydrate,nf_dietary_fiber,nf_sugars,nf_protein,nf_serving_weight_grams,nf_serving_size_qty,nf_serving_size_unit&appId=246713f5&appKey=6328f24ae2491f74e8af49fbbc09bc64';
     fetch(api_url).then(response => response.json())
         .then(data => {
             // hide search results container when text box is empty
             if (searchTerms == undefined || searchTerms == '') {
-                document.querySelector('.search-results-container').style.display = 'none'
+                document.querySelector('.search-results-container').style.display = 'none';
             } else {
-                document.querySelector('.search-results-container').style.display = ''
+                document.querySelector('.search-results-container').style.display = '';
             }
 
             // clear search results container everytime the url gets updated
             var searchResultsContainer = document.querySelector('.search-results-container');
-            searchResultsContainer.innerHTML = ''
+            searchResultsContainer.innerHTML = '';
 
             // loop through each hit
             for (var i = 0; i < data.hits.length; i++) {
                 // variables for each field & id
                 var item_id = data.hits[i]._id;
-                var item_name = data.hits[i].fields.item_name
-                var brand_name = data.hits[i].fields.brand_name
-                var serving_size = data.hits[i].fields.nf_serving_size_qty
-                var serving_unit = data.hits[i].fields.nf_serving_size_unit
-                var cal = Math.round(data.hits[i].fields.nf_calories)
+                var item_name = data.hits[i].fields.item_name;
+                var brand_name = data.hits[i].fields.brand_name;
+                var serving_size = data.hits[i].fields.nf_serving_size_qty;
+                var serving_unit = data.hits[i].fields.nf_serving_size_unit;
+                var cal = Math.round(data.hits[i].fields.nf_calories);
 
                 // create item for each hit
                 var searchResultItem = document.createElement('div');
@@ -322,7 +322,7 @@ async function api(searchTerms) {
                 // create sub info div for each item
                 var searchResultSubInfo = document.createElement('div');
                 searchResultSubInfo.className = 'search-result-item-sub-info';
-                searchResultSubInfo.innerHTML = `${brand_name}, ${serving_size} ${serving_unit}`
+                searchResultSubInfo.innerHTML = `${brand_name}, ${serving_size} ${serving_unit}`;
                 
                 // create container div to display callories for each item
                 var searchResultCalContainer = document.createElement('div');
@@ -348,8 +348,8 @@ async function api(searchTerms) {
 
                 
                 searchResultItem.onclick = async function(e) {
-                    var selecteditem_id = e.currentTarget.querySelector('.search-result-item-id').innerHTML
-                    var selectedItemURL = 'https://api.nutritionix.com/v1_1/item?id='+selecteditem_id+'&appId=246713f5&appKey=6328f24ae2491f74e8af49fbbc09bc64'
+                    var selecteditem_id = e.currentTarget.querySelector('.search-result-item-id').innerHTML;
+                    var selectedItemURL = 'https://api.nutritionix.com/v1_1/item?id='+selecteditem_id+'&appId=246713f5&appKey=6328f24ae2491f74e8af49fbbc09bc64';
 
                     fetch(selectedItemURL).then(response => response.json())
                         .then(data => {
@@ -371,7 +371,7 @@ async function api(searchTerms) {
                             var meal = document.querySelector('.breakfast-active') ? 'food.breakfast'
                                      : document.querySelector('.lunch-active') ? 'food.lunch'
                                      : document.querySelector('.dinner-active') ? 'food.dinner'
-                                     : 'food.snack'
+                                     : 'food.snack';
 
                             fetch('/my-diary', {
                                 method: 'POST',
@@ -411,11 +411,11 @@ async function api(searchTerms) {
                             var newRow = currentRow.insertRow();
 
                             // insert a cell at the end of the row & append a text node to the cell
-                            var nameC = newRow.insertCell(); nameC.className = 'name-con'
-                            nameC.innerHTML = `${food_name}<button class="remove-food-item" data-id="${food_id}">x</button>`
+                            var nameC = newRow.insertCell(); nameC.className = 'name-con';
+                            nameC.innerHTML = `${food_name}<button class="remove-food-item" data-id="${food_id}">x</button>`;
                             
                             var servingC = newRow.insertCell();
-                            servingC.innerHTML = `${food_serving_qty}, ${food_serving_unit}`
+                            servingC.innerHTML = `${food_serving_qty}, ${food_serving_unit}`;
 
                             var calC = newRow.insertCell();
                             calC.className = document.querySelector('.breakfast-active') ? 'breakfast-cal-c'
@@ -477,10 +477,7 @@ async function api(searchTerms) {
 
                             // Update remove food item buttons
                             removeFoodItem();
-
-                            // Reload the page 
-                            // reload();
-                        })
+                        });
                 }
             }
         });
@@ -491,7 +488,7 @@ async function api(searchTerms) {
 // Add dummy data to db
 // Reload page function
 var reload = () => setTimeout(() => {
-    window.location.reload(true)
+    window.location.reload(true);
 }, 100);
 
 var nameHeader = document.querySelector('.name-header');
@@ -520,6 +517,6 @@ nameHeader.addEventListener('click', function() {
             },
             date: diaryDate
         })
-    })
-    reload()
-})
+    });
+    reload();
+});
