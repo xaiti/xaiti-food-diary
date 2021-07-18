@@ -9,8 +9,7 @@ const entrySchema = new mongoose.Schema({
         dinner: [ ],
         snack: [ ]
     },
-    water: Number,
-    exercise: { }
+    water: Number
 })
 
 module.exports = mongoose.model('Entry', entrySchema)
