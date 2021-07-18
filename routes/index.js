@@ -204,7 +204,7 @@ var dummyEntry = async () => {
 
 
 // All Users Route (temporary)
-router.get('/', async (req, res) => {
+router.get('/users', async (req, res) => {
     let searchOptions = {}
     if (req.query.name != null && req.query.name !== '') {
         searchOptions.name = new RegExp(req.query.name, 'i')
@@ -212,6 +212,9 @@ router.get('/', async (req, res) => {
     try {
         const users = await User.find(searchOptions)
         res.render('users/index', {
+            title: 'Users',
+            css: '',
+            user: req.user,
             users: users,
             searchOptions: req.query
         })
@@ -237,16 +240,17 @@ router.get('/register', checkNotAuthenticated, (req, res) => {
 })
 
 router.post('/register', checkNotAuthenticated, async (req, res) => {
+    function renderResgister(errMsg) {
+        res.render('users/register', {
+            title: 'Sign Up',
+            css: 'sign-in',
+            user: new User(),
+            locals: { errorMessage: errMsg }
+        })
+    }
     try {
         if (await User.findOne({ email: req.body.email.toLowerCase() })) {
-            const user = new User({ })
-            let locals = { errorMessage: 'Email already in use' }
-            res.render('users/register', {
-                title: 'Sign Up',
-                css: 'sign-in',
-                user: user,
-                locals: locals
-            })
+            renderResgister('Email already in use')
         } else {
             const hashedPassword = await bcrypt.hash(req.body.password, 10)
             const user = new User({
@@ -259,12 +263,7 @@ router.post('/register', checkNotAuthenticated, async (req, res) => {
             res.redirect('/sign-in')
         }
     } catch(err) {
-        const user = new User({ })
-        let locals = { errorMessage: 'Error creating User' }
-        res.render('users/register', {
-            user: user,
-            locals: locals
-        })
+        renderResgister('Error creating User')
         console.log(err)
     }
 })
