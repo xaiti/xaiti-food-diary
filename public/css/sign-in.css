@@ -26,7 +26,7 @@
 /* ================================================== */
 /* Sign up/in box */
 
-.sign-up-box {
+.sign-up-box-container {
     padding: 0 1em;
     width: 420px;
     min-width: 300px;
@@ -36,7 +36,7 @@
     border-radius: 0.6em;
     box-shadow: -20px 20px 20px rgba(0, 0, 0, 0.3);
 }
-.sign-up-box-content {
+.sign-up-box {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -88,10 +88,15 @@ form .submit:hover {
 p:last-of-type {
     text-align: center;
 }
+.sign-up-box a {
+    color: -webkit-link;
+    text-decoration: underline;
+}
 
 .errorMessage {
     color: #ff4242;
     font-weight: 800;
+    text-align: left;
 }
 
 
@@ -110,6 +115,7 @@ p:last-of-type {
 }
 .side-text h1 {
     font-size: 6em;
+    cursor: pointer;
 }
 .side-text p {
     font-size: 1.2em;
