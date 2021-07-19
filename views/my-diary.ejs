@@ -14,7 +14,11 @@
 
 <div class="add-water-container">
     <div class="add-water">
-
+        <span class="add-water-text">Add water (ml):</span>
+        <div class="water-input-container">
+            <input type="number" class="add-water-input" step="any">
+            <div class="submit-water-button add-button icon"></div>
+        </div>
     </div>
 </div>
 
@@ -41,7 +45,7 @@
         </thead>
         <tbody data-meal="food.breakfast">
             <tr class="food-diary-sub-header breakfast-head">
-                <td class="text-left">Breakfast<button class="breakfast-button add-food-button">+</button></td>
+                <td class="text-left">Breakfast<div class="breakfast-button add-button icon"></div></td>
                 <td></td>
                 <td><div class="breakfast-cal">0</div></td>
                 <td><div class="gram-container"><div class="breakfast-fat">0</div><div class="gram-symbol">g</div></div></td>
@@ -53,7 +57,7 @@
             </tr>
             <% breakfast.forEach(breakfast => { %>
                 <tr class="food-item-row">
-                    <td class="name-con"><%= breakfast.item_name %><button class="remove-food-item" data-id="<%= breakfast.id %>">x</button></td>
+                    <td class="name-con"><%= breakfast.item_name %><div class="remove-food-button icon" data-id="<%= breakfast.id %>"></div></td>
                     <td><%= `${breakfast.serving_qty}, ${breakfast.serving_unit}` %></td>
                     <td class="breakfast-cal-c"><%= breakfast.cal %></td>
                     <td class="breakfast-fat-c"><%= breakfast.fat %></td>
@@ -67,7 +71,7 @@
         </tbody>
         <tbody data-meal="food.lunch">
             <tr class="food-diary-sub-header">
-                <td class="text-left">Lunch<button class="lunch-button add-food-button">+</button></td>
+                <td class="text-left">Lunch<div class="lunch-button add-button icon"></div></td>
                 <td></td>
                 <td><div class="lunch-cal">0</div></td>
                 <td><div class="gram-container"><div class="lunch-fat">0</div><div class="gram-symbol">g</div></div></td>
@@ -79,7 +83,7 @@
             </tr>
             <% lunch.forEach(lunch => { %>
                 <tr class="food-item-row">
-                    <td class="name-con"><%= lunch.item_name %><button class="remove-food-item" data-id="<%= lunch.id %>">x</button></td>
+                    <td class="name-con"><%= lunch.item_name %><div class="remove-food-button icon" data-id="<%= lunch.id %>"></div></td>
                     <td><%= `${lunch.serving_qty}, ${lunch.serving_unit}` %></td>
                     <td class="lunch-cal-c"><%= lunch.cal %></td>
                     <td class="lunch-fat-c"><%= lunch.fat %></td>
@@ -93,7 +97,7 @@
         </tbody>
         <tbody data-meal="food.dinner">
             <tr class="food-diary-sub-header">
-                <td class="text-left">Dinner<button class="dinner-button add-food-button">+</button></td>
+                <td class="text-left">Dinner<div class="dinner-button add-button icon"></div></td>
                 <td></td>
                 <td><div class="dinner-cal">0</div></td>
                 <td><div class="gram-container"><div class="dinner-fat">0</div><div class="gram-symbol">g</div></div></td>
@@ -105,7 +109,7 @@
             </tr>
             <% dinner.forEach(dinner => { %>
                 <tr class="food-item-row">
-                    <td class="name-con"><%= dinner.item_name %><button class="remove-food-item" data-id="<%= dinner.id %>">x</button></td>
+                    <td class="name-con"><%= dinner.item_name %><div class="remove-food-button icon" data-id="<%= dinner.id %>"></div></td>
                     <td><%= `${dinner.serving_qty}, ${dinner.serving_unit}` %></td>
                     <td class="dinner-cal-c"><%= dinner.cal %></td>
                     <td class="dinner-fat-c"><%= dinner.fat %></td>
@@ -119,7 +123,7 @@
         </tbody>
         <tbody data-meal="food.snack">
             <tr class="food-diary-sub-header">
-                <td class="text-left">Snacks<button class="snack-button add-food-button">+</button></td>
+                <td class="text-left">Snacks<div class="snack-button add-button icon"></div></td>
                 <td></td>
                 <td><div class="snack-cal">0</div></td>
                 <td><div class="gram-container"><div class="snack-fat">0</div><div class="gram-symbol">g</div></div></td>
@@ -131,7 +135,7 @@
             </tr>
             <% snack.forEach(snack => { %>
                 <tr class="food-item-row">
-                    <td class="name-con"><%= snack.item_name %> <button class="remove-food-item" data-id="<%= snack.id %>">x</button></td>
+                    <td class="name-con"><%= snack.item_name %> <div class="remove-food-button icon" data-id="<%= snack.id %>"></div></td>
                     <td><%= `${snack.serving_qty}, ${snack.serving_unit}` %></td>
                     <td class="snack-cal-c"><%= snack.cal %></td>
                     <td class="snack-fat-c"><%= snack.fat %></td>
@@ -158,8 +162,8 @@
         </tbody>
         <tbody data-meal="water">
             <tr class="food-diary-sub-header">
-                <td class="text-left">Water Intake<button class="water-button add-food-button">+</button></td>
-                <td class="total-water"><%= water ? water : 0%>ml</td>
+                <td class="text-left">Water Intake<div class="water-button add-button icon"></div></td>
+                <td class="total-water" data-water-ml="<%= water %>"><%= water ? water : 0 %>ml</td>
             </tr>
         </tbody>
     </table>

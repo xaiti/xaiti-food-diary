@@ -98,28 +98,6 @@ h1 {
 }
 
 
-
-/* ================================================== */
-/* Add water */
-
-.add-water-container {
-    display: none;
-    position: absolute;
-    top: 150px;
-    left: 50%;
-    transform: translate(-50%, -75px);
-    z-index: 10;
-}
-
-.add-water {
-    background: var(--bg-color-less-light);
-    padding: 50px;
-    border-radius: 15px;
-    border: 2px solid #222222;
-}
-
-
-
 /* ================================================== */
 /* Date picker */
 
@@ -142,10 +120,10 @@ h1 {
 }
 .previous-day::before,
 .next-day::before {
-    color: var(--font-color-main);
     font-size: 1em;
-    cursor: pointer;
+    color: var(--font-color-main);
     padding: 9px;
+    cursor: pointer;
 }
 
 
@@ -176,15 +154,6 @@ td, th {
     background-color: #00000050;
 }
 
-.add-food-button {
-    float: right;
-    cursor: pointer;
-    border-radius: 50%;
-    width: 25px;
-    height: 25px;
-    background: var(--bg-color-less-light);
-}
-
 .table-nutrition-header {
     width: 5.25em;
 }
@@ -205,10 +174,26 @@ td, th {
 
 
 /* ================================================== */
+/* Add buttons */
+
+.add-button {
+    float: right;
+}
+.add-button::before {
+    content: "\f055";
+    font-size: 24px;
+    color: var(--font-color-dim);
+    cursor: pointer;
+}
+
+
+
+/* ================================================== */
 /* Remove food item button */
 
-.name-con:hover > .remove-food-item,
-.remove-food-item:hover {
+
+.name-con:hover > .remove-food-button,
+.remove-food-button:hover {
     display: block;
 }
 .name-con::before {
@@ -220,15 +205,74 @@ td, th {
     width: 40px;
 }
 
-.remove-food-item {
+.remove-food-button {
     display: none;
     float: right;
     position: absolute;
     left: -33px;
     top: 7px;
-    border-radius: 50%;
-    width: 25px;
-    height: 25px;
-    background: #d63b42;
+}
+.remove-food-button::before {
+    content: "\f057";
+    font-size: 24px;
+    color: #d63b42;
     cursor: pointer;
+}
+.remove-food-button::after {
+    content: "\f111";
+    font-size: 18px;
+    color: #ffffff;
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    z-index: -1;
+}
+
+
+
+/* ================================================== */
+/* Add water */
+
+.add-water-container {
+    display: none;
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    transform: translate(-50%, -75px);
+    z-index: 10;
+}
+
+.add-water {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: var(--bg-color-less-light);
+    width: 400px;
+    height: 200px;
+    border-radius: 15px;
+    border: 2px solid #222222;
+}
+.add-water-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.water-input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.submit-water-button {
+    margin-left: 5px;
+}
+
+.add-water-input {
+    /* width: 500px; */
+    /* height: 50px; */
+    background-color: transparent;
+    color: var(--font-color-main);
+    padding: 6px 12px;
 }

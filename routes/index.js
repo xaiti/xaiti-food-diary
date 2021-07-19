@@ -51,7 +51,8 @@ async function sendDiary(date, req, res) {
         breakfast: entry ? entry.food.breakfast : [],
         lunch: entry ? entry.food.lunch : [],
         dinner: entry ? entry.food.dinner : [],
-        snack: entry ? entry.food.snack : []
+        snack: entry ? entry.food.snack : [],
+        water: entry ? entry.water : 0
     })
 }
 
@@ -99,6 +100,14 @@ router.post('/my-diary', async (req, res) => {
 // Remove food item from database
 router.post('/remove-food-item', async (req, res) => {
     updateEntry(req, { $pull: { [req.body.meal]: { id: req.body.item_id } } })
+})
+
+// Push water to database
+router.post('/add-water', async (req, res) => {
+    if (entry == null) {
+        await newEntry(req)
+    }
+    updateEntry(req, { $inc: { water: req.body.water } })
 })
 
 // Dummy data

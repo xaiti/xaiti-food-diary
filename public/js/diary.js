@@ -6,15 +6,14 @@ if (urlDate == 'my-diary') { urlDate = new Date() }
 var date = new Date(urlDate);
 
 function newDate() {
-    diaryDate = new Date(date.setUTCHours(0,0,0,0));
+    diaryDate = new Date(date.setUTCHours(0,0,0,0)); // for sending date to backend
 
     var day = String(date.getDate()).padStart(2, '0');
     var month = String(date.getMonth() + 1).padStart(2, '0');
-    var year = date.getFullYear(); // if needed later
+    var year = date.getFullYear();
 
     const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
     var dayName = dayNames[date.getDay()];
-
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     var monthName = monthNames[date.getMonth()]; // if needed later
 
@@ -190,7 +189,7 @@ function totalFoodValues() {
 
 // Remove food item from table & database
 function removeFoodItem() {
-    var removeButton = document.querySelectorAll('.remove-food-item');
+    var removeButton = document.querySelectorAll('.remove-food-button');
     for (i = 0; i < removeButton.length; i++) {
         removeButton[i].addEventListener('click', function() {
             // send the food item we want to remove to the backend
@@ -211,18 +210,58 @@ function removeFoodItem() {
             totalFoodValues();
         });
     }
-}
-removeFoodItem();
+} removeFoodItem();
 
 
 
 // Global overlay variable
 var overlay = document.querySelector('.overlay');
+function closeOverlayAND(container) {
+    overlay.style.display = '';
+    container.style.display = '';
+}
 
 
 
 // Push added water to database
-// next patch
+var addWaterContainer = document.querySelector('.add-water-container');
+var waterButton = document.querySelector('.water-button');
+waterButton.onclick = () => {
+    overlay.style.display = 'block';
+    addWaterContainer.style.display = 'block';
+    overlay.onclick = () => closeOverlayAND(addWaterContainer); // close add water container if click outside
+}
+
+// send water to backend
+function updateWater() {
+    var addWaterInput = document.querySelector('.add-water-input').value;
+    if (addWaterInput) {
+        fetch('/add-water', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                water: addWaterInput,
+                date: diaryDate
+            })
+        });
+    }
+    
+    // update table without refreshing the page
+    var totalWater = document.querySelector('.total-water');
+    var newTotalWater = Number(totalWater.getAttribute('data-water-ml')) + Number(addWaterInput);
+    totalWater.setAttribute('data-water-ml', newTotalWater);
+    totalWater.innerHTML = newTotalWater + 'ml';
+    closeOverlayAND(addWaterContainer);
+
+    // if total water is 1000ml or more, change measurement to L
+    if (Number(totalWater.getAttribute('data-water-ml')) >= 1000) {
+        totalWater.innerHTML = newTotalWater / 1000 + 'L';
+    }
+} updateWater();
+document.querySelector('.submit-water-button').onclick = () => { updateWater() }
 
 
 
@@ -233,7 +272,8 @@ var foodSearchContainer = document.querySelector('.food-search-container'); // g
 function meal(meal) {
     overlay.style.display = 'block';
     foodSearchContainer.style.display = 'block';
-    MEAL = meal
+    MEAL = meal;
+    overlay.onclick = () => closeOverlayAND(foodSearchContainer); // close food search container if click outside
 }
 document.querySelector('.breakfast-button').onclick = () => {
     meal('breakfast');
@@ -246,12 +286,6 @@ document.querySelector('.dinner-button').onclick = () => {
 }
 document.querySelector('.snack-button').onclick = () => {
     meal('snack');
-}
-
-// close food search container if click outside
-overlay.onclick = function() {
-    overlay.style.display = '';
-    foodSearchContainer.style.display = '';
 }
 
 // api for getting all the food
@@ -382,7 +416,7 @@ async function api(searchTerms) {
 
                             // insert a cell at the end of the row & append a text node to the cell
                             var nameC = newRow.insertCell(); nameC.className = 'name-con';
-                            nameC.innerHTML = `${food_name}<button class="remove-food-item" data-id="${food_id}">x</button>`;
+                            nameC.innerHTML = `${food_name}<div class="remove-food-button icon" data-id="${food_id}"></div>`;
                             
                             var servingC = newRow.insertCell();
                             servingC.innerHTML = `${food_serving_qty}, ${food_serving_unit}`;
@@ -416,8 +450,7 @@ async function api(searchTerms) {
                             sugarC.innerHTML = food_sugar;
 
                             // close search after selecting food item
-                            overlay.style.display = 'none';
-                            foodSearchContainer.style.display = 'none';
+                            closeOverlayAND(foodSearchContainer);
 
                             // Update total food values
                             totalFoodValues();
