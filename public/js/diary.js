@@ -184,17 +184,16 @@ function totalFoodValues() {
     document.querySelector('.total-protein').innerHTML = totalProteinNum.toFixed(1).replace(/[.,]0$/, "");
     document.querySelector('.total-fiber').innerHTML = totalFiberNum.toFixed(1).replace(/[.,]0$/, "");
     document.querySelector('.total-sugar').innerHTML = totalSugarNum.toFixed(1).replace(/[.,]0$/, "");
-} totalFoodValues();    
+} totalFoodValues();
 
 
 
 // Remove food item from table & database
 function removeFoodItem() {
     var removeButton = document.querySelectorAll('.remove-food-item');
-
     for (i = 0; i < removeButton.length; i++) {
         removeButton[i].addEventListener('click', function() {
-            // send the food item we want to remove from the db
+            // send the food item we want to remove to the backend
             fetch('/remove-food-item', {
                 method: 'POST',
                 headers: {
@@ -212,82 +211,59 @@ function removeFoodItem() {
             totalFoodValues();
         });
     }
-} removeFoodItem();
+}
+removeFoodItem();
 
 
 
-// Add food to desired slots & show / hide overlay
-// define overlay variables for showing/hiding food search
+// Global overlay variable
 var overlay = document.querySelector('.overlay');
-var foodSearchContainer = document.querySelector('.food-search-container');
 
-// button variables
-var breakfastButton = document.querySelector('.breakfast-button');
-var lunchButton = document.querySelector('.lunch-button');
-var dinnerButton = document.querySelector('.dinner-button');
-var snackButton = document.querySelector('.snack-button');
 
-// breakfast button - show overlay/food search & create/append active div
-breakfastButton.onclick = function() {
+
+// Push added water to database
+// next patch
+
+
+
+// Push selected food to database
+var foodSearchContainer = document.querySelector('.food-search-container'); // global food search container variable
+
+// meal buttons - show overlay/food search & declare global meal variable
+function meal(meal) {
     overlay.style.display = 'block';
     foodSearchContainer.style.display = 'block';
-
-    var breakfastActiveDiv = document.createElement('div');
-    breakfastActiveDiv.className = 'breakfast-active food-active';
-    breakfastButton.appendChild(breakfastActiveDiv);
-    var breakfastActive = document.querySelector('.breakfast-active'); // js doesn't seem to like this?
-    console.log(breakfastActive ? 'breakfast on da block' : 'breakfast? never heard of it mate');
+    MEAL = meal
+}
+document.querySelector('.breakfast-button').onclick = () => {
+    meal('breakfast');
+}
+document.querySelector('.lunch-button').onclick = () => {
+    meal('lunch');
+}
+document.querySelector('.dinner-button').onclick = () => {
+    meal('dinner');
+}
+document.querySelector('.snack-button').onclick = () => {
+    meal('snack');
 }
 
-// lunch button - show overlay/food search & create/append active div
-lunchButton.onclick = function() {
-    overlay.style.display = 'block';
-    foodSearchContainer.style.display = 'block';
-
-    var lunchActiveDiv = document.createElement('div');
-    lunchActiveDiv.className = 'lunch-active food-active';
-    lunchButton.appendChild(lunchActiveDiv);
-    console.log(document.querySelector('.lunch-active') ? 'lunch on da block' : 'lunch? never heard of it mate');
-}
-
-// dinner button - show overlay/food search & create/append active div
-dinnerButton.onclick = function() {
-    overlay.style.display = 'block';
-    foodSearchContainer.style.display = 'block';
-
-    var dinnerActiveDiv = document.createElement('div');
-    dinnerActiveDiv.className = 'dinner-active food-active';
-    dinnerButton.appendChild(dinnerActiveDiv);
-    console.log(document.querySelector('.dinner-active') ? 'dinner on da block' : 'dinner? never heard of it mate');
-}
-
-// snack button - show overlay/food search & create/append active div
-snackButton.onclick = function() {
-    overlay.style.display = 'block';
-    foodSearchContainer.style.display = 'block';
-
-    var snackActiveDiv = document.createElement('div');
-    snackActiveDiv.className = 'snack-active food-active';
-    snackButton.appendChild(snackActiveDiv);
-    console.log(document.querySelector('.snack-active') ? 'snack on da block' : 'snack? never heard of it mate');
-}
-
-// close food search container if click outside & remove active div
+// close food search container if click outside
 overlay.onclick = function() {
-    overlay.style.display = 'none';
-    foodSearchContainer.style.display = 'none';
-    document.querySelector('.food-active').remove();
+    overlay.style.display = '';
+    foodSearchContainer.style.display = '';
 }
 
+// api for getting all the food
 async function api(searchTerms) {
     let api_url = 'https://api.nutritionix.com/v1_1/search/'+searchTerms+'?results=0:05&fields=item_name,brand_name,nf_calories,nf_total_fat,nt_saturated_fat,nf_total_carbohydrate,nf_dietary_fiber,nf_sugars,nf_protein,nf_serving_weight_grams,nf_serving_size_qty,nf_serving_size_unit&appId=246713f5&appKey=6328f24ae2491f74e8af49fbbc09bc64';
     fetch(api_url).then(response => response.json())
         .then(data => {
             // hide search results container when text box is empty
             if (searchTerms == undefined || searchTerms == '') {
-                document.querySelector('.search-results-container').style.display = 'none';
-            } else {
                 document.querySelector('.search-results-container').style.display = '';
+            } else {
+                document.querySelector('.search-results-container').style.display = 'block';
             }
 
             // clear search results container everytime the url gets updated
@@ -345,12 +321,12 @@ async function api(searchTerms) {
                 searchResultCalContainer.appendChild(searchResultCal);
                 searchResultCalContainer.appendChild(searchResultCalText);
 
-
-                
+                // search result item on click
                 searchResultItem.onclick = async function(e) {
                     var selecteditem_id = e.currentTarget.querySelector('.search-result-item-id').innerHTML;
                     var selectedItemURL = 'https://api.nutritionix.com/v1_1/item?id='+selecteditem_id+'&appId=246713f5&appKey=6328f24ae2491f74e8af49fbbc09bc64';
 
+                    // get all the data for selected food item
                     fetch(selectedItemURL).then(response => response.json())
                         .then(data => {
                             var food_id = data.item_id;
@@ -367,12 +343,7 @@ async function api(searchTerms) {
                             var food_fibre = Math.round(data.nf_dietary_fiber * 10) / 10;
                             var food_sugar = Math.round(data.nf_sugars * 10) / 10;
 
-                            // save selected food item to database
-                            var meal = document.querySelector('.breakfast-active') ? 'food.breakfast'
-                                     : document.querySelector('.lunch-active') ? 'food.lunch'
-                                     : document.querySelector('.dinner-active') ? 'food.dinner'
-                                     : 'food.snack';
-
+                            // send food data to backend
                             fetch('/my-diary', {
                                 method: 'POST',
                                 headers: {
@@ -380,7 +351,7 @@ async function api(searchTerms) {
                                     'Content-Type': 'application/json'
                                 },
                                 body: JSON.stringify({
-                                    meal: meal,
+                                    meal: `food.${MEAL}`,
                                     food_item: {
                                         id: food_id,
                                         item_name: food_name,
@@ -401,11 +372,10 @@ async function api(searchTerms) {
                                 })
                             })
 
+                            // update the data to the table without refreshing the page
                             // get desired row
-                            var currentRow = document.querySelector('.breakfast-active') ? document.querySelector('.food-diary').getElementsByTagName('tbody')[0]
-                                           : document.querySelector('.lunch-active') ? document.querySelector('.food-diary').getElementsByTagName('tbody')[1]
-                                           : document.querySelector('.dinner-active') ? document.querySelector('.food-diary').getElementsByTagName('tbody')[2]
-                                           : document.querySelector('.food-diary').getElementsByTagName('tbody')[3];
+                            var i = MEAL == 'breakfast' ? 0 : MEAL == 'lunch' ? 1 : MEAL == 'dinner' ? 2 : 3
+                            var currentRow = document.querySelector('.food-diary').getElementsByTagName('tbody')[i];
                             
                             // insert a row at the end of table (desired row)
                             var newRow = currentRow.insertRow();
@@ -418,65 +388,39 @@ async function api(searchTerms) {
                             servingC.innerHTML = `${food_serving_qty}, ${food_serving_unit}`;
 
                             var calC = newRow.insertCell();
-                            calC.className = document.querySelector('.breakfast-active') ? 'breakfast-cal-c'
-                                           : document.querySelector('.lunch-active') ? 'lunch-cal-c'
-                                           : document.querySelector('.dinner-active') ? 'dinner-cal-c'
-                                           : 'snack-cal-c';
+                            calC.className = `${MEAL}-cal-c`
                             calC.innerHTML = food_cal;
 
                             var fatC = newRow.insertCell();
-                            fatC.className = document.querySelector('.breakfast-active') ? 'breakfast-fat-c'
-                                           : document.querySelector('.lunch-active') ? 'lunch-fat-c'
-                                           : document.querySelector('.dinner-active') ? 'dinner-fat-c'
-                                           : 'snack-fat-c';
+                            fatC.className = `${MEAL}-fat-c`
                             fatC.innerHTML = food_fat;
 
                             var satFatC = newRow.insertCell();
-                            satFatC.className = document.querySelector('.breakfast-active') ? 'breakfast-sat-fat-c'
-                                              : document.querySelector('.lunch-active') ? 'lunch-sat-fat-c'
-                                              : document.querySelector('.dinner-active') ? 'dinner-sat-fat-c'
-                                              : 'snack-sat-fat-c';
+                            satFatC.className = `${MEAL}-sat-fat-c`
                             satFatC.innerHTML = food_sat_fat;
 
                             var carbC = newRow.insertCell();
-                            carbC.className = document.querySelector('.breakfast-active') ? 'breakfast-carb-c'
-                                            : document.querySelector('.lunch-active') ? 'lunch-carb-c'
-                                            : document.querySelector('.dinner-active') ? 'dinner-carb-c'
-                                            : 'snack-carb-c';
+                            carbC.className = `${MEAL}-carb-c`
                             carbC.innerHTML = food_carb;
 
                             var proteinC = newRow.insertCell();
-                            proteinC.className = document.querySelector('.breakfast-active') ? 'breakfast-protein-c'
-                                               : document.querySelector('.lunch-active') ? 'lunch-protein-c'
-                                               : document.querySelector('.dinner-active') ? 'dinner-protein-c'
-                                               : 'snack-protein-c';
+                            proteinC.className = `${MEAL}-protein-c`
                             proteinC.innerHTML = food_protein;
 
                             var fibreC = newRow.insertCell();
-                            fibreC.className = document.querySelector('.breakfast-active') ? 'breakfast-fiber-c'
-                                             : document.querySelector('.lunch-active') ? 'lunch-fiber-c'
-                                             : document.querySelector('.dinner-active') ? 'dinner-fiber-c'
-                                             : 'snack-fiber-c';
+                            fibreC.className = `${MEAL}-fiber-c`
                             fibreC.innerHTML = food_fibre;
 
                             var sugarC = newRow.insertCell();
-                            sugarC.className = document.querySelector('.breakfast-active') ? 'breakfast-sugar-c'
-                                             : document.querySelector('.lunch-active') ? 'lunch-sugar-c'
-                                             : document.querySelector('.dinner-active') ? 'dinner-sugar-c'
-                                             : 'snack-sugar-c';
+                            sugarC.className = `${MEAL}-sugar-c`
                             sugarC.innerHTML = food_sugar;
 
-                            // close search after selecting food item & remove active div
+                            // close search after selecting food item
                             overlay.style.display = 'none';
                             foodSearchContainer.style.display = 'none';
-                            document.querySelector('.food-active').remove();
-                            console.log(document.querySelector('.breakfast-active') ? 'on da block' : 'never heard of it mate');
 
                             // Update total food values
                             totalFoodValues();
-
-                            // Update remove food item buttons
-                            removeFoodItem();
                         });
                 }
             }
@@ -485,7 +429,7 @@ async function api(searchTerms) {
 
 
 
-// Add dummy data to db
+// Add dummy data to database
 // Reload page function
 var reload = () => setTimeout(() => {
     window.location.reload(true);
