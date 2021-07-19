@@ -46,11 +46,9 @@
 .sign-up-box .title {
     color: black;
     font-size: 2em;
-    text-align: left;
 }
 .sign-up-box p {
     color: var(--font-color-dim);
-    text-align: left;
 }
 form {
     display: flex;
@@ -71,7 +69,6 @@ form .user-details input:not(:first-child), form .submit {
 }
 form .user-details input {
     padding-left: 1rem;
-    text-align: left;
     border-width: 2px;
     border-style: solid;
     border-image: linear-gradient(140deg, rgb(240, 240, 240) 0%, rgb(200, 200, 200) 100%) 1;
@@ -96,7 +93,6 @@ p:last-of-type {
 .errorMessage {
     color: #ff4242;
     font-weight: 800;
-    text-align: left;
 }
 
 
@@ -115,6 +111,7 @@ p:last-of-type {
 }
 .side-text h1 {
     font-size: 6em;
+    text-align: center;
     cursor: pointer;
 }
 .side-text p {

@@ -18,7 +18,7 @@
 * {
     font-family: 'Open Sans', sans-serif;
     font-size: 1em;
-    text-align: center;
+    /* text-align: center; */
 }
 
 /* Default page background */
@@ -155,9 +155,12 @@ input:checked ~ .menu-content *:hover {
     }
 }
 
-/* Hidden class */
-.hidden {
-    display: none;
+/* Quick css classes */
+.text-center {
+    text-align: center;
+}
+.text-left {
+    text-align: left;
 }
 
 /* Icon defaults */
@@ -176,6 +179,9 @@ input:checked ~ .menu-content *:hover {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+input:focus {
+    outline: inherit;
 }
 button {
     border: none;
