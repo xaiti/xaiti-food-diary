@@ -22,6 +22,7 @@ h1 {
     left:0;
     background: #000;
     opacity:0.6;
+    z-index: 2;
 }
 
 
@@ -174,26 +175,99 @@ td, th {
 
 
 /* ================================================== */
-/* Add buttons */
+/* Add button */
 
 .add-button {
-    float: right;
+    display: flex;
+    align-items: center;
+    float: right; /* for add food buttons */
+    position: relative;
+    width: 24px;
+    height: 24px;
+    z-index: 1;
 }
 .add-button::before {
     content: "\f055";
     font-size: 24px;
-    color: var(--font-color-dim);
+    color: var(--bg-color-light);
     cursor: pointer;
+}
+.add-button::after {
+    content: "\f111";
+    font-size: 18px;
+    color: #ffffff;
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    z-index: -1;
 }
 
 
 
 /* ================================================== */
-/* Remove food item button */
+/* Remove button */
+
+.remove-button {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    z-index: 1;
+}
+.remove-button::before {
+    content: "\f057";
+    font-size: 24px;
+    color: #d63b42;
+    cursor: pointer;
+}
+.remove-button::after {
+    content: "\f111";
+    font-size: 18px;
+    color: #ffffff;
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    z-index: -1;
+}
 
 
-.name-con:hover > .remove-food-button,
-.remove-food-button:hover {
+
+
+/* ================================================== */
+/* Minus button */
+
+.minus-button {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    z-index: 1;
+}
+.minus-button::before {
+    content: "\f056";
+    font-size: 24px;
+    color: #d63b42;
+    cursor: pointer;
+}
+.minus-button::after {
+    content: "\f111";
+    font-size: 18px;
+    color: #ffffff;
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    z-index: -1;
+}
+
+
+
+/* ================================================== */
+/* Remove food button */
+
+.name-con:hover > .remove-food,
+.remove-food:hover {
     display: block;
 }
 .name-con::before {
@@ -205,27 +279,12 @@ td, th {
     width: 40px;
 }
 
-.remove-food-button {
+.remove-food {
     display: none;
     float: right;
     position: absolute;
     left: -33px;
     top: 7px;
-}
-.remove-food-button::before {
-    content: "\f057";
-    font-size: 24px;
-    color: #d63b42;
-    cursor: pointer;
-}
-.remove-food-button::after {
-    content: "\f111";
-    font-size: 18px;
-    color: #ffffff;
-    position: absolute;
-    left: 3px;
-    top: 3px;
-    z-index: -1;
 }
 
 
@@ -247,32 +306,78 @@ td, th {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: var(--bg-color-less-light);
-    width: 400px;
-    height: 200px;
+    background-image: linear-gradient(180deg, var(--bg-color-light), var(--bg-color-less-light));
     border-radius: 15px;
-    border: 2px solid #222222;
+    box-shadow: inset 0 0 0 2px rgba(35, 33, 45, 0.3),
+		0 0 0 2px rgba(185, 185, 185, 0.3);
+    padding: 25px;
 }
-.add-water-text {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+
+/* custom radio buttons */
+.radio {
+	background: var(--bg-color-less-dark);
+	padding: 4px;
+	border-radius: 3px;
+	box-shadow: inset 0 0 0 2px rgba(35, 33, 45, 0.3),
+		0 0 0 2px rgba(185, 185, 185, 0.3);
+	position: relative;
+    margin: 0 0 12px 0;
+    cursor: default;
 }
+.radio input {
+	width: auto;
+	height: 100%;
+	appearance: none;
+	outline: none;
+	cursor: pointer;
+	border-radius: 2px;
+	padding: 4px 8px;
+	background: var(--bg-color-less-dark);
+	color: #bdbdbdbd;
+	font-size: 14px;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+		"Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+		"Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	transition: all 100ms linear;
+}
+.radio input:checked {
+	background-image: linear-gradient(180deg, var(--button-color), var(--button-color-dark));
+	color: #fff;
+	box-shadow: 0 1px 1px #0000002e;
+	text-shadow: 0 1px 0px #79485f7a;
+}
+.radio input:before {
+	content: attr(label);
+	display: inline-block;
+	text-align: center;
+	width: 100%;
+}
+
 .water-input-container {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
 }
+
 .submit-water-button {
-    margin-left: 5px;
+    /* margin: 5px 0; */
+    border-radius: 50%;
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.submit-water-button.add-button {
+    margin: 0 0 0 10px
+}
+.submit-water-button.minus-button {
+    margin: 0 10px 0 0
 }
 
 .add-water-input {
-    /* width: 500px; */
-    /* height: 50px; */
-    background-color: transparent;
+    background-color: var(--bg-color-center);
     color: var(--font-color-main);
     padding: 6px 12px;
+    border: none;
+    border-radius: 3px;
+    box-shadow: inset 0 0 0 2px rgba(35, 33, 45, 0.3),
+		0 0 0 2px rgba(185, 185, 185, 0.3);
 }

@@ -1,4 +1,4 @@
-// Date function
+// Date function //
 var urlOrigin = window.location.origin;
 var url = window.location.href;
 var urlDate = url.substring(url.lastIndexOf('/') + 1);
@@ -45,7 +45,7 @@ nextDayButton.addEventListener('click', function() {
 
 
 
-// Total food values
+// Total food values //
 function totalFoodValues() {
     // total breakfast values
     var breakfastCal = document.querySelectorAll('.breakfast-cal-c');
@@ -187,9 +187,9 @@ function totalFoodValues() {
 
 
 
-// Remove food item from table & database
+// Remove food item from table & database //
 function removeFoodItem() {
-    var removeButton = document.querySelectorAll('.remove-food-button');
+    var removeButton = document.querySelectorAll('.remove-food');
     for (i = 0; i < removeButton.length; i++) {
         removeButton[i].addEventListener('click', function() {
             // send the food item we want to remove to the backend
@@ -214,7 +214,7 @@ function removeFoodItem() {
 
 
 
-// Global overlay variable
+// Global overlay variable //
 var overlay = document.querySelector('.overlay');
 function closeOverlayAND(container) {
     overlay.style.display = '';
@@ -223,7 +223,7 @@ function closeOverlayAND(container) {
 
 
 
-// Push added water to database
+// Push added water to database //
 var addWaterContainer = document.querySelector('.add-water-container');
 var waterButton = document.querySelector('.water-button');
 waterButton.onclick = () => {
@@ -233,8 +233,12 @@ waterButton.onclick = () => {
 }
 
 // send water to backend
-function updateWater() {
-    var addWaterInput = document.querySelector('.add-water-input').value;
+function updateWater(value) {
+    var addWaterInput = Number(document.querySelector('.add-water-input').value);
+    // subtract addWaterInput if user selects the minus button
+    if (value == 'minus') { addWaterInput = - addWaterInput }
+    var addedWaterInML = document.querySelector('input[name="measurement"]:checked').value == 'ml' ? addWaterInput : addWaterInput * 1000;
+
     if (addWaterInput) {
         fetch('/add-water', {
             method: 'POST',
@@ -243,7 +247,7 @@ function updateWater() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                water: addWaterInput,
+                water: addedWaterInML,
                 date: diaryDate
             })
         });
@@ -251,7 +255,7 @@ function updateWater() {
     
     // update table without refreshing the page
     var totalWater = document.querySelector('.total-water');
-    var newTotalWater = Number(totalWater.getAttribute('data-water-ml')) + Number(addWaterInput);
+    var newTotalWater = Number(totalWater.getAttribute('data-water-ml')) + addedWaterInML;
     totalWater.setAttribute('data-water-ml', newTotalWater);
     totalWater.innerHTML = newTotalWater + 'ml';
     closeOverlayAND(addWaterContainer);
@@ -261,11 +265,16 @@ function updateWater() {
         totalWater.innerHTML = newTotalWater / 1000 + 'L';
     }
 } updateWater();
-document.querySelector('.submit-water-button').onclick = () => { updateWater() }
+
+// submit water button onclick
+var submitWaterButton = document.querySelectorAll('.submit-water-button');
+for (i = 0; i < submitWaterButton.length; i++) {
+    submitWaterButton[i].onclick = function() { updateWater(this.getAttribute('data-value')) }
+}
 
 
 
-// Push selected food to database
+// Push selected food to database //
 var foodSearchContainer = document.querySelector('.food-search-container'); // global food search container variable
 
 // meal buttons - show overlay/food search & declare global meal variable
@@ -416,7 +425,7 @@ async function api(searchTerms) {
 
                             // insert a cell at the end of the row & append a text node to the cell
                             var nameC = newRow.insertCell(); nameC.className = 'name-con';
-                            nameC.innerHTML = `${food_name}<div class="remove-food-button icon" data-id="${food_id}"></div>`;
+                            nameC.innerHTML = `${food_name}<div class="remove-food remove-button icon" data-id="${food_id}"></div>`;
                             
                             var servingC = newRow.insertCell();
                             servingC.innerHTML = `${food_serving_qty}, ${food_serving_unit}`;
@@ -465,8 +474,8 @@ async function api(searchTerms) {
 
 
 
-// Add dummy data to database
-// Reload page function
+// Add dummy data to database //
+// reload page function
 var reload = () => setTimeout(() => {
     window.location.reload(true);
 }, 100);

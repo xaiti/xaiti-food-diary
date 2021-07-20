@@ -4,6 +4,8 @@
     --bg-color-less-light: #2c569a;
     --bg-color-dark: #333475;
     --bg-color-dark-2-3rds-o: #333476ab;
+    --bg-color-less-dark: #284679;
+    --bg-color-center: #2b569a;
 
     --font-color-main: #fff;
     --font-color-dim: #b2aeac;
@@ -183,13 +185,23 @@ input:checked ~ .menu-content *:hover {
 input:focus {
     outline: inherit;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+} /* Chrome, Safari, Edge, Opera */
+input[type=number] {
+  -moz-appearance: textfield;
+}/* Firefox */
+
 button {
     border: none;
     color: inherit;
     font-size: inherit;
     font-family: inherit;
     border: 0;
-}
+} 
+
 button:focus {
     outline: none;
 }

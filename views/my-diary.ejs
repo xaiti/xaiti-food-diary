@@ -14,10 +14,14 @@
 
 <div class="add-water-container">
     <div class="add-water">
-        <span class="add-water-text">Add water (ml):</span>
+        <div class="radio">
+            <input label="ml" type="radio" id="ml" name="measurement" value="ml" checked>
+            <input label="L" type="radio" id="l" name="measurement" value="L">
+        </div>
         <div class="water-input-container">
+            <div class="submit-water-button minus-button icon" data-value="minus"></div>
             <input type="number" class="add-water-input" step="any">
-            <div class="submit-water-button add-button icon"></div>
+            <div class="submit-water-button add-button icon" data-value="add"></div>
         </div>
     </div>
 </div>
@@ -57,7 +61,7 @@
             </tr>
             <% breakfast.forEach(breakfast => { %>
                 <tr class="food-item-row">
-                    <td class="name-con"><%= breakfast.item_name %><div class="remove-food-button icon" data-id="<%= breakfast.id %>"></div></td>
+                    <td class="name-con"><%= breakfast.item_name %><div class="remove-food remove-button icon" data-id="<%= breakfast.id %>"></div></td>
                     <td><%= `${breakfast.serving_qty}, ${breakfast.serving_unit}` %></td>
                     <td class="breakfast-cal-c"><%= breakfast.cal %></td>
                     <td class="breakfast-fat-c"><%= breakfast.fat %></td>
@@ -83,7 +87,7 @@
             </tr>
             <% lunch.forEach(lunch => { %>
                 <tr class="food-item-row">
-                    <td class="name-con"><%= lunch.item_name %><div class="remove-food-button icon" data-id="<%= lunch.id %>"></div></td>
+                    <td class="name-con"><%= lunch.item_name %><div class="remove-food remove-button icon" data-id="<%= lunch.id %>"></div></td>
                     <td><%= `${lunch.serving_qty}, ${lunch.serving_unit}` %></td>
                     <td class="lunch-cal-c"><%= lunch.cal %></td>
                     <td class="lunch-fat-c"><%= lunch.fat %></td>
@@ -109,7 +113,7 @@
             </tr>
             <% dinner.forEach(dinner => { %>
                 <tr class="food-item-row">
-                    <td class="name-con"><%= dinner.item_name %><div class="remove-food-button icon" data-id="<%= dinner.id %>"></div></td>
+                    <td class="name-con"><%= dinner.item_name %><div class="remove-food remove-button icon" data-id="<%= dinner.id %>"></div></td>
                     <td><%= `${dinner.serving_qty}, ${dinner.serving_unit}` %></td>
                     <td class="dinner-cal-c"><%= dinner.cal %></td>
                     <td class="dinner-fat-c"><%= dinner.fat %></td>
@@ -135,7 +139,7 @@
             </tr>
             <% snack.forEach(snack => { %>
                 <tr class="food-item-row">
-                    <td class="name-con"><%= snack.item_name %> <div class="remove-food-button icon" data-id="<%= snack.id %>"></div></td>
+                    <td class="name-con"><%= snack.item_name %> <div class="remove-food remove-button icon" data-id="<%= snack.id %>"></div></td>
                     <td><%= `${snack.serving_qty}, ${snack.serving_unit}` %></td>
                     <td class="snack-cal-c"><%= snack.cal %></td>
                     <td class="snack-fat-c"><%= snack.fat %></td>
