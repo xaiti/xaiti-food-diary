@@ -454,6 +454,9 @@ async function api(searchTerms) {
 
                             // Update total food values
                             totalFoodValues();
+
+                            // Update remove food item buttons
+                            removeFoodItem();
                         });
                 }
             }
