@@ -157,6 +157,14 @@ input:checked ~ .menu-content *:hover {
 }
 
 /* Quick css classes */
+.flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
 .text-center {
     text-align: center;
 }
