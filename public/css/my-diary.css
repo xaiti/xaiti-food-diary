@@ -40,25 +40,38 @@ h1 {
 }
 
 .food-search {
-    background: var(--bg-color-less-light);
+    background-image: linear-gradient(180deg, var(--bg-color-light), var(--bg-color-less-light));
     padding: 50px;
     border-radius: 15px;
-    border: 2px solid #222222;
+    box-shadow: inset 0 0 0 2px rgba(35, 33, 45, 0.3),
+		0 0 0 2px rgba(185, 185, 185, 0.3);
 }
 
 .food-search-box {
     width: 500px;
     height: 50px;
-    background-color: transparent;
+    padding: 6px 12px;
+    background-color: var(--bg-color-center);
     color: var(--font-color-main);
     padding: 6px 12px;
+    border: none;
+    border: 2px solid rgba(185, 185, 185, 0.3);
 }
 
 .search-results-container { 
     width: 500px;
+    height: 267px;
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
     background-color: var(--bg-color-less-light);
-    border: 2px solid #222222;
+    border-radius: 0 0 8px 8px;
+    border: 2px solid rgba(185, 185, 185, 0.3);
+    border-top: none;
     cursor: pointer;
+    display: none;
+}
+.search-results-container::-webkit-scrollbar { /* Hide scrollbar for Chrome, Yandex, Safari and Opera  */
     display: none;
 }
 /* search result item */
@@ -99,6 +112,7 @@ h1 {
 }
 
 
+
 /* ================================================== */
 /* Date picker */
 
@@ -106,7 +120,7 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: var(--bg-color-dark-2-3rds-o);
+    background: var(--bg-color-dark-67-o);
     width: 1050px;
     height: 34px;
     border: 1px solid #222222;
@@ -230,7 +244,6 @@ td, th {
     top: 3px;
     z-index: -1;
 }
-
 
 
 
@@ -406,7 +419,7 @@ td, th {
     padding: 5px;
     border-radius: 6px;
     box-shadow: inset 0 0 0 2px var(--bg-color-dark),
-		0 0 0 2px var(--bg-color-dark-2-3rds-o);
+		0 0 0 2px var(--bg-color-dark-67-o);
     /* position the tooltip text */
     position: absolute;
     z-index: 2;
@@ -427,7 +440,7 @@ td, th {
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: transparent transparent var(--bg-color-dark-2-3rds-o) transparent;
+    border-color: transparent transparent var(--bg-color-dark-67-o) transparent;
 }
 
 /* show the tooltip text when you mouse over the tooltip container */

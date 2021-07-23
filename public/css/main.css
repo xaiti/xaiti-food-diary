@@ -3,9 +3,10 @@
     --bg-color-light: #2578be;
     --bg-color-less-light: #2c569a;
     --bg-color-dark: #333475;
-    --bg-color-dark-2-3rds-o: #333476ab;
+    --bg-color-dark-67-o: #323476ab;
     --bg-color-less-dark: #284679;
     --bg-color-center: #2b569a;
+    --bg-color-center-50-o: #2b569a80;
 
     --font-color-main: #fff;
     --font-color-dim: #b2aeac;
@@ -19,8 +20,6 @@
 /* Default font */
 * {
     font-family: 'Open Sans', sans-serif;
-    font-size: 1em;
-    /* text-align: center; */
 }
 
 /* Default page background */

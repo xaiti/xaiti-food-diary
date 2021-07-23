@@ -299,7 +299,7 @@ document.querySelector('.snack-button').onclick = () => {
 
 // api for getting all the food
 async function api(searchTerms) {
-    let api_url = 'https://api.nutritionix.com/v1_1/search/'+searchTerms+'?results=0:05&fields=item_name,brand_name,nf_calories,nf_total_fat,nt_saturated_fat,nf_total_carbohydrate,nf_dietary_fiber,nf_sugars,nf_protein,nf_serving_weight_grams,nf_serving_size_qty,nf_serving_size_unit&appId=246713f5&appKey=6328f24ae2491f74e8af49fbbc09bc64';
+    let api_url = 'https://api.nutritionix.com/v1_1/search/'+searchTerms+'?results=0:20&fields=item_name,brand_name,nf_calories,nf_total_fat,nt_saturated_fat,nf_total_carbohydrate,nf_dietary_fiber,nf_sugars,nf_protein,nf_serving_weight_grams,nf_serving_size_qty,nf_serving_size_unit&appId=246713f5&appKey=6328f24ae2491f74e8af49fbbc09bc64';
     fetch(api_url).then(response => response.json())
         .then(data => {
             // hide search results container when text box is empty
