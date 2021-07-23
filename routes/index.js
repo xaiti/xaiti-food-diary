@@ -39,12 +39,21 @@ router.get('/', (req, res) => {
     })
 })
 
-// my-diary Route
+// How It Works Route
+router.get('/how-it-works', (req, res) => {
+    res.render('how-it-works', {
+        title: 'How It Works',
+        css: 'how-it-works',
+        user: req.user,
+    })
+})
+
+// My Diary Route
 async function sendDiary(date, req, res) {
     // declare global entry variable
     entry = await Entry.findOne({ user_email: req.user.email, date: date })
     res.render('my-diary', {
-        title: 'X Food Diary',
+        title: 'My Diary',
         css: 'my-diary',
         user: req.user,
         entry: entry,
