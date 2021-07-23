@@ -39,6 +39,15 @@ router.get('/', (req, res) => {
     })
 })
 
+// Help Route
+router.get('/help', (req, res) => {
+    res.render('help', {
+        title: 'Help',
+        css: 'help',
+        user: req.user,
+    })
+})
+
 // How It Works Route
 router.get('/how-it-works', (req, res) => {
     res.render('how-it-works', {

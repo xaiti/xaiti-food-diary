@@ -1,0 +1,19 @@
+* {
+    text-align: center;
+}
+
+/* ================================================== */
+/* Wrapper */
+
+.wrapper {
+    margin: 0 auto;
+    max-width: 1320px; /* max-width + horrizontal padding x2 = max-width */
+    padding: 0 10px;
+}
+
+/* ================================================== */
+/* Top content */
+
+.top-content {
+    margin: 0 0 50px 0;
+}
