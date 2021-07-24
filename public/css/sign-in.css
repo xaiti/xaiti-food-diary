@@ -59,6 +59,7 @@ form {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    width: 100%;
 }
 form .user-details input, form .submit {
     width: 100%;
