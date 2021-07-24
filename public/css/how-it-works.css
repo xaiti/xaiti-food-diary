@@ -44,18 +44,28 @@ h1 {
 }
 
 .number-circle {
+    display: flex;
+    align-items: center;
     position: relative;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     font-family: 'Roboto', sans-serif;
-    color: var(--font-color-dim);
+    color: var(--font-color-main);
+    cursor: default;
 }
 .number-circle::before {
     font-family: 'Font Awesome 5 Free';
     content: "\f111";
     font-weight: 500;
-    font-size: 35px;
+    font-size: 36px;
+    color: var(--button-color);
+}
+.number {
     position: absolute;
-    top: -10px;
-    left: -13px;
+    top: 6px;
+    left: 13px;
 }
 
 .step-img {
