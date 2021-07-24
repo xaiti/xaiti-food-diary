@@ -91,13 +91,12 @@ body {
 /* Collapsible Menu */
 .collapsible-menu {
     display: none;
+    text-align: center;
 }
 .collapsible-menu a {
     display:block;
     padding: 5px 10px;
     margin: 5px;
-    text-decoration: none;
-    color: inherit;
 }
 .collapsible-menu label {
     font-size: 56px;
