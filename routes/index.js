@@ -70,7 +70,7 @@ async function sendDiary(date, req, res) {
         lunch: entry ? entry.food.lunch : [],
         dinner: entry ? entry.food.dinner : [],
         snack: entry ? entry.food.snack : [],
-        water: entry ? entry.water : 0
+        water: entry.water ? entry.water : 0
     })
 }
 
