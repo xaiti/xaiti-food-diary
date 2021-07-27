@@ -178,13 +178,18 @@ function totalFoodValues() {
     var totalSugarNum = breakfastSugarNum + lunchSugarNum + dinnerSugarNum + snackSugarNum;
 
     // cal panel
+    var calGoal = 2000;
+    var calIntake = document.querySelector('.cal-intake').childNodes[0];
+    var calRemaining = document.querySelector('.cal-remaining').childNodes[1];
+
+    calIntake.nodeValue = totalCalNum.toFixed(1).replace(/[.,]0$/, "");
+    calRemaining.nodeValue = calGoal - totalCalNum;
     var progress = document.querySelector('.cal-progress-done');
-    // setTimeout(() => {
-        // progress.style.opacity = 1;
-        progress.style.width = progress.getAttribute('data-done') + '%';
-    // }, 100)
-    document.querySelector('.cal-intake').childNodes[0].nodeValue = totalCalNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.cal-remaining').childNodes[1].nodeValue = 2000 - totalCalNum;
+    progress.setAttribute('data-done', (100 / calGoal) * calIntake.nodeValue);
+    setTimeout(() => {
+        progress.style.opacity = 1;
+        progress.style.width = Number(progress.getAttribute('data-done')) >= 100 ? 100 + '%' : progress.getAttribute('data-done') + '%';
+    }, 100);
 
     // nutrition panel
     document.querySelector('.total-fat').childNodes[0].nodeValue = totalFatNum.toFixed(1).replace(/[.,]0$/, "") + 'g';
@@ -202,8 +207,6 @@ function removeFoodItem() {
     var removeButton = document.querySelectorAll('.remove-food');
     for (i = 0; i < removeButton.length; i++) {
         removeButton[i].addEventListener('click', function() {
-            console.log(this.parentNode.parentNode.parentNode.getAttribute('data-meal'))
-            console.log(this.parentNode.parentNode.getAttribute('data-id'))
             // send the food item we want to remove to the backend
             fetch('/remove-food-item', {
                 method: 'POST',
