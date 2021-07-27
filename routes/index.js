@@ -60,17 +60,21 @@ router.get('/how-it-works', (req, res) => {
 // My Diary Route
 async function sendDiary(date, req, res) {
     // declare global entry variable
-    entry = await Entry.findOne({ user_email: req.user.email, date: date })
+    ENTRY = await Entry.findOne({ user_email: req.user.email, date: date })
+    var water = 0
+    if (ENTRY && ENTRY.water) {
+        water = ENTRY.water
+    }
     res.render('my-diary', {
         title: 'My Diary',
         css: 'my-diary',
         user: req.user,
-        entry: entry,
-        breakfast: entry ? entry.food.breakfast : [],
-        lunch: entry ? entry.food.lunch : [],
-        dinner: entry ? entry.food.dinner : [],
-        snack: entry ? entry.food.snack : [],
-        water: entry.water ? entry.water : 0
+        entry: ENTRY,
+        breakfast: ENTRY ? ENTRY.food.breakfast : [],
+        lunch: ENTRY ? ENTRY.food.lunch : [],
+        dinner: ENTRY ? ENTRY.food.dinner : [],
+        snack: ENTRY ? ENTRY.food.snack : [],
+        water: water
     })
 }
 
@@ -109,7 +113,7 @@ async function updateEntry(req, method) {
 
 // Push selected food to database
 router.post('/my-diary', async (req, res) => {
-    if (entry == null) {
+    if (ENTRY == null) {
         await newEntry(req)
     }
     updateEntry(req, { $push: { [req.body.meal]: req.body.food_item } })
@@ -122,7 +126,7 @@ router.post('/remove-food-item', async (req, res) => {
 
 // Push water to database
 router.post('/add-water', async (req, res) => {
-    if (entry == null) {
+    if (ENTRY == null) {
         await newEntry(req)
     }
     updateEntry(req, { $inc: { water: req.body.water } })
@@ -130,7 +134,7 @@ router.post('/add-water', async (req, res) => {
 
 // Dummy data
 router.post('/dummy', async (req, res) => {
-    if (entry == null) {
+    if (ENTRY == null) {
         await newEntry(req)
     }
     updateEntry(req, { $push: { 'food.snack': req.body.snack } })
