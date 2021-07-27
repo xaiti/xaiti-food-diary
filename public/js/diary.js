@@ -48,19 +48,20 @@ nextDayButton.addEventListener('click', function() {
 // Total food values //
 function totalFoodValues() {
     // total breakfast values
-    var breakfastCal = document.querySelectorAll('.breakfast-cal-c');
-    var breakfastFat = document.querySelectorAll('.breakfast-fat-c');
-    var breakfastSatFat = document.querySelectorAll('.breakfast-sat-fat-c');
-    var breakfastCarb = document.querySelectorAll('.breakfast-carb-c');
-    var breakfastProtein = document.querySelectorAll('.breakfast-protein-c');
-    var breakfastFiber = document.querySelectorAll('.breakfast-fiber-c');
-    var breakfastSugar = document.querySelectorAll('.breakfast-sugar-c');
+    var breakfastCal = document.querySelectorAll('.breakfast-cal');
+    var breakfastFat = document.querySelectorAll('.breakfast-fat');
+    var breakfastSatFat = document.querySelectorAll('.breakfast-sat-fat');
+    var breakfastCarb = document.querySelectorAll('.breakfast-carb');
+    var breakfastProtein = document.querySelectorAll('.breakfast-protein');
+    var breakfastFiber = document.querySelectorAll('.breakfast-fiber');
+    var breakfastSugar = document.querySelectorAll('.breakfast-sugar');
 
     var breakfastCalNum = 0; var breakfastFatNum = 0; var breakfastSatFatNum = 0;
     var breakfastCarbNum = 0; var breakfastProteinNum = 0; var breakfastFiberNum = 0; var breakfastSugarNum = 0;
 
+    // add total values together for each food item
     for (var i = 0; i < breakfastCal.length; i++) {
-        breakfastCalNum += Number(breakfastCal[i].innerHTML);
+        breakfastCalNum += Number(breakfastCal[i].childNodes[1].nodeValue);
         breakfastFatNum += Number(breakfastFat[i].innerHTML);
         breakfastSatFatNum += Number(breakfastSatFat[i].innerHTML);
         breakfastCarbNum += Number(breakfastCarb[i].innerHTML);
@@ -69,28 +70,28 @@ function totalFoodValues() {
         breakfastSugarNum += Number(breakfastSugar[i].innerHTML);
     }
 
-    document.querySelector('.breakfast-cal').innerHTML = breakfastCalNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.breakfast-fat').innerHTML = breakfastFatNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.breakfast-sat-fat').innerHTML = breakfastSatFatNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.breakfast-carb').innerHTML = breakfastCarbNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.breakfast-protein').innerHTML = breakfastProteinNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.breakfast-fiber').innerHTML = breakfastFiberNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.breakfast-sugar').innerHTML = breakfastSugarNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-breakfast-cal').childNodes[1].nodeValue = breakfastCalNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-breakfast-fat').innerHTML = breakfastFatNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-breakfast-sat-fat').innerHTML = breakfastSatFatNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-breakfast-carb').innerHTML = breakfastCarbNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-breakfast-protein').innerHTML = breakfastProteinNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-breakfast-fiber').innerHTML = breakfastFiberNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-breakfast-sugar').innerHTML = breakfastSugarNum.toFixed(1).replace(/[.,]0$/, "");
 
     // total lunch values
-    var lunchCal = document.querySelectorAll('.lunch-cal-c');
-    var lunchFat = document.querySelectorAll('.lunch-fat-c');
-    var lunchSatFat = document.querySelectorAll('.lunch-sat-fat-c');
-    var lunchCarb = document.querySelectorAll('.lunch-carb-c');
-    var lunchProtein = document.querySelectorAll('.lunch-protein-c');
-    var lunchFiber = document.querySelectorAll('.lunch-fiber-c');
-    var lunchSugar = document.querySelectorAll('.lunch-sugar-c');
+    var lunchCal = document.querySelectorAll('.lunch-cal');
+    var lunchFat = document.querySelectorAll('.lunch-fat');
+    var lunchSatFat = document.querySelectorAll('.lunch-sat-fat');
+    var lunchCarb = document.querySelectorAll('.lunch-carb');
+    var lunchProtein = document.querySelectorAll('.lunch-protein');
+    var lunchFiber = document.querySelectorAll('.lunch-fiber');
+    var lunchSugar = document.querySelectorAll('.lunch-sugar');
 
     var lunchCalNum = 0; var lunchFatNum = 0; var lunchSatFatNum = 0;
     var lunchCarbNum = 0; var lunchProteinNum = 0; var lunchFiberNum = 0; var lunchSugarNum = 0;
 
     for (var i = 0; i < lunchCal.length; i++) {
-        lunchCalNum += Number(lunchCal[i].innerHTML);
+        lunchCalNum += Number(lunchCal[i].childNodes[1].nodeValue);
         lunchFatNum += Number(lunchFat[i].innerHTML);
         lunchSatFatNum += Number(lunchSatFat[i].innerHTML);
         lunchCarbNum += Number(lunchCarb[i].innerHTML);
@@ -99,28 +100,28 @@ function totalFoodValues() {
         lunchSugarNum += Number(lunchSugar[i].innerHTML);
     }
 
-    document.querySelector('.lunch-cal').innerHTML = lunchCalNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.lunch-fat').innerHTML = lunchFatNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.lunch-sat-fat').innerHTML = lunchSatFatNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.lunch-carb').innerHTML = lunchCarbNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.lunch-protein').innerHTML = lunchProteinNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.lunch-fiber').innerHTML = lunchFiberNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.lunch-sugar').innerHTML = lunchSugarNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-lunch-cal').childNodes[1].nodeValue = lunchCalNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-lunch-fat').innerHTML = lunchFatNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-lunch-sat-fat').innerHTML = lunchSatFatNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-lunch-carb').innerHTML = lunchCarbNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-lunch-protein').innerHTML = lunchProteinNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-lunch-fiber').innerHTML = lunchFiberNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-lunch-sugar').innerHTML = lunchSugarNum.toFixed(1).replace(/[.,]0$/, "");
 
     // total dinner values
-    var dinnerCal = document.querySelectorAll('.dinner-cal-c');
-    var dinnerFat = document.querySelectorAll('.dinner-fat-c');
-    var dinnerSatFat = document.querySelectorAll('.dinner-sat-fat-c');
-    var dinnerCarb = document.querySelectorAll('.dinner-carb-c');
-    var dinnerProtein = document.querySelectorAll('.dinner-protein-c');
-    var dinnerFiber = document.querySelectorAll('.dinner-fiber-c');
-    var dinnerSugar = document.querySelectorAll('.dinner-sugar-c');
+    var dinnerCal = document.querySelectorAll('.dinner-cal');
+    var dinnerFat = document.querySelectorAll('.dinner-fat');
+    var dinnerSatFat = document.querySelectorAll('.dinner-sat-fat');
+    var dinnerCarb = document.querySelectorAll('.dinner-carb');
+    var dinnerProtein = document.querySelectorAll('.dinner-protein');
+    var dinnerFiber = document.querySelectorAll('.dinner-fiber');
+    var dinnerSugar = document.querySelectorAll('.dinner-sugar');
 
     var dinnerCalNum = 0; var dinnerFatNum = 0; var dinnerSatFatNum = 0;
     var dinnerCarbNum = 0; var dinnerProteinNum = 0; var dinnerFiberNum = 0; var dinnerSugarNum = 0;
 
     for (var i = 0; i < dinnerCal.length; i++) {
-        dinnerCalNum += Number(dinnerCal[i].innerHTML);
+        dinnerCalNum += Number(dinnerCal[i].childNodes[1].nodeValue);
         dinnerFatNum += Number(dinnerFat[i].innerHTML);
         dinnerSatFatNum += Number(dinnerSatFat[i].innerHTML);
         dinnerCarbNum += Number(dinnerCarb[i].innerHTML);
@@ -129,28 +130,28 @@ function totalFoodValues() {
         dinnerSugarNum += Number(dinnerSugar[i].innerHTML);
     }
 
-    document.querySelector('.dinner-cal').innerHTML = dinnerCalNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.dinner-fat').innerHTML = dinnerFatNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.dinner-sat-fat').innerHTML = dinnerSatFatNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.dinner-carb').innerHTML = dinnerCarbNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.dinner-protein').innerHTML = dinnerProteinNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.dinner-fiber').innerHTML = dinnerFiberNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.dinner-sugar').innerHTML = dinnerSugarNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-dinner-cal').childNodes[1].nodeValue = dinnerCalNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-dinner-fat').innerHTML = dinnerFatNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-dinner-sat-fat').innerHTML = dinnerSatFatNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-dinner-carb').innerHTML = dinnerCarbNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-dinner-protein').innerHTML = dinnerProteinNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-dinner-fiber').innerHTML = dinnerFiberNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-dinner-sugar').innerHTML = dinnerSugarNum.toFixed(1).replace(/[.,]0$/, "");
 
     // total snack values
-    var snackCal = document.querySelectorAll('.snack-cal-c');
-    var snackFat = document.querySelectorAll('.snack-fat-c');
-    var snackSatFat = document.querySelectorAll('.snack-sat-fat-c');
-    var snackCarb = document.querySelectorAll('.snack-carb-c');
-    var snackProtein = document.querySelectorAll('.snack-protein-c');
-    var snackFiber = document.querySelectorAll('.snack-fiber-c');
-    var snackSugar = document.querySelectorAll('.snack-sugar-c');
+    var snackCal = document.querySelectorAll('.snack-cal');
+    var snackFat = document.querySelectorAll('.snack-fat');
+    var snackSatFat = document.querySelectorAll('.snack-sat-fat');
+    var snackCarb = document.querySelectorAll('.snack-carb');
+    var snackProtein = document.querySelectorAll('.snack-protein');
+    var snackFiber = document.querySelectorAll('.snack-fiber');
+    var snackSugar = document.querySelectorAll('.snack-sugar');
 
     var snackCalNum = 0; var snackFatNum = 0; var snackSatFatNum = 0;
     var snackCarbNum = 0; var snackProteinNum = 0; var snackFiberNum = 0; var snackSugarNum = 0;
 
     for (var i = 0; i < snackCal.length; i++) {
-        snackCalNum += Number(snackCal[i].innerHTML);
+        snackCalNum += Number(snackCal[i].childNodes[1].nodeValue);
         snackFatNum += Number(snackFat[i].innerHTML);
         snackSatFatNum += Number(snackSatFat[i].innerHTML);
         snackCarbNum += Number(snackCarb[i].innerHTML);
@@ -159,13 +160,13 @@ function totalFoodValues() {
         snackSugarNum += Number(snackSugar[i].innerHTML);
     }
 
-    document.querySelector('.snack-cal').innerHTML = snackCalNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.snack-fat').innerHTML = snackFatNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.snack-sat-fat').innerHTML = snackSatFatNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.snack-carb').innerHTML = snackCarbNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.snack-protein').innerHTML = snackProteinNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.snack-fiber').innerHTML = snackFiberNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.snack-sugar').innerHTML = snackSugarNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-snack-cal').childNodes[1].nodeValue = snackCalNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-snack-fat').innerHTML = snackFatNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-snack-sat-fat').innerHTML = snackSatFatNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-snack-carb').innerHTML = snackCarbNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-snack-protein').innerHTML = snackProteinNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-snack-fiber').innerHTML = snackFiberNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-snack-sugar').innerHTML = snackSugarNum.toFixed(1).replace(/[.,]0$/, "");
 
     // total values
     var totalCalNum = breakfastCalNum + lunchCalNum + dinnerCalNum + snackCalNum;
@@ -176,13 +177,22 @@ function totalFoodValues() {
     var totalFiberNum = breakfastFiberNum + lunchFiberNum + dinnerFiberNum + snackFiberNum;
     var totalSugarNum = breakfastSugarNum + lunchSugarNum + dinnerSugarNum + snackSugarNum;
 
-    document.querySelector('.total-cal').innerHTML = totalCalNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-fat').innerHTML = totalFatNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-sat-fat').innerHTML = totalSatFatNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-carb').innerHTML = totalCarbNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-protein').innerHTML = totalProteinNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-fiber').innerHTML = totalFiberNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-sugar').innerHTML = totalSugarNum.toFixed(1).replace(/[.,]0$/, "");
+    // cal panel
+    var progress = document.querySelector('.cal-progress-done');
+    // setTimeout(() => {
+        // progress.style.opacity = 1;
+        progress.style.width = progress.getAttribute('data-done') + '%';
+    // }, 100)
+    document.querySelector('.cal-intake').childNodes[0].nodeValue = totalCalNum.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.cal-remaining').childNodes[1].nodeValue = 2000 - totalCalNum;
+
+    // nutrition panel
+    document.querySelector('.total-fat').childNodes[0].nodeValue = totalFatNum.toFixed(1).replace(/[.,]0$/, "") + 'g';
+    document.querySelector('.total-sat-fat').childNodes[0].nodeValue = totalSatFatNum.toFixed(1).replace(/[.,]0$/, "") + 'g';
+    document.querySelector('.total-carb').childNodes[0].nodeValue = totalCarbNum.toFixed(1).replace(/[.,]0$/, "") + 'g';
+    document.querySelector('.total-protein').childNodes[0].nodeValue = totalProteinNum.toFixed(1).replace(/[.,]0$/, "") + 'g';
+    document.querySelector('.total-fiber').childNodes[0].nodeValue = totalFiberNum.toFixed(1).replace(/[.,]0$/, "") + 'g';
+    document.querySelector('.total-sugar').childNodes[0].nodeValue = totalSugarNum.toFixed(1).replace(/[.,]0$/, "") + 'g';
 } totalFoodValues();
 
 
@@ -192,6 +202,8 @@ function removeFoodItem() {
     var removeButton = document.querySelectorAll('.remove-food');
     for (i = 0; i < removeButton.length; i++) {
         removeButton[i].addEventListener('click', function() {
+            console.log(this.parentNode.parentNode.parentNode.getAttribute('data-meal'))
+            console.log(this.parentNode.parentNode.getAttribute('data-id'))
             // send the food item we want to remove to the backend
             fetch('/remove-food-item', {
                 method: 'POST',
@@ -200,8 +212,8 @@ function removeFoodItem() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    meal: this.parentNode.parentNode.parentNode.getAttribute('data-meal'),
-                    item_id: this.getAttribute('data-id'),
+                    meal: `food.${this.parentNode.parentNode.parentNode.getAttribute('data-meal')}`,
+                    item_id: this.parentNode.parentNode.getAttribute('data-id'),
                     date: diaryDate
                 })
             });
@@ -255,15 +267,11 @@ function updateWater(value) {
     
     // update table without refreshing the page
     var totalWater = document.querySelector('.total-water');
-    var newTotalWater = Number(totalWater.getAttribute('data-water-ml')) + addedWaterInML;
-    totalWater.setAttribute('data-water-ml', newTotalWater);
-    totalWater.innerHTML = newTotalWater + 'ml';
+    var newTotalWater_ml = Number(totalWater.getAttribute('data-water-ml')) + addedWaterInML;
+    totalWater.setAttribute('data-water-ml', newTotalWater_ml);
+    totalWater.childNodes[2].nodeValue = newTotalWater_ml <= 999 ? newTotalWater_ml : newTotalWater_ml / 1000;
+    totalWater.childNodes[3].innerText = newTotalWater_ml <= 999 ? 'ml' : 'L';
     closeOverlayAND(addWaterContainer);
-
-    // if total water is 1000ml or more, change measurement to L
-    if (Number(totalWater.getAttribute('data-water-ml')) >= 1000) {
-        totalWater.innerHTML = newTotalWater / 1000 + 'L';
-    }
 } updateWater();
 
 // submit water button onclick
@@ -372,19 +380,19 @@ async function api(searchTerms) {
                     // get all the data for selected food item
                     fetch(selectedItemURL).then(response => response.json())
                         .then(data => {
-                            var food_id = data.item_id;
-                            var food_name = data.item_name;
-                            var food_brand_name = data.brand_name;
-                            var food_serving_qty = Math.round(data.nf_serving_size_qty * 10) / 10;
-                            var food_serving_unit = data.nf_serving_size_unit;
-                            var food_serving_weight = data.nf_serving_weight_grams;
-                            var food_cal = Math.round(data.nf_calories);
-                            var food_fat = Math.round(data.nf_total_fat * 10) / 10;
-                            var food_sat_fat = Math.round(data.nf_saturated_fat * 10) / 10;
-                            var food_carb =  Math.round(data.nf_total_carbohydrate * 10) / 10;
-                            var food_protein = Math.round(data.nf_protein * 10) / 10;
-                            var food_fibre = Math.round(data.nf_dietary_fiber * 10) / 10;
-                            var food_sugar = Math.round(data.nf_sugars * 10) / 10;
+                            var id = data.item_id;
+                            var item_name = data.item_name;
+                            var brand_name = data.brand_name;
+                            var serving_qty = Math.round(data.nf_serving_size_qty * 10) / 10;
+                            var serving_unit = data.nf_serving_size_unit;
+                            var serving_weight = data.nf_serving_weight_grams;
+                            var cal = Math.round(data.nf_calories);
+                            var fat = Math.round(data.nf_total_fat * 10) / 10;
+                            var sat_fat = Math.round(data.nf_saturated_fat * 10) / 10;
+                            var carb =  Math.round(data.nf_total_carbohydrate * 10) / 10;
+                            var protein = Math.round(data.nf_protein * 10) / 10;
+                            var fiber = Math.round(data.nf_dietary_fiber * 10) / 10;
+                            var sugar = Math.round(data.nf_sugars * 10) / 10;
 
                             // send food data to backend
                             fetch('/my-diary', {
@@ -396,67 +404,48 @@ async function api(searchTerms) {
                                 body: JSON.stringify({
                                     meal: `food.${MEAL}`,
                                     food_item: {
-                                        id: food_id,
-                                        item_name: food_name,
-                                        brand_name: food_brand_name,
-                                        serving_qty: food_serving_qty,
-                                        serving_unit: food_serving_unit,
-                                        serving_weight: food_serving_weight,
-                                        brand_name: food_brand_name,
-                                        cal: food_cal,
-                                        fat: food_fat,
-                                        sat_fat: food_sat_fat,
-                                        carb: food_carb,
-                                        protein: food_protein,
-                                        fiber: food_fibre,
-                                        sugar: food_sugar
+                                        id: id,
+                                        item_name: item_name,
+                                        brand_name: brand_name,
+                                        serving_qty: serving_qty,
+                                        serving_unit: serving_unit,
+                                        serving_weight: serving_weight,
+                                        cal: cal,
+                                        fat: fat,
+                                        sat_fat: sat_fat,
+                                        carb: carb,
+                                        protein: protein,
+                                        fiber: fiber,
+                                        sugar: sugar
                                     },
                                     date: diaryDate
                                 })
                             })
 
                             // update the data to the table without refreshing the page
-                            // get desired row
-                            var i = MEAL == 'breakfast' ? 0 : MEAL == 'lunch' ? 1 : MEAL == 'dinner' ? 2 : 3
-                            var currentRow = document.querySelector('.food-diary').getElementsByTagName('tbody')[i];
+                            // get desired ul
+                            var currentList = document.querySelector(`[data-meal='${MEAL}']`);
                             
-                            // insert a row at the end of table (desired row)
-                            var newRow = currentRow.insertRow();
+                            // insert a new li at the end of the ul
+                            var li = document.createElement("li");
+                            li.className = 'food-item flex'; li.setAttribute('id', id)
+                            li.innerHTML = `<span class="item-name">${item_name} <i class="remove-food remove-button icon"></i></span>
+                                            <span class="item-brand-name">${brand_name}, <span class="serving-size">${serving_qty} ${serving_unit}</span></span>
+                                            <span class="${MEAL}-cal item-cal"><i class="cal-info icon"></i>${cal}</span>`;
 
-                            // insert a cell at the end of the row & append a text node to the cell
-                            var nameC = newRow.insertCell(); nameC.className = 'name-con';
-                            nameC.innerHTML = `${food_name}<div class="remove-food remove-button icon" data-id="${food_id}"></div>`;
+                            // create a second li for hidden food values
+                            var hiddenLi = document.createElement("li");
+                            hiddenLi.className = 'food-item-hidden-values';
+                            hiddenLi.innerHTML = `<span class="${MEAL}-fat">${fat}</span>
+                                                  <span class="${MEAL}-sat-fat">${sat_fat}</span>
+                                                  <span class="${MEAL}-carb">${carb}</span>
+                                                  <span class="${MEAL}-protein">${protein}</span>
+                                                  <span class="${MEAL}-fiber">${fiber}</span>
+                                                  <span class="${MEAL}-sugar">${sugar}</span>`;
                             
-                            var servingC = newRow.insertCell();
-                            servingC.innerHTML = `${food_serving_qty}, ${food_serving_unit}`;
-
-                            var calC = newRow.insertCell();
-                            calC.className = `${MEAL}-cal-c`
-                            calC.innerHTML = food_cal;
-
-                            var fatC = newRow.insertCell();
-                            fatC.className = `${MEAL}-fat-c`
-                            fatC.innerHTML = food_fat;
-
-                            var satFatC = newRow.insertCell();
-                            satFatC.className = `${MEAL}-sat-fat-c`
-                            satFatC.innerHTML = food_sat_fat;
-
-                            var carbC = newRow.insertCell();
-                            carbC.className = `${MEAL}-carb-c`
-                            carbC.innerHTML = food_carb;
-
-                            var proteinC = newRow.insertCell();
-                            proteinC.className = `${MEAL}-protein-c`
-                            proteinC.innerHTML = food_protein;
-
-                            var fibreC = newRow.insertCell();
-                            fibreC.className = `${MEAL}-fiber-c`
-                            fibreC.innerHTML = food_fibre;
-
-                            var sugarC = newRow.insertCell();
-                            sugarC.className = `${MEAL}-sugar-c`
-                            sugarC.innerHTML = food_sugar;
+                            // append new li's to desired ul
+                            currentList.appendChild(li);
+                            currentList.appendChild(hiddenLi);
 
                             // close search after selecting food item
                             closeOverlayAND(foodSearchContainer);
@@ -471,7 +460,6 @@ async function api(searchTerms) {
             }
         });
 }
-
 
 
 // Add dummy data to database //

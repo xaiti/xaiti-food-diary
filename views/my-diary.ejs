@@ -1,185 +1,217 @@
 <%- include('partials/header.ejs') %>
 
-<!-- send dummy data to db -->
 <h1 class="name-header"><%= `${user.name}'s Food Diary` %></h1>
 
 <div class="overlay"></div>
 
-<div class="food-search-container">
-    <div class="food-search">
-        <input type="search" class="food-search-box" onchange="api(this.value)" placeholder="Search foods to add">
-        <div class="search-results-container"></div>
-    </div>
-</div>
-
-<div class="add-water-container">
-    <div class="add-water">
-        <div class="tooltip">?
-            <span class="tooltiptext">
-                1. Select measurement unit.<br>
-                2. Enter how much water you want to add.<br>
-                3. Click the plus icon.<br>
-                // or //<br>
-                2. Enter how much water you want to remove.<br>
-                3. Click the minus icon.<br>
-            </span>
-        </div>
-        <div class="radio">
-            <input label="ml" type="radio" id="ml" name="measurement" value="ml" checked>
-            <input label="L" type="radio" id="l" name="measurement" value="L">
-        </div>
-        <div class="water-input-container">
-            <div class="submit-water-button minus-button icon" data-value="minus"></div>
-            <input type="number" class="add-water-input" step="any">
-            <div class="submit-water-button add-button icon" data-value="add"></div>
+<div class="wrapper">
+    <div class="food-search-container">
+        <div class="food-search">
+            <input type="search" class="food-search-box" onchange="api(this.value)" placeholder="Search foods to add">
+            <div class="search-results-container"></div>
         </div>
     </div>
-</div>
 
-<div class="date-picker-container">
-    <div class="previous-day icon"></div>
-    <div class="date">Today</div>
-    <div class="next-day icon"></div>
-</div>
+    <div class="add-water-container">
+        <div class="add-water">
+            <div class="tooltip">?
+                <span class="tooltiptext">
+                    1. Select measurement unit.<br>
+                    2. Enter how much water you want to add.<br>
+                    3. Click the plus icon.<br>
+                    // or //<br>
+                    2. Enter how much water you want to remove.<br>
+                    3. Click the minus icon.<br>
+                </span>
+            </div>
+            <div class="radio">
+                <input label="ml" type="radio" id="ml" name="measurement" value="ml" checked>
+                <input label="L" type="radio" id="l" name="measurement" value="L">
+            </div>
+            <div class="water-input-container">
+                <i class="submit-water-button minus-button icon" data-value="minus"></i>
+                <input type="number" class="add-water-input" step="any">
+                <i class="submit-water-button add-button icon" data-value="add"></i>
+            </div>
+        </div>
+    </div>
 
-<div class="food-diary-container">
-    <table class="food-diary">
-        <thead class="food-diary-header">
-            <tr>
-                <th>Food</th>
-                <th>Serving</th>
-                <th class="table-nutrition-header">Calories</th>
-                <th class="table-nutrition-header">Fat</th>
-                <th class="table-nutrition-header">Sat Fat</th>
-                <th class="table-nutrition-header">Carb</th>
-                <th class="table-nutrition-header">Protein</th>
-                <th class="table-nutrition-header">Fiber</th>
-                <th class="table-nutrition-header">Sugar</th>
-            </tr>
-        </thead>
-        <tbody data-meal="food.breakfast">
-            <tr class="food-diary-sub-header breakfast-head">
-                <td class="text-left">Breakfast<div class="breakfast-button add-button icon"></div></td>
-                <td></td>
-                <td><div class="breakfast-cal">0</div></td>
-                <td><div class="gram-container"><div class="breakfast-fat">0</div><div class="gram-symbol">g</div></div></td>
-                <td><div class="gram-container"><div class="breakfast-sat-fat">0</div><div class="gram-symbol">g</div></div></td>
-                <td><div class="gram-container"><div class="breakfast-carb">0</div><div class="gram-symbol">g</div></div></td>
-                <td><div class="gram-container"><div class="breakfast-protein">0</div><div class="gram-symbol">g</div></div></td>
-                <td><div class="gram-container"><div class="breakfast-fiber">0</div><div class="gram-symbol">g</div></div></td>
-                <td><div class="gram-container"><div class="breakfast-sugar">0</div><div class="gram-symbol">g</div></div></td>
-            </tr>
+    <div class="food-diary-container">
+        <div class="date-picker-container">
+            <i class="previous-day icon"></i>
+            <div class="date">Today</div>
+            <i class="next-day icon"></i>
+        </div>
+
+        <div class="cal-panel flex">
+            <div class="cal-intake">200<span> Cal intake</span></div>
+            <div class="cal-remaining"><span>Cal remaining </span>1800</div>
+            <div class="cal-progress">
+                <div class="cal-progress-done flex" data-done="70"></div>
+            </div>
+        </div>
+
+        <div class="nutrition-panel flex">
+            <div class="total-fat">12g<span> Fat</span></div>
+            <div class="total-sat-fat">12g<span> Sat Fat</span></div>
+            <div class="total-carb">12g<span> Carbs</span></div>
+            <div class="total-protein">12g<span> Protein</span></div>
+            <div class="total-fiber">12g<span> Fiber</span></div>
+            <div class="total-sugar">12g<span> Sugar</span></div>
+        </div>
+
+        <ul data-meal="breakfast">
+            <li class="group-header breakfast-header flex">
+                <span class="flex">Breakfast<i class="breakfast-button add-button icon"></i></span>
+                <span class="total-breakfast-cal flex"><i class="cal-info icon"></i>0</span>
+            </li>
             <% breakfast.forEach(breakfast => { %>
-                <tr class="food-item-row">
-                    <td class="name-con"><%= breakfast.item_name %><div class="remove-food remove-button icon" data-id="<%= breakfast.id %>"></div></td>
-                    <td><%= `${breakfast.serving_qty}, ${breakfast.serving_unit}` %></td>
-                    <td class="breakfast-cal-c"><%= breakfast.cal %></td>
-                    <td class="breakfast-fat-c"><%= breakfast.fat %></td>
-                    <td class="breakfast-sat-fat-c"><%= breakfast.sat_fat %></td>
-                    <td class="breakfast-carb-c"><%= breakfast.carb %></td>
-                    <td class="breakfast-protein-c"><%= breakfast.protein %></td>
-                    <td class="breakfast-fiber-c"><%= breakfast.fiber %></td>
-                    <td class="breakfast-sugar-c"><%= breakfast.sugar %></td>
-                </tr>
+                <li class="food-item flex" data-id="<%= breakfast.id %>">
+                    <span class="item-name"><%= breakfast.item_name %> <i class="remove-food remove-button icon"></i></span>
+                    <span class="item-brand-name"><%= breakfast.brand_name %>, <span class="serving-size"><%= breakfast.serving_qty %> <%= breakfast.serving_unit %></span></span>
+                    <span class="breakfast-cal item-cal"><i class="cal-info icon"></i><%= breakfast.cal %></span>
+                </li>
+                <li class="food-item-hidden-values" data-breakfast-fat="<%= breakfast.fat %>">
+                    <span class="breakfast-fat"><%= breakfast.fat %></span>
+                    <span class="breakfast-sat-fat"><%= breakfast.sat_fat %></span>
+                    <span class="breakfast-carb"><%= breakfast.carb %></span>
+                    <span class="breakfast-protein"><%= breakfast.protein %></span>
+                    <span class="breakfast-fiber"><%= breakfast.fiber %></span>
+                    <span class="breakfast-sugar"><%= breakfast.sugar %></span>
+                </li>
             <% }) %> 
-        </tbody>
-        <tbody data-meal="food.lunch">
-            <tr class="food-diary-sub-header">
-                <td class="text-left">Lunch<div class="lunch-button add-button icon"></div></td>
-                <td></td>
-                <td><div class="lunch-cal">0</div></td>
-                <td><div class="gram-container"><div class="lunch-fat">0</div><div class="gram-symbol">g</div></div></td>
-                <td><div class="gram-container"><div class="lunch-sat-fat">0</div><div class="gram-symbol">g</div></div></td>
-                <td><div class="gram-container"><div class="lunch-carb">0</div><div class="gram-symbol">g</div></div></td>
-                <td><div class="gram-container"><div class="lunch-protein">0</div><div class="gram-symbol">g</div></div></td>
-                <td><div class="gram-container"><div class="lunch-fiber">0</div><div class="gram-symbol">g</div></div></td>
-                <td><div class="gram-container"><div class="lunch-sugar">0</div><div class="gram-symbol">g</div></div></td>
-            </tr>
+        </ul>
+        <ul data-meal="lunch">
+            <li class="group-header lunch-header flex">
+                <span class="flex">Lunch<i class="lunch-button add-button icon"></i></span>
+                <span class="total-lunch-cal flex"><i class="cal-info icon"></i>0</span>
+            </li>
             <% lunch.forEach(lunch => { %>
-                <tr class="food-item-row">
-                    <td class="name-con"><%= lunch.item_name %><div class="remove-food remove-button icon" data-id="<%= lunch.id %>"></div></td>
-                    <td><%= `${lunch.serving_qty}, ${lunch.serving_unit}` %></td>
-                    <td class="lunch-cal-c"><%= lunch.cal %></td>
-                    <td class="lunch-fat-c"><%= lunch.fat %></td>
-                    <td class="lunch-sat-fat-c"><%= lunch.sat_fat %></td>
-                    <td class="lunch-carb-c"><%= lunch.carb %></td>
-                    <td class="lunch-protein-c"><%= lunch.protein %></td>
-                    <td class="lunch-fiber-c"><%= lunch.fiber %></td>
-                    <td class="lunch-sugar-c"><%= lunch.sugar %></td>
-                </tr>
+                <li class="food-item flex" data-id="<%= lunch.id %>">
+                    <span class="item-name"><%= lunch.item_name %> <i class="remove-food remove-button icon"></i></span>
+                    <span class="item-brand-name"><%= lunch.brand_name %>, <span class="serving-size"><%= lunch.serving_qty %> <%= lunch.serving_unit %></span></span>
+                    <span class="lunch-cal item-cal"><i class="cal-info icon"></i><%= lunch.cal %></span>
+                </li>
+                <li class="food-item-hidden-values">
+                    <span class="lunch-fat"><%= lunch.fat %></span>
+                    <span class="lunch-sat-fat"><%= lunch.sat_fat %></span>
+                    <span class="lunch-carb"><%= lunch.carb %></span>
+                    <span class="lunch-protein"><%= lunch.protein %></span>
+                    <span class="lunch-fiber"><%= lunch.fiber %></span>
+                    <span class="lunch-sugar"><%= lunch.sugar %></span>
+                </li>
             <% }) %> 
-        </tbody>
-        <tbody data-meal="food.dinner">
-            <tr class="food-diary-sub-header">
-                <td class="text-left">Dinner<div class="dinner-button add-button icon"></div></td>
-                <td></td>
-                <td><div class="dinner-cal">0</div></td>
-                <td><div class="gram-container"><div class="dinner-fat">0</div><div class="gram-symbol">g</div></div></td>
-                <td><div class="gram-container"><div class="dinner-sat-fat">0</div><div class="gram-symbol">g</div></div></td>
-                <td><div class="gram-container"><div class="dinner-carb">0</div><div class="gram-symbol">g</div></div></td>
-                <td><div class="gram-container"><div class="dinner-protein">0</div><div class="gram-symbol">g</div></div></td>
-                <td><div class="gram-container"><div class="dinner-fiber">0</div><div class="gram-symbol">g</div></div></td>
-                <td><div class="gram-container"><div class="dinner-sugar">0</div><div class="gram-symbol">g</div></div></td>
-            </tr>
+        </ul>
+        <ul data-meal="dinner">
+            <li class="group-header dinner-header flex">
+                <span class="flex">Dinner<i class="dinner-button add-button icon"></i></span>
+                <span class="total-dinner-cal flex"><i class="cal-info icon"></i>0</span>
+            </li>
             <% dinner.forEach(dinner => { %>
-                <tr class="food-item-row">
-                    <td class="name-con"><%= dinner.item_name %><div class="remove-food remove-button icon" data-id="<%= dinner.id %>"></div></td>
-                    <td><%= `${dinner.serving_qty}, ${dinner.serving_unit}` %></td>
-                    <td class="dinner-cal-c"><%= dinner.cal %></td>
-                    <td class="dinner-fat-c"><%= dinner.fat %></td>
-                    <td class="dinner-sat-fat-c"><%= dinner.sat_fat %></td>
-                    <td class="dinner-carb-c"><%= dinner.carb %></td>
-                    <td class="dinner-protein-c"><%= dinner.protein %></td>
-                    <td class="dinner-fiber-c"><%= dinner.fiber %></td>
-                    <td class="dinner-sugar-c"><%= dinner.sugar %></td>
-                </tr>
+                <li class="food-item flex" data-id="<%= dinner.id %>">
+                    <span class="item-name"><%= dinner.item_name %> <i class="remove-food remove-button icon"></i></span>
+                    <span class="item-brand-name"><%= dinner.brand_name %>, <span class="serving-size"><%= dinner.serving_qty %> <%= dinner.serving_unit %></span></span>
+                    <span class="dinner-cal item-cal"><i class="cal-info icon"></i><%= dinner.cal %></span>
+                </li>
+                <li class="food-item-hidden-values">
+                    <span class="dinner-fat"><%= dinner.fat %></span>
+                    <span class="dinner-sat-fat"><%= dinner.sat_fat %></span>
+                    <span class="dinner-carb"><%= dinner.carb %></span>
+                    <span class="dinner-protein"><%= dinner.protein %></span>
+                    <span class="dinner-fiber"><%= dinner.fiber %></span>
+                    <span class="dinner-sugar"><%= dinner.sugar %></span>
+                </li>
             <% }) %> 
-        </tbody>
-        <tbody data-meal="food.snack">
-            <tr class="food-diary-sub-header">
-                <td class="text-left">Snacks<div class="snack-button add-button icon"></div></td>
-                <td></td>
-                <td><div class="snack-cal">0</div></td>
-                <td><div class="gram-container"><div class="snack-fat">0</div><div class="gram-symbol">g</div></div></td>
-                <td><div class="gram-container"><div class="snack-sat-fat">0</div><div class="gram-symbol">g</div></div></td>
-                <td><div class="gram-container"><div class="snack-carb">0</div><div class="gram-symbol">g</div></div></td>
-                <td><div class="gram-container"><div class="snack-protein">0</div><div class="gram-symbol">g</div></div></td>
-                <td><div class="gram-container"><div class="snack-fiber">0</div><div class="gram-symbol">g</div></div></td>
-                <td><div class="gram-container"><div class="snack-sugar">0</div><div class="gram-symbol">g</div></div></td>
-            </tr>
+        </ul>
+        <ul data-meal="snack">
+            <li class="group-header snack-header flex">
+                <span class="flex">Snack<i class="snack-button add-button icon"></i></span>
+                <span class="total-snack-cal flex"><i class="cal-info icon"></i>0</span>
+            </li>
             <% snack.forEach(snack => { %>
-                <tr class="food-item-row">
-                    <td class="name-con"><%= snack.item_name %> <div class="remove-food remove-button icon" data-id="<%= snack.id %>"></div></td>
-                    <td><%= `${snack.serving_qty}, ${snack.serving_unit}` %></td>
-                    <td class="snack-cal-c"><%= snack.cal %></td>
-                    <td class="snack-fat-c"><%= snack.fat %></td>
-                    <td class="snack-sat-fat-c"><%= snack.sat_fat %></td>
-                    <td class="snack-carb-c"><%= snack.carb %></td>
-                    <td class="snack-protein-c"><%= snack.protein %></td>
-                    <td class="snack-fiber-c"><%= snack.fiber %></td>
-                    <td class="snack-sugar-c"><%= snack.sugar %></td>
-                </tr>
+                <li class="food-item flex" data-id="<%= snack.id %>">
+                    <span class="item-name"><%= snack.item_name %> <i class="remove-food remove-button icon"></i></span>
+                    <span class="item-brand-name"><%= snack.brand_name %>, <span class="serving-size"><%= snack.serving_qty %> <%= snack.serving_unit %></span></span>
+                    <span class="snack-cal item-cal"><i class="cal-info icon"></i><%= snack.cal %></span>
+                </li>
+                <li class="food-item-hidden-values">
+                    <span class="snack-fat"><%= snack.fat %></span>
+                    <span class="snack-sat-fat"><%= snack.sat_fat %></span>
+                    <span class="snack-carb"><%= snack.carb %></span>
+                    <span class="snack-protein"><%= snack.protein %></span>
+                    <span class="snack-fiber"><%= snack.fiber %></span>
+                    <span class="snack-sugar"><%= snack.sugar %></span>
+                </li>
             <% }) %> 
-        </tbody>
-        <tbody>
-            <tr class="food-diary-sub-header">
-                <td class="text-center">Daily total</td>
-                <td></td>
-                <td><div class="total-cal">0</div></td>
-                <td><div class="gram-container"><div class="total-fat">0</div><div class="gram-symbol">g</div></div></td>
-                <td><div class="gram-container"><div class="total-sat-fat">0</div><div class="gram-symbol">g</div></div></td>
-                <td><div class="gram-container"><div class="total-carb">0</div><div class="gram-symbol">g</div></div></td>
-                <td><div class="gram-container"><div class="total-protein">0</div><div class="gram-symbol">g</div></div></td>
-                <td><div class="gram-container"><div class="total-fiber">0</div><div class="gram-symbol">g</div></div></td>
-                <td><div class="gram-container"><div class="total-sugar">0</div><div class="gram-symbol">g</div></div></td>
-            </tr>
-        </tbody>
-        <tbody data-meal="water">
-            <tr class="food-diary-sub-header">
-                <td class="text-left">Water Intake<div class="water-button add-button icon"></div></td>
-                <td class="total-water" data-water-ml="<%= water %>"><%= water ? water : 0 %>ml</td>
-            </tr>
-        </tbody>
-    </table>
+        </ul>
+        <ul class="group water-group">
+            <li class="group-header water-header flex">
+                <span class="flex">Water<i class="water-button add-button icon"></i></span>
+                <span class="total-water flex" data-water-ml="<%= water %>">
+                    <i class="water-icon icon"></i>
+                    <%= water ? water : 0 %>
+                    <span class="ml-l"><%= water <= 999 ? 'ml' : 'L' %></span>
+                </span>
+            </li>
+        </ul>
+
+        <ul class="total-food-values">
+            <li class="total-breakfast-values">
+                <ul>
+                    <!-- <li class="total-breakfast-cal"></li> -->
+                    <li class="total-breakfast-fat"></li>
+                    <li class="total-breakfast-sat-fat"></li>
+                    <li class="total-breakfast-carb"></li>
+                    <li class="total-breakfast-protein"></li>
+                    <li class="total-breakfast-fiber"></li>
+                    <li class="total-breakfast-sugar"></li>
+                </ul>
+            </li>
+            <li class="total-lunch-values">
+                <ul>
+                    <!-- <li class="total-lunch-cal"></li> -->
+                    <li class="total-lunch-fat"></li>
+                    <li class="total-lunch-sat-fat"></li>
+                    <li class="total-lunch-carb"></li>
+                    <li class="total-lunch-protein"></li>
+                    <li class="total-lunch-fiber"></li>
+                    <li class="total-lunch-sugar"></li>
+                </ul>
+            </li>
+            <li class="total-dinner-values">
+                <ul>
+                    <!-- <li class="total-dinner-cal"></li> -->
+                    <li class="total-dinner-fat"></li>
+                    <li class="total-dinner-sat-fat"></li>
+                    <li class="total-dinner-carb"></li>
+                    <li class="total-dinner-protein"></li>
+                    <li class="total-dinner-fiber"></li>
+                    <li class="total-dinner-sugar"></li>
+                </ul>
+            </li>
+            <li class="total-snack-values">
+                <ul>
+                    <!-- <li class="total-snack-cal"></li> -->
+                    <li class="total-snack-fat"></li>
+                    <li class="total-snack-sat-fat"></li>
+                    <li class="total-snack-carb"></li>
+                    <li class="total-snack-protein"></li>
+                    <li class="total-snack-fiber"></li>
+                    <li class="total-snack-sugar"></li>
+                </ul>
+            </li>
+            <li class="total-total-values">
+                <ul>
+                    <li class="total-cal"></li>
+                    <li class="total-fat"></li>
+                    <li class="total-sat-fat"></li>
+                    <li class="total-carb"></li>
+                    <li class="total-protein"></li>
+                    <!-- <li class="total-fiber"></li> -->
+                    <li class="total-sugar"></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 </div>
 <script src="/js/diary.js"></script>

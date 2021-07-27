@@ -1,5 +1,54 @@
 /* ================================================== */
-/* User's diary */
+/* Wrapper */
+
+.wrapper {
+    margin: 0 auto;
+    max-width: 1020px; /* max-width + horrizontal padding x2 = max-width */
+    padding: 0 10px;
+}
+
+/* ================================================== */
+/* Icons */
+
+/* add button */
+.add-button::before {
+    content: "\f055";
+    color: var(--nutritionix-color);
+}
+
+/* remove button */
+.remove-button {
+    position: relative;
+    z-index: 1;
+}
+.remove-button::before {
+    content: "\f057";
+    font-size: 24px;
+    color: var(--button-color);
+}
+
+/* minus button */
+.minus-button {
+    position: relative;
+    z-index: 1;
+}
+.minus-button::before {
+    content: "\f056";
+    font-size: 24px;
+    color: var(--button-color);
+}
+
+/* white filling */
+.remove-button::after, .minus-button::after {
+    content: "\f111";
+    font-size: 18px;
+    position: absolute;
+    transform: translate(-115%, 15%);
+    z-index: -1;
+}
+
+/* ================================================== */
+/* Header */
 
 h1 {
     display: flex;
@@ -7,8 +56,6 @@ h1 {
     margin: 15px;
     font-size: 24px;
 }
-
-
 
 /* ================================================== */
 /* Overlay */
@@ -25,7 +72,204 @@ h1 {
     z-index: 2;
 }
 
+/* ================================================== */
+/* Food Diary */
 
+/* borders & border-radius */
+.date-picker-container {
+    border-radius: 8px 8px 0 0;
+}
+.date-picker-container, .cal-panel, .nutrition-panel, .group-header, .food-item {
+    border: 2px solid rgba(35, 33, 45, 0.3);
+    border-bottom: none;
+}
+.water-header {
+    border-bottom: 2px solid rgba(35, 33, 45, 0.3);
+    border-radius: 0 0 8px 8px;
+}
+
+/* date picker */
+.date-picker-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    height: 34px;
+}
+
+.previous-day::before {
+    content: "\f053";
+}
+.next-day::before {
+    content: "\f054";
+}
+.previous-day::before,
+.next-day::before {
+    font-size: 1em;
+    color: var(--font-color-main);
+    padding: 9px;
+    cursor: pointer;
+}
+
+/* cal panel */
+.cal-panel {
+    justify-content: space-between;
+    flex-wrap: wrap;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    gap: 10px 0;
+}
+.cal-panel div {
+    color: var(--font-color-main);
+    font-weight: 900;
+}
+.cal-panel span {
+    color: var(--font-color-less-dim);
+    font-weight: 400;
+    font-size: 0.875em;
+}
+
+.cal-progress {
+    background: rgba(0, 0, 0, 0.33);
+    border-radius: 7px;
+    height: 10px;
+    width: 100%;
+}
+.cal-progress-done {
+    background: var(--nutritionix-color);
+    border-radius: 7px;
+    width: 70%;
+    height: 100%;
+    /* opacity: 0; */
+    transition: 0.8s ease 0.2s;
+}
+
+/* nutrition pannel */
+.nutrition-panel {
+    justify-content: space-around;
+    flex-flow: row wrap;
+    color: skyblue;
+    font-size: 0.875em;
+    background: rgba(0, 0, 0, 0.225);
+    border-bottom: none;
+}
+.nutrition-panel span {
+    color: var(--font-color-less-dim);
+}
+.nutrition-panel > * {
+    flex: 1 1 auto;
+    text-align: center;
+    padding: 6px;
+    border-bottom: 2px solid rgba(35, 33, 45, 0.3);
+}
+.nutrition-panel *:not(:last-child) {
+    border-right: 2px solid rgba(35, 33, 45, 0.3);
+}
+
+/* groups */
+.group {
+    list-style-type: none;
+    width: 100%;
+}
+
+/* group headers */
+.breakfast-header {
+    border-top: none; /* due to nutrition panel */
+}
+
+.group-header {
+    justify-content: space-between;
+    background: rgba(0, 0, 0, 0.15);
+    height: 36px;
+    padding: 6px;
+}
+.group-header .add-button {
+    margin: 0 0 0 6px;
+}
+.group-header span:last-of-type {
+    font-weight: 900;
+    color: var(--font-color-less-dim);
+}
+.cal-info::before {
+    content: "\f05a";
+    margin: 0 4px 0 0;
+}
+
+/* food items */
+.food-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "name . cal"
+        "sub-info . cal";
+    background: transparent;
+    padding: 6px;
+}
+.item-name {
+    grid-area: name;
+}
+.item-brand-name {
+    grid-area: sub-info;
+    justify-items: start;
+    font-size: 0.8125em;
+    color: var(--font-color-less-dim);
+}
+.item-cal {
+    grid-area: cal;
+    justify-items: end;
+    font-weight: 900;
+    color: var(--nutritionix-color);
+}
+.food-item-hidden-values {
+    display: none;
+}
+
+.item-name { /* remove button appear to the left of food item */
+    position: relative;
+}
+.item-name:hover > .remove-food, .food-item:hover .remove-food,
+.remove-food:hover {
+    display: block;
+}
+.item-name::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: -48px;
+    right: 100%;
+    width: 40px;
+    height: 52px;
+}
+.remove-food {
+    display: none;
+    float: right;
+    position: absolute;
+    left: -37px;
+    top: 7px;
+}
+
+@media (max-width: 1074px) { /* move remove button to after item name when vw is too small */
+    .remove-food {
+        display: none;
+        float: right;
+        position: absolute;
+        left: auto;
+        right: -29px;
+        top: -2px;
+    }
+}
+
+/* water */
+.ml-l {
+    font-weight: 400 !important;
+}
+.water-icon::before {
+    content: "\f043";
+    font-size: 0.875em;
+    margin: 0 4px 0 0;
+}
 
 /* ================================================== */
 /* Food search */
@@ -111,197 +355,6 @@ h1 {
     font-size: 0.9em;
 }
 
-
-
-/* ================================================== */
-/* Date picker */
-
-.date-picker-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--bg-color-dark-67-o);
-    width: 1050px;
-    height: 34px;
-    border: 1px solid #222222;
-    margin: 0 auto;
-}
-
-.previous-day::before {
-    content: "\f053";
-}
-.next-day::before {
-    content: "\f054";
-}
-.previous-day::before,
-.next-day::before {
-    font-size: 1em;
-    color: var(--font-color-main);
-    padding: 9px;
-    cursor: pointer;
-}
-
-
-
-/* ================================================== */
-/* Food diary */
-
-.food-diary-container {
-    display: grid;
-    place-items: center;
-}
-table {
-    border-collapse: collapse;
-    justify-content: center;
-    text-align: center;
-    width: 1050px;
-    margin: 10px;
-}
-td, th {
-    border: 1px solid #222222;
-    padding: 8px;
-    max-width: 255px;
-}
-.food-diary-header {
-    background-color: rgba(0, 0, 0, 0.15);
-}
-.food-diary-sub-header {
-    background-color: #00000050;
-}
-
-.table-nutrition-header {
-    width: 5.25em;
-}
-.gram-container {
-    display: flex;
-    justify-content: center;
-}
-.gram-symbol {
-    color: var(--font-color-dim);
-    font-size: 0.9em;
-}
-
-.name-con {
-    text-align: left;
-    position: relative;
-}
-
-
-
-/* ================================================== */
-/* Add button */
-
-.add-button {
-    display: flex;
-    align-items: center;
-    float: right; /* for add food buttons */
-    position: relative;
-    width: 24px;
-    height: 24px;
-    z-index: 1;
-}
-.add-button::before {
-    content: "\f055";
-    font-size: 24px;
-    color: var(--bg-color-light);
-    cursor: pointer;
-}
-.add-button::after {
-    content: "\f111";
-    font-size: 18px;
-    color: #ffffff;
-    position: absolute;
-    left: 3px;
-    top: 2px;
-    z-index: -1;
-}
-
-
-
-/* ================================================== */
-/* Remove button */
-
-.remove-button {
-    display: flex;
-    align-items: center;
-    position: relative;
-    width: 24px;
-    height: 24px;
-    z-index: 1;
-}
-.remove-button::before {
-    content: "\f057";
-    font-size: 24px;
-    color: #d63b42;
-    cursor: pointer;
-}
-.remove-button::after {
-    content: "\f111";
-    font-size: 18px;
-    color: #ffffff;
-    position: absolute;
-    left: 3px;
-    top: 2px;
-    z-index: -1;
-}
-
-
-
-/* ================================================== */
-/* Minus button */
-
-.minus-button {
-    display: flex;
-    align-items: center;
-    position: relative;
-    width: 24px;
-    height: 24px;
-    z-index: 1;
-}
-.minus-button::before {
-    content: "\f056";
-    font-size: 24px;
-    color: #d63b42;
-    cursor: pointer;
-}
-.minus-button::after {
-    content: "\f111";
-    font-size: 18px;
-    color: #ffffff;
-    position: absolute;
-    left: 3px;
-    top: 2px;
-    z-index: -1;
-}
-
-
-
-/* ================================================== */
-/* Remove food button */
-
-.name-con:hover > .remove-food,
-.remove-food:hover {
-    display: block;
-}
-.name-con::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 100%;
-    width: 40px;
-}
-
-.remove-food {
-    display: none;
-    float: right;
-    position: absolute;
-    left: -33px;
-    top: 7px;
-}
-
-
-
 /* ================================================== */
 /* Add water */
 
@@ -327,7 +380,7 @@ td, th {
     position: relative;
 }
 
-/* custom radio buttons */
+/* custom radio buttons for ml & L */
 .radio {
 	background: var(--bg-color-less-dark);
 	padding: 4px;
@@ -374,15 +427,16 @@ td, th {
     width: 100%;
 }
 
-.submit-water-button {
+.add-water .add-button::before, .add-water .minus-button::before {
     border-radius: 50%;
 	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .submit-water-button.add-button {
-    margin: 0 0 0 10px
+    margin: 0 0 0 10px;
+    font-size: 24px;
 }
 .submit-water-button.minus-button {
-    margin: 0 10px 0 0
+    margin: 0 10px 0 0;
 }
 
 .add-water-input {
@@ -395,9 +449,16 @@ td, th {
 		0 0 0 2px rgba(185, 185, 185, 0.3);
 }
 
+/* ================================================== */
+/* Total food values */
 
+.total-food-values {
+    display: none;
+}
 
+/* ================================================== */
 /* Tool tips */
+
 /* tooltip container */
 .tooltip {
     position: absolute;
