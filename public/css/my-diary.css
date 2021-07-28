@@ -277,10 +277,9 @@ h1 {
 .food-search-container {
     display: none;
     position: absolute;
-    top: 150px;
     left: 50%;
-    transform: translate(-50%, -75px);
-    z-index: 10;
+    transform: translate(-50%, 0%);
+    z-index: 2;
 }
 
 .food-search {
@@ -361,10 +360,9 @@ h1 {
 .add-water-container {
     display: none;
     position: absolute;
-    top: 150px;
     left: 50%;
-    transform: translate(-50%, -75px);
-    z-index: 10;
+    transform: translate(-50%, 31%);
+    z-index: 2;
 }
 
 .add-water {
@@ -450,13 +448,6 @@ h1 {
 }
 
 /* ================================================== */
-/* Total food values */
-
-.total-food-values {
-    display: none;
-}
-
-/* ================================================== */
 /* Tool tips */
 
 /* tooltip container */
@@ -472,20 +463,21 @@ h1 {
 /* tooltip text */
 .tooltip .tooltiptext {
     visibility: hidden;
-    width: 219px;
+    white-space: pre-line;
+    width: 318px;
+    line-height: 1.5em;
     background-color: var(--bg-color-center);
     font-size: 14px;
     color: var(--font-color-less-dim);
-    text-align: center;
-    padding: 5px;
+    padding: 6px 8px;
     border-radius: 6px;
-    box-shadow: inset 0 0 0 2px var(--bg-color-dark),
-		0 0 0 2px var(--bg-color-dark-67-o);
+    box-shadow: inset 0 0 0 2px rgba(35, 33, 45, 0.3),
+        0 0 0 2px rgba(185, 185, 185, 0.3);
     /* position the tooltip text */
     position: absolute;
-    z-index: 2;
+    z-index: 1;
     top: 135%;
-    left: -46.5px;
+    left: -96.5px;
     margin-left: -60px;
     /* fade in tooltip */
     opacity: 0;
@@ -508,4 +500,11 @@ h1 {
 .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+}
+
+/* ================================================== */
+/* Total food values */
+
+.total-food-values {
+    display: none;
 }
