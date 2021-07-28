@@ -282,6 +282,17 @@ var submitWaterButton = document.querySelectorAll('.submit-water-button');
 for (i = 0; i < submitWaterButton.length; i++) {
     submitWaterButton[i].onclick = function() { updateWater(this.getAttribute('data-value')) }
 }
+document.querySelector('.add-water-input').addEventListener('keydown', function(e) {
+    if(e.keyCode == 13) { updateWater('add') }
+    if(e.keyCode == 46) { updateWater('minus') }
+    if(e.keyCode == 76) { 
+        console.log('coming soon')
+    }
+    if(e.keyCode == 77) { 
+        console.log('coming soon')
+    }
+    // console.log(e)
+})
 
 
 
