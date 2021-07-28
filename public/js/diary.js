@@ -245,6 +245,7 @@ document.querySelector('.water-button').onclick = () => {
     overlay.style.display = 'block';
     addWaterContainer.style.display = 'block';
     overlay.onclick = () => closeOverlayAND(addWaterContainer); // close add water container if click outside
+    waterInput.focus(); // place cursor inside input box
 }
 
 // send water to backend
@@ -300,6 +301,7 @@ function meal(meal) {
     foodSearchContainer.style.display = 'block';
     MEAL = meal;
     overlay.onclick = () => closeOverlayAND(foodSearchContainer); // close food search container if click outside
+    document.querySelector('.food-search-box').focus(); // place cursor inside input box
 }
 document.querySelector('.breakfast-button').onclick = () => {
     meal('breakfast');
