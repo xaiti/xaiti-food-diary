@@ -400,9 +400,6 @@ h1 {
 	background: var(--bg-color-less-dark);
 	color: #bdbdbdbd;
 	font-size: 14px;
-	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-		"Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-		"Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 	transition: all 100ms linear;
 }
 .radio input:checked {
@@ -437,7 +434,7 @@ h1 {
     margin: 0 10px 0 0;
 }
 
-.add-water-input {
+.water-input {
     background-color: var(--bg-color-center);
     color: var(--font-color-main);
     padding: 6px 12px;

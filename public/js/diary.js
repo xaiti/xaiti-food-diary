@@ -240,8 +240,8 @@ function closeOverlayAND(container) {
 
 // Push added water to database //
 var addWaterContainer = document.querySelector('.add-water-container');
-var waterButton = document.querySelector('.water-button');
-waterButton.onclick = () => {
+var waterInput = document.querySelector('.water-input');
+document.querySelector('.water-button').onclick = () => {
     overlay.style.display = 'block';
     addWaterContainer.style.display = 'block';
     overlay.onclick = () => closeOverlayAND(addWaterContainer); // close add water container if click outside
@@ -249,12 +249,12 @@ waterButton.onclick = () => {
 
 // send water to backend
 function updateWater(value) {
-    var addWaterInput = Number(document.querySelector('.add-water-input').value);
-    // subtract addWaterInput if user selects the minus button
-    if (value == 'minus') { addWaterInput = - addWaterInput }
-    var addedWaterInML = document.querySelector('input[name="measurement"]:checked').value == 'ml' ? addWaterInput : addWaterInput * 1000;
+    var waterInputValue = Number(waterInput.value);
+    // subtract waterInputValue if user selects the minus button
+    if (value == 'minus') { waterInputValue = - waterInputValue }
+    var addedWaterInML = document.querySelector('input[name="measurement"]:checked').value == 'ml' ? waterInputValue : waterInputValue * 1000;
 
-    if (addWaterInput) {
+    if (waterInputValue) {
         fetch('/add-water', {
             method: 'POST',
             headers: {
@@ -282,16 +282,11 @@ var submitWaterButton = document.querySelectorAll('.submit-water-button');
 for (i = 0; i < submitWaterButton.length; i++) {
     submitWaterButton[i].onclick = function() { updateWater(this.getAttribute('data-value')) }
 }
-document.querySelector('.add-water-input').addEventListener('keydown', function(e) {
+waterInput.addEventListener('keydown', function(e) {
     if(e.keyCode == 13) { updateWater('add') }
     if(e.keyCode == 46) { updateWater('minus') }
-    if(e.keyCode == 76) { 
-        console.log('coming soon')
-    }
-    if(e.keyCode == 77) { 
-        console.log('coming soon')
-    }
-    // console.log(e)
+    if(e.keyCode == 76) { document.querySelector('#l').checked = true }
+    if(e.keyCode == 77) { document.querySelector('#ml').checked = true }
 })
 
 
