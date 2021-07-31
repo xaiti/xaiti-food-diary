@@ -60,7 +60,7 @@ function totalFoodValues() {
     var breakfastCarbNum = 0; var breakfastProteinNum = 0; var breakfastFiberNum = 0; var breakfastSugarNum = 0;
 
     // add total values together for each food item
-    for (var i = 0; i < breakfastCal.length; i++) {
+    for (i = 0; i < breakfastCal.length; i++) {
         breakfastCalNum += Number(breakfastCal[i].childNodes[1].nodeValue);
         breakfastFatNum += Number(breakfastFat[i].innerHTML);
         breakfastSatFatNum += Number(breakfastSatFat[i].innerHTML);
@@ -90,7 +90,7 @@ function totalFoodValues() {
     var lunchCalNum = 0; var lunchFatNum = 0; var lunchSatFatNum = 0;
     var lunchCarbNum = 0; var lunchProteinNum = 0; var lunchFiberNum = 0; var lunchSugarNum = 0;
 
-    for (var i = 0; i < lunchCal.length; i++) {
+    for (i = 0; i < lunchCal.length; i++) {
         lunchCalNum += Number(lunchCal[i].childNodes[1].nodeValue);
         lunchFatNum += Number(lunchFat[i].innerHTML);
         lunchSatFatNum += Number(lunchSatFat[i].innerHTML);
@@ -120,7 +120,7 @@ function totalFoodValues() {
     var dinnerCalNum = 0; var dinnerFatNum = 0; var dinnerSatFatNum = 0;
     var dinnerCarbNum = 0; var dinnerProteinNum = 0; var dinnerFiberNum = 0; var dinnerSugarNum = 0;
 
-    for (var i = 0; i < dinnerCal.length; i++) {
+    for (i = 0; i < dinnerCal.length; i++) {
         dinnerCalNum += Number(dinnerCal[i].childNodes[1].nodeValue);
         dinnerFatNum += Number(dinnerFat[i].innerHTML);
         dinnerSatFatNum += Number(dinnerSatFat[i].innerHTML);
@@ -150,7 +150,7 @@ function totalFoodValues() {
     var snackCalNum = 0; var snackFatNum = 0; var snackSatFatNum = 0;
     var snackCarbNum = 0; var snackProteinNum = 0; var snackFiberNum = 0; var snackSugarNum = 0;
 
-    for (var i = 0; i < snackCal.length; i++) {
+    for (i = 0; i < snackCal.length; i++) {
         snackCalNum += Number(snackCal[i].childNodes[1].nodeValue);
         snackFatNum += Number(snackFat[i].innerHTML);
         snackSatFatNum += Number(snackSatFat[i].innerHTML);
@@ -316,10 +316,19 @@ document.querySelector('.snack-button').onclick = () => {
     meal('snack');
 }
 
-// api for getting all the food
+// get all the food data
 async function api(searchTerms) {
-    let api_url = 'https://api.nutritionix.com/v1_1/search/'+searchTerms+'?results=0:20&fields=item_name,brand_name,nf_calories,nf_total_fat,nt_saturated_fat,nf_total_carbohydrate,nf_dietary_fiber,nf_sugars,nf_protein,nf_serving_weight_grams,nf_serving_size_qty,nf_serving_size_unit&appId=246713f5&appKey=6328f24ae2491f74e8af49fbbc09bc64';
-    fetch(api_url).then(response => response.json())
+    // fetch request with search terms to the backend and recieve the data from the api
+    fetch('/nutritionix-api', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            query: searchTerms
+        })
+    }).then(response => response.json())
         .then(data => {
             // hide search results container when text box is empty
             if (searchTerms == undefined || searchTerms == '') {
@@ -333,7 +342,7 @@ async function api(searchTerms) {
             searchResultsContainer.innerHTML = '';
 
             // loop through each hit
-            for (var i = 0; i < data.hits.length; i++) {
+            for (i = 0; i < data.hits.length; i++) {
                 // variables for each field & id
                 var item_id = data.hits[i]._id;
                 var item_name = data.hits[i].fields.item_name;

@@ -31,6 +31,44 @@ router.use(passport.initialize())
 router.use(passport.session())
 router.use(methodOverride('_method'))
 
+// Nutritionix API
+router.post('/nutritionix-api', (req, res) => {
+    const x_app_id = '246713f5'
+    const x_app_key = '6328f24ae2491f74e8af49fbbc09bc64'
+    const test_app_id = '811d2511'
+    const test_app_key = 'b1a59fcada36e48c63c6cbfbc5f7dca8'
+    axios.post('https://api.nutritionix.com/v1_1/search', {
+        'appId': x_app_id,
+        'appKey': x_app_key,
+        'query': req.body.query,
+        'offset': 0,
+        'limit': 20,
+        'fields': [
+            'item_name',
+            'brand_name',
+            'nf_calories',
+            'nf_total_fat',
+            'nt_saturated_fat',
+            'nf_total_carbohydrate',
+            'nf_dietary_fiber',
+            'nf_sugars',
+            'nf_protein',
+            'nf_serving_weight_grams',
+            'nf_serving_size_qty',
+            'nf_serving_size_unit'
+        ]
+    })
+    .then(function (response) {
+        res.send(response.data)
+    })
+    .catch(function (error) {
+        console.log(error)
+    })
+    .finally(() => {
+        res.end()
+    })
+})
+
 // Home Page Route
 router.get('/', (req, res) => {
     res.render('index', {
