@@ -61,10 +61,6 @@ router.get('/how-it-works', (req, res) => {
 async function sendDiary(date, req, res) {
     // declare global entry variable
     ENTRY = await Entry.findOne({ user_email: req.user.email, date: date })
-    var water = 0
-    if (ENTRY && ENTRY.water) {
-        water = ENTRY.water
-    }
     res.render('my-diary', {
         title: 'My Diary',
         css: 'my-diary',
@@ -74,7 +70,7 @@ async function sendDiary(date, req, res) {
         lunch: ENTRY ? ENTRY.food.lunch : [],
         dinner: ENTRY ? ENTRY.food.dinner : [],
         snack: ENTRY ? ENTRY.food.snack : [],
-        water: water
+        water: ENTRY && ENTRY.water || 0
     })
 }
 
