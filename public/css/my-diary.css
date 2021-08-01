@@ -198,27 +198,17 @@ h1 {
 
 /* food items */
 .food-item {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    grid-template-rows: auto;
-    grid-template-areas:
-        "name . cal"
-        "sub-info . cal";
+    display: flex;
+    justify-content: space-between;
+    gap: 0 10px;
     background: transparent;
     padding: 6px;
 }
-.item-name {
-    grid-area: name;
-}
 .item-brand-name {
-    grid-area: sub-info;
-    justify-items: start;
     font-size: 0.8125em;
     color: var(--font-color-less-dim);
 }
 .item-cal {
-    grid-area: cal;
-    justify-items: end;
     font-weight: 900;
     color: var(--nutritionix-color);
 }
@@ -317,20 +307,20 @@ h1 {
 .search-results-container::-webkit-scrollbar { /* Hide scrollbar for Chrome, Yandex, Safari and Opera  */
     display: none;
 }
+
 /* search result item */
 .search-result-item {
-    padding: 6px 12px;
     display: flex;
     justify-content: space-between;
     gap: 0 12px;
     background: rgba(0, 0, 0, 0.15);
+    padding: 6px 12px;
 }
 .search-result-item:hover {
     background: rgba(0, 0, 0, 0.25);
 }
 
 .search-result-item-sub-info {
-    grid-area: sub-info;
     font-size: 0.8em;
     color: var(--font-color-less-dim);
 }
