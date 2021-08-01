@@ -331,70 +331,62 @@ async function api(searchTerms) {
     }).then(response => response.json())
         .then(data => {
             // hide search results container when text box is empty
-            if (searchTerms == undefined || searchTerms == '') {
-                document.querySelector('.search-results-container').style.display = '';
-            } else {
-                document.querySelector('.search-results-container').style.display = 'block';
-            }
-
-            // clear search results container everytime the url gets updated
             var searchResultsContainer = document.querySelector('.search-results-container');
+            if (searchTerms == undefined || searchTerms == '') {
+                searchResultsContainer.style.display = '';
+            } else {
+                searchResultsContainer.style.display = 'block';
+            }
+            // clear search results container everytime the textbox gets updated            
             searchResultsContainer.innerHTML = '';
 
             // loop through each hit
             for (i = 0; i < data.hits.length; i++) {
                 // variables for each field & id
-                var item_id = data.hits[i]._id;
-                var item_name = data.hits[i].fields.item_name;
-                var brand_name = data.hits[i].fields.brand_name;
-                var serving_size = data.hits[i].fields.nf_serving_size_qty;
-                var serving_unit = data.hits[i].fields.nf_serving_size_unit;
-                var cal = Math.round(data.hits[i].fields.nf_calories);
-
-                // create item for each hit
+                var fields = {
+                    id: data.hits[i]._id,
+                    item_name: data.hits[i].fields.item_name,
+                    brand_name: data.hits[i].fields.brand_name,
+                    serving_size: data.hits[i].fields.nf_serving_size_qty,
+                    serving_size_alt: Math.round(data.nf_serving_size_qty * 10) / 10,
+                    serving_unit: data.hits[i].fields.nf_serving_size_unit,
+                    serving_weight: data.hits[i].fields.nf_serving_weight_grams,
+                    cal: Math.round(data.hits[i].fields.nf_calories),
+                    fat: Math.round(data.hits[i].fields.nf_total_fat * 10) / 10,
+                    sat_fat: Math.round(data.hits[i].fields.nf_saturated_fat * 10) / 10,
+                    carb:  Math.round(data.hits[i].fields.nf_total_carbohydrate * 10) / 10,
+                    protein: Math.round(data.hits[i].fields.nf_protein * 10) / 10,
+                    fiber: Math.round(data.hits[i].fields.nf_dietary_fiber * 10) / 10,
+                    sugar: Math.round(data.hits[i].fields.nf_sugars * 10) / 10,
+                }
+                
+                // create div for each search result & give it attributes for each hits data
                 var searchResultItem = document.createElement('div');
                 searchResultItem.className = 'search-result-item';
+                for (var key in fields) {
+                    if (fields.hasOwnProperty(key)) {
+                        console.log(key + " -> " + fields[key]);
+                        searchResultItem.setAttribute(`data-${key}`, fields[key])
+                    }
+                }
 
-                // create id div for each item
-                var searchResultID = document.createElement('div');
-                searchResultID.className = 'search-result-item-id';
-                searchResultID.innerHTML = item_id;
-                searchResultID.style.display = 'none';
-
-                // create name div for each item
-                var searchResultName = document.createElement('div');
-                searchResultName.className = 'search-result-item-name';
-                searchResultName.innerHTML = item_name;
-
-                // create sub info div for each item
-                var searchResultSubInfo = document.createElement('div');
-                searchResultSubInfo.className = 'search-result-item-sub-info';
-                searchResultSubInfo.innerHTML = `${brand_name}, ${serving_size} ${serving_unit}`;
-                
-                // create container div to display callories for each item
-                var searchResultCalContainer = document.createElement('div');
-                searchResultCalContainer.className = 'search-result-item-cal-container';
-
-                var searchResultCal = document.createElement('div');
-                searchResultCal.className = 'search-result-item-cal';
-                searchResultCal.innerHTML = cal;
-
-                var searchResultCalText = document.createElement('div');
-                searchResultCalText.className = 'search-result-item-cal-text';
-                searchResultCalText.innerHTML = 'cal';
-
-                // append all the divs to the results container
+                // format search result items
+                searchResultItem.innerHTML = `
+                    <div>
+                        <div class="search-result-item-name">${fields.item_name}</div>
+                        <div class="search-result-item-sub-info">${fields.brand_name}, ${fields.serving_size} ${fields.serving_unit}</div>
+                    </div>
+                    <div class="search-result-item-cal-container">
+                        <div class="search-result-item-cal">${fields.cal}</div>
+                        <div class="search-result-item-cal-text">cal</div>
+                    </div>
+                `
+                // append search result items to it's container
                 searchResultsContainer.appendChild(searchResultItem);
-                searchResultItem.appendChild(searchResultID);
-                searchResultItem.appendChild(searchResultName);
-                searchResultItem.appendChild(searchResultSubInfo);
-                searchResultItem.appendChild(searchResultCalContainer);
-                searchResultCalContainer.appendChild(searchResultCal);
-                searchResultCalContainer.appendChild(searchResultCalText);
 
                 // search result item on click
                 searchResultItem.onclick = async function(e) {
-                    var selecteditem_id = e.currentTarget.querySelector('.search-result-item-id').innerHTML;
+                    var selecteditem_id = e.currentTarget.getAttribute('data-id');
                     var selectedItemURL = 'https://api.nutritionix.com/v1_1/item?id='+selecteditem_id+'&appId=246713f5&appKey=6328f24ae2491f74e8af49fbbc09bc64';
 
                     // get all the data for selected food item
