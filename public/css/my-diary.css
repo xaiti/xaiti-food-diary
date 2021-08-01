@@ -320,30 +320,23 @@ h1 {
 /* search result item */
 .search-result-item {
     padding: 6px 12px;
-    display: grid;
-    grid-template-columns: auto 12px 31px;
-    grid-template-rows: auto;
-    grid-template-areas: 
-        "name . cal"
-        "sub-info . cal";
+    display: flex;
+    justify-content: space-between;
+    gap: 0 12px;
     background: rgba(0, 0, 0, 0.15);
 }
 .search-result-item:hover {
     background: rgba(0, 0, 0, 0.25);
 }
 
-.search-result-item-name {
-    grid-area: name;
-}
 .search-result-item-sub-info {
     grid-area: sub-info;
     font-size: 0.8em;
     color: var(--font-color-less-dim);
 }
 .search-result-item-cal-container {
-    grid-area: cal;
-    align-self: center;
-    text-align: center;
+    min-width: 31px;
+    max-width: 31px;
 }
 .search-result-item-cal {
     color: yellowgreen;
