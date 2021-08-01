@@ -46,16 +46,16 @@ router.post('/nutritionix-api', (req, res) => {
         'fields': [
             'item_name',
             'brand_name',
+            'nf_serving_size_qty',
+            'nf_serving_size_unit',
+            'nf_serving_weight_grams',
             'nf_calories',
             'nf_total_fat',
-            'nt_saturated_fat',
+            'nf_saturated_fat',
             'nf_total_carbohydrate',
-            'nf_dietary_fiber',
-            'nf_sugars',
             'nf_protein',
-            'nf_serving_weight_grams',
-            'nf_serving_size_qty',
-            'nf_serving_size_unit'
+            'nf_dietary_fiber',
+            'nf_sugars'
         ]
     })
     .then(function (response) {
