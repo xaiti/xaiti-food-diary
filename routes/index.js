@@ -49,6 +49,8 @@ router.post('/nutritionix-api', (req, res) => {
             'nf_serving_size_qty',
             'nf_serving_size_unit',
             'nf_serving_weight_grams',
+            'metric_qty',
+            'metric_uom',
             'nf_calories',
             'nf_total_fat',
             'nf_saturated_fat',
