@@ -337,6 +337,7 @@ h1 {
 .search-result-item-cal-container {
     min-width: 31px;
     max-width: 31px;
+    text-align: center;
 }
 .search-result-item-cal {
     color: yellowgreen;
