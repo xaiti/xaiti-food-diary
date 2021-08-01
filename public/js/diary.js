@@ -380,7 +380,7 @@ async function api(searchTerms) {
                         <div class="search-result-item-cal">${fields.cal}</div>
                         <div class="search-result-item-cal-text">cal</div>
                     </div>
-                `
+                `;
                 // append search result items to it's container
                 searchResultsContainer.appendChild(searchResultItem);
 
@@ -441,9 +441,13 @@ async function api(searchTerms) {
                             // insert a new li at the end of the ul
                             var li = document.createElement("li");
                             li.className = 'food-item flex'; li.setAttribute('id', id)
-                            li.innerHTML = `<span class="item-name">${item_name} <i class="remove-food remove-button icon"></i></span>
-                                            <span class="item-brand-name">${brand_name}, <span class="serving-size">${serving_qty} ${serving_unit}</span></span>
-                                            <span class="${MEAL}-cal item-cal"><i class="cal-info icon"></i>${cal}</span>`;
+                            li.innerHTML = `
+                                <div>
+                                    <div class="item-name">${item_name} <i class="remove-food remove-button icon"></i></div>
+                                    <span class="item-brand-name">${brand_name}, <span class="serving-size">${serving_qty} ${serving_unit}</span></span>
+                                </div>
+                                <div class="${MEAL}-cal item-cal flex"><i class="cal-info icon"></i>${cal}</div>
+                            `;
 
                             // create a second li for hidden food values
                             var hiddenLi = document.createElement("li");
