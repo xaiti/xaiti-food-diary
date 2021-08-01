@@ -386,92 +386,71 @@ async function api(searchTerms) {
 
                 // search result item on click
                 searchResultItem.onclick = async function(e) {
-                    var selecteditem_id = e.currentTarget.getAttribute('data-id');
-                    var selectedItemURL = 'https://api.nutritionix.com/v1_1/item?id='+selecteditem_id+'&appId=246713f5&appKey=6328f24ae2491f74e8af49fbbc09bc64';
+                    // send food data to backend
+                    fetch('/my-diary', {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            meal: `food.${MEAL}`,
+                            food_item: {
+                                id: e.currentTarget.getAttribute('data-id'),
+                                item_name: e.currentTarget.getAttribute('data-item_name'),
+                                brand_name: e.currentTarget.getAttribute('data-brand_name'),
+                                serving_qty: e.currentTarget.getAttribute('data-serving_qty'),
+                                serving_unit: e.currentTarget.getAttribute('data-serving_unit'),
+                                serving_weight: e.currentTarget.getAttribute('data-serving_weight'),
+                                cal: e.currentTarget.getAttribute('data-cal'),
+                                fat: e.currentTarget.getAttribute('data-fat'),
+                                sat_fat: e.currentTarget.getAttribute('data-sat_fat'),
+                                carb: e.currentTarget.getAttribute('data-carb'),
+                                protein: e.currentTarget.getAttribute('data-protein'),
+                                fiber: e.currentTarget.getAttribute('data-fiber'),
+                                sugar: e.currentTarget.getAttribute('data-sugar')
+                            },
+                            date: diaryDate
+                        })
+                    })
 
-                    // get all the data for selected food item
-                    fetch(selectedItemURL).then(response => response.json())
-                        .then(data => {
-                            var id = data.item_id;
-                            var item_name = data.item_name;
-                            var brand_name = data.brand_name;
-                            var serving_qty = Math.round(data.nf_serving_size_qty * 10) / 10;
-                            var serving_unit = data.nf_serving_size_unit;
-                            var serving_weight = data.nf_serving_weight_grams;
-                            var cal = Math.round(data.nf_calories);
-                            var fat = Math.round(data.nf_total_fat * 10) / 10;
-                            var sat_fat = Math.round(data.nf_saturated_fat * 10) / 10;
-                            var carb =  Math.round(data.nf_total_carbohydrate * 10) / 10;
-                            var protein = Math.round(data.nf_protein * 10) / 10;
-                            var fiber = Math.round(data.nf_dietary_fiber * 10) / 10;
-                            var sugar = Math.round(data.nf_sugars * 10) / 10;
+                    // update the data to the table without refreshing the page
+                    // get desired ul
+                    var currentList = document.querySelector(`[data-meal='${MEAL}']`);
+                    
+                    // insert a new li at the end of the ul
+                    var li = document.createElement("li");
+                    li.className = 'food-item flex'; li.setAttribute('id', e.currentTarget.getAttribute('data-id'))
+                    li.innerHTML = `
+                        <div>
+                            <div class="item-name">${e.currentTarget.getAttribute('data-item_name')} <i class="remove-food remove-button icon"></i></div>
+                            <span class="item-brand-name">${e.currentTarget.getAttribute('data-brand_name')}, <span class="serving-size">${e.currentTarget.getAttribute('data-serving_qty')} ${e.currentTarget.getAttribute('data-serving_unit')}</span></span>
+                        </div>
+                        <div class="${MEAL}-cal item-cal flex"><i class="cal-info icon"></i>${e.currentTarget.getAttribute('data-cal')}</div>
+                    `;
 
-                            // send food data to backend
-                            fetch('/my-diary', {
-                                method: 'POST',
-                                headers: {
-                                    'Accept': 'application/json',
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({
-                                    meal: `food.${MEAL}`,
-                                    food_item: {
-                                        id: id,
-                                        item_name: item_name,
-                                        brand_name: brand_name,
-                                        serving_qty: serving_qty,
-                                        serving_unit: serving_unit,
-                                        serving_weight: serving_weight,
-                                        cal: cal,
-                                        fat: fat,
-                                        sat_fat: sat_fat,
-                                        carb: carb,
-                                        protein: protein,
-                                        fiber: fiber,
-                                        sugar: sugar
-                                    },
-                                    date: diaryDate
-                                })
-                            })
+                    // create a second li for hidden food values
+                    var hiddenLi = document.createElement("li");
+                    hiddenLi.className = 'food-item-hidden-values';
+                    hiddenLi.innerHTML = `<span class="${MEAL}-fat">${e.currentTarget.getAttribute('data-fat')}</span>
+                                            <span class="${MEAL}-sat-fat">${e.currentTarget.getAttribute('data-sat_fat')}</span>
+                                            <span class="${MEAL}-carb">${e.currentTarget.getAttribute('data-carb')}</span>
+                                            <span class="${MEAL}-protein">${e.currentTarget.getAttribute('data-protein')}</span>
+                                            <span class="${MEAL}-fiber">${e.currentTarget.getAttribute('data-fiber')}</span>
+                                            <span class="${MEAL}-sugar">${e.currentTarget.getAttribute('data-sugar')}</span>`;
+                    
+                    // append new li's to desired ul
+                    currentList.appendChild(li);
+                    currentList.appendChild(hiddenLi);
 
-                            // update the data to the table without refreshing the page
-                            // get desired ul
-                            var currentList = document.querySelector(`[data-meal='${MEAL}']`);
-                            
-                            // insert a new li at the end of the ul
-                            var li = document.createElement("li");
-                            li.className = 'food-item flex'; li.setAttribute('id', id)
-                            li.innerHTML = `
-                                <div>
-                                    <div class="item-name">${item_name} <i class="remove-food remove-button icon"></i></div>
-                                    <span class="item-brand-name">${brand_name}, <span class="serving-size">${serving_qty} ${serving_unit}</span></span>
-                                </div>
-                                <div class="${MEAL}-cal item-cal flex"><i class="cal-info icon"></i>${cal}</div>
-                            `;
+                    // close search after selecting food item
+                    closeOverlayAND(foodSearchContainer);
 
-                            // create a second li for hidden food values
-                            var hiddenLi = document.createElement("li");
-                            hiddenLi.className = 'food-item-hidden-values';
-                            hiddenLi.innerHTML = `<span class="${MEAL}-fat">${fat}</span>
-                                                  <span class="${MEAL}-sat-fat">${sat_fat}</span>
-                                                  <span class="${MEAL}-carb">${carb}</span>
-                                                  <span class="${MEAL}-protein">${protein}</span>
-                                                  <span class="${MEAL}-fiber">${fiber}</span>
-                                                  <span class="${MEAL}-sugar">${sugar}</span>`;
-                            
-                            // append new li's to desired ul
-                            currentList.appendChild(li);
-                            currentList.appendChild(hiddenLi);
+                    // Update total food values
+                    totalFoodValues();
 
-                            // close search after selecting food item
-                            closeOverlayAND(foodSearchContainer);
-
-                            // Update total food values
-                            totalFoodValues();
-
-                            // Update remove food item buttons
-                            removeFoodItem();
-                        });
+                    // Update remove food item buttons
+                    removeFoodItem();
                 }
             }
         });
