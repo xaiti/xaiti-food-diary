@@ -40,9 +40,9 @@ function initialize(passport, getUserByEmail) {
       return fn(null, uid);
     }
 
-    function saveRememberMeToken(hashedToken, user, fn) {
+    function saveRememberMeToken(token, user, fn) {
       console.log('save start')
-      new Token({ userID: user.id, userEmail: user.email, token: hashedToken }).save()
+      new Token({ userID: user.id, userEmail: user.email, token: token }).save()
       console.log('save end')
       return fn();
     }
@@ -68,7 +68,7 @@ function initialize(passport, getUserByEmail) {
       console.log('issue start')
       var token = utils.generateToken(64)
       var hashedToken = await bcrypt.hash(token, 10)
-      saveRememberMeToken(hashedToken, user, function(err) {
+      saveRememberMeToken(token, user, function(err) {
         if (err) { return done(err); }
         return done(null, token);
       });
