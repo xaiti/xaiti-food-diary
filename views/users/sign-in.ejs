@@ -1,22 +1,21 @@
-<div class="wrapper">
-    <div class="sign-up-box-container">
-        <div class="sign-up-box">
-            <h2 class="title">Sign in</h2>
-            <p>It's time to start taking the right steps</p>
-            <%- include('../partials/errorMessage.ejs') %>
-            <form action="/sign-in" method="POST">
-                <div class="user-details">
-                    <input type="email" name="email" placeholder="Email" value="<%= user.email %>" required="true">            
-                    <input type="password" name="password" placeholder="Password" value="<%= user.password %>" required="true">
-                    <input type="checkbox" name="remember_me" value="yes">Remember Me<br>
-                </div>
-                <button class="submit" type="submit">Sign in</button>
-            </form>
-            <p>Don't have an account yet? <a href="/register">Join</a> for free</p>
-        </div>
+<div class="wrapper flex">
+    <div class="sign-up-box">
+        <h2 class="title">Sign in</h2>
+        <p>It's time to start taking the right steps</p>
+        <%- include('../partials/errorMessage.ejs') %>
+        <form class="flex" action="/sign-in" method="POST">
+            <div class="user-details flex">
+                <input type="email" name="email" placeholder="Email" value="<%= user.email %>" required="true">            
+                <input type="password" name="password" placeholder="Password" value="<%= user.password %>" required="true">
+            </div>
+            <button class="submit" type="submit">Sign in</button>
+            <input id="remember-me" type="checkbox" name="remember_me" value="yes">Remember Me<br>
+            <label for="remember-me"></label>
+        </form>
+        <p>Don't have an account yet? <a href="/register">Join</a> for free</p>
     </div>
 
-    <div class="side-text">
+    <div class="side-text flex">
         <h1 onclick="location.href='/'">X<br>Food Diary</h1>
         <p>Your personal diary is only one click away</p>
     </div>
