@@ -7,11 +7,13 @@ const router = express.Router()
 const bcrypt = require('bcrypt')
 const User = require('../models/user')
 const Entry = require('../models/entry')
+const Token = require('../models/token')
 const passport = require('passport')
 const flash = require('express-flash')
 const session = require('express-session')
 const methodOverride = require('method-override')
 const axios = require('axios').default
+const utils = require('../utils')
 
 const initializePassport = require('../passport-config')
 initializePassport(
@@ -29,6 +31,7 @@ router.use(session({
 }))
 router.use(passport.initialize())
 router.use(passport.session())
+router.use(passport.authenticate('remember-me'))
 router.use(methodOverride('_method'))
 
 // Nutritionix API
@@ -296,11 +299,25 @@ router.get('/sign-in', checkNotAuthenticated, (req, res) => {
     res.render('users/sign-in', { title: 'Sign In', css: 'sign-in', user: User() })
 })
 
-router.post('/sign-in', checkNotAuthenticated, passport.authenticate('local', {
-    successRedirect: '/my-diary',
-    failureRedirect: '/sign-in',
-    failureFlash: true
-}))
+router.post('/sign-in', checkNotAuthenticated, passport.authenticate('local', { failureRedirect: '/sign-in', failureFlash: true }),
+    async (req, res, next) => {
+        // issue a remember me cookie if the option was checked
+        if (!req.body.remember_me) { return next(); }
+
+        var token = utils.generateToken(64)
+        var hashedToken = await bcrypt.hash(token, 10)
+        console.log('index:', token)
+        console.log('index H:', hashedToken)
+        new Token({ userID: req.user.id, userEmail: req.user.email, token: token }).save(function(err) {
+            if (err) { return done(err); }
+            res.cookie('remember_me', token, { path: '/', httpOnly: true, maxAge: 1209600000 });
+            return next();
+        });
+    },
+    (req, res) => {
+        res.redirect('/my-diary');
+    }
+)
 
 // Sign Up Route
 router.get('/register', checkNotAuthenticated, (req, res) => {
@@ -337,7 +354,9 @@ router.post('/register', checkNotAuthenticated, async (req, res) => {
 })
 
 // Sign-out
-router.delete('/sign-out', (req, res) => {
+router.delete('/sign-out', async (req, res) => {
+    await Token.deleteOne({ userID: req.user.id })
+    res.clearCookie('remember_me')
     req.logout()
     res.redirect('/')
 })
