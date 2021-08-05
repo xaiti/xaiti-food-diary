@@ -14,6 +14,7 @@ const session = require('express-session')
 const methodOverride = require('method-override')
 const axios = require('axios').default
 const utils = require('../utils')
+const md5 = require('md5')
 
 const initializePassport = require('../passport-config')
 initializePassport(
@@ -304,11 +305,10 @@ router.post('/sign-in', checkNotAuthenticated, passport.authenticate('local', { 
         // issue a remember me cookie if the option was checked
         if (!req.body.remember_me) { return next(); }
 
-        var token = utils.generateToken(64)
-        var hashedToken = await bcrypt.hash(token, 10)
+        var token = utils.generateToken(128)
         console.log('index:', token)
-        console.log('index H:', hashedToken)
-        new Token({ userID: req.user.id, userEmail: req.user.email, token: token }).save(function(err) {
+        console.log('index md5:', md5(token))
+        new Token({ userID: req.user.id, userEmail: req.user.email, token: md5(token) }).save(function(err) {
             if (err) { return done(err); }
             res.cookie('remember_me', token, { path: '/', httpOnly: true, maxAge: 1209600000 });
             return next();

@@ -1,6 +1,7 @@
 const LocalStrategy = require('passport-local').Strategy
 const RememberMeStrategy = require('passport-remember-me').Strategy
 const utils = require('./utils')
+const md5 = require('md5')
 const bcrypt = require('bcrypt')
 const User = require('./models/user')
 const Token = require('./models/token')
@@ -32,17 +33,17 @@ function initialize(passport, getUserByEmail) {
 
     async function consumeRememberMeToken(token, fn) {
       console.log('consume start')
-      var doc = await Token.findOne({ token: token })
+      var doc = await Token.findOne({ token: md5(token) })
       var uid = doc ? doc.userID : ''
       // invalidate the single-use token
-      await Token.deleteOne({ token: token })
+      await Token.deleteOne({ token: md5(token) })
       console.log('consume end')
       return fn(null, uid);
     }
 
     function saveRememberMeToken(token, user, fn) {
       console.log('save start')
-      new Token({ userID: user.id, userEmail: user.email, token: token }).save()
+      new Token({ userID: user.id, userEmail: user.email, token: md5(token) }).save()
       console.log('save end')
       return fn();
     }
@@ -50,6 +51,7 @@ function initialize(passport, getUserByEmail) {
     passport.use(new RememberMeStrategy(
       async function(token, done) {
         console.log('RememberMeStrategy:', token)
+        console.log('RememberMeStrategy md5:', md5(token))
         consumeRememberMeToken(token, async function(err, uid) {
           if (err) { return done(err); }
           if (!uid) { return done(null, false); }
@@ -66,8 +68,7 @@ function initialize(passport, getUserByEmail) {
 
     async function issueToken(user, done) {
       console.log('issue start')
-      var token = utils.generateToken(64)
-      var hashedToken = await bcrypt.hash(token, 10)
+      var token = utils.generateToken(128)
       saveRememberMeToken(token, user, function(err) {
         if (err) { return done(err); }
         return done(null, token);
