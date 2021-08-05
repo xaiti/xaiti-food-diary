@@ -306,11 +306,9 @@ router.post('/sign-in', checkNotAuthenticated, passport.authenticate('local', { 
         if (!req.body.remember_me) { return next(); }
 
         var token = utils.generateToken(128)
-        console.log('index:', token)
-        console.log('index md5:', md5(token))
         new Token({ userID: req.user.id, userEmail: req.user.email, token: md5(token) }).save(function(err) {
             if (err) { return done(err); }
-            res.cookie('remember_me', token, { path: '/', httpOnly: true, maxAge: 1209600000 });
+            res.cookie('remember_me', token, { path: '/', httpOnly: true, maxAge: 86400000 * 30 });
             return next();
         });
     },
