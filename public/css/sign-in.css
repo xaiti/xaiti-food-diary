@@ -76,23 +76,38 @@ input {
     background: linear-gradient(140deg, rgb(99, 201, 241) 0%, rgb(58, 157, 222) 100%);
     cursor: pointer;
 }
-.submit:hover {
+.submit:hover, .submit:hover + .remember-me #remember-me:checked {
     background: linear-gradient(140deg, var(--bg-color-light) 0%, var(--bg-color-dark) 100%);
 }
 
 .remember-me {
     justify-content: flex-start;
-    gap: 1em;
 }
 #remember-me {
     width: 3rem;
     height: 3rem;
+    padding: 0;
+}
+#remember-me:hover {
+    background: #e8f0fe;
 }
 #remember-me:checked {
-    background: #e8f0fe;
+    background: linear-gradient(140deg, rgb(99, 201, 241) 0%, rgb(58, 157, 222) 100%);
+    border: none;
+}
+#remember-me:checked::before {
+    content: "\f00c";
+    color: var(--font-color-main);
+    font-size: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }
 label {
     color: var(--font-color-white-bg);
+    padding: 1em;
+    cursor: pointer;
 }
 
 p:last-of-type {
