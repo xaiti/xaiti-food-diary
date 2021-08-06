@@ -11,6 +11,7 @@
     --font-color-main: #fff;
     --font-color-dim: #b2aeac;
     --font-color-less-dim: #e0e5eb;
+    --font-color-white-bg: #6e6e75;
 
     --button-color: #db545a;
     --button-color-dark: #d63b42;
@@ -113,11 +114,11 @@ body {
     width: 150px;
     height: 85px;
 }
-input:checked + label {
+.collapsible-menu input:checked + label {
     background-image: url(img/x.png);
     transition: all 0.7s ease-in-out;
 }
-input#menu {
+.collapsible-menu input#menu {
     display: none;
 }
 .menu-content {
@@ -127,7 +128,7 @@ input#menu {
     background: var(--bg-color-less-light);
     color: transparent;
 }
-input:checked ~ .menu-content {
+.collapsible-menu input:checked ~ .menu-content {
     max-height: 100%;
     position: absolute;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -135,7 +136,7 @@ input:checked ~ .menu-content {
     color: var(--font-color-main);
     transition: color 0.7s, max-height 0.7s;
 }
-input:checked ~ .menu-content *:hover {
+.collapsible-menu input:checked ~ .menu-content *:hover {
     color: var(--button-color);
 }
 /* add horizontal margin when page is too small */
@@ -191,6 +192,7 @@ input:checked ~ .menu-content *:hover {
     padding: 0;
     box-sizing: border-box;
 }
+
 input:focus {
     outline: inherit;
 }
@@ -202,6 +204,12 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }/* Firefox */
+
+input[type=checkbox] {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -o-appearance: none;
+}
 
 button {
     border: none;

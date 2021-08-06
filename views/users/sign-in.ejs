@@ -5,12 +5,14 @@
         <%- include('../partials/errorMessage.ejs') %>
         <form class="flex" action="/sign-in" method="POST">
             <div class="user-details flex">
-                <input type="email" name="email" placeholder="Email" value="<%= user.email %>" required="true">            
+                <input type="email" name="email" placeholder="Email" value="<%= user.email %>" required="true">
                 <input type="password" name="password" placeholder="Password" value="<%= user.password %>" required="true">
             </div>
             <button class="submit" type="submit">Sign in</button>
-            <input id="remember-me" type="checkbox" name="remember_me" value="yes">Remember Me<br>
-            <label for="remember-me"></label>
+            <div class="remember-me flex">
+                <input id="remember-me" type="checkbox" name="remember_me" value="yes">
+                <label for="remember-me">Remember me</label>
+            </div>
         </form>
         <p>Don't have an account yet? <a href="/register">Join</a> for free</p>
     </div>
