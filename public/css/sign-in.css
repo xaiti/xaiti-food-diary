@@ -73,11 +73,24 @@ input {
 .submit {
     border: none;
     font-weight: 800;
-    background: linear-gradient(140deg, rgb(99, 201, 241) 0%, rgb(58, 157, 222) 100%);
+    background: var(--gradient-bg-lighter);
     cursor: pointer;
+    /* for gradient transition */
+    position: relative;
+    z-index: 1;
 }
-.submit:hover, .submit:hover + .remember-me #remember-me:checked {
-    background: linear-gradient(140deg, var(--bg-color-light) 0%, var(--bg-color-dark) 100%);
+.submit::after {
+    /* for gradient transition */
+    content: "";
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    background: var(--gradient-bg-dark);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.25s linear;
+}
+.submit:hover::after {
+    opacity: 1;
 }
 
 .remember-me {
@@ -87,15 +100,19 @@ input {
     width: 3rem;
     height: 3rem;
     padding: 0;
+    transition: background 0.25s linear;
+    /* for gradient transition */
+    position: relative;
+    z-index: 1;
 }
 #remember-me:hover {
     background: #e8f0fe;
 }
 #remember-me:checked {
-    background: linear-gradient(140deg, rgb(99, 201, 241) 0%, rgb(58, 157, 222) 100%);
     border: none;
 }
-#remember-me:checked::before {
+/* before/after */
+#remember-me::before, #remember-me::after {
     content: "\f00c";
     color: var(--font-color-main);
     font-size: 28px;
@@ -103,6 +120,26 @@ input {
     justify-content: center;
     align-items: center;
     height: 100%;
+    /* for gradient transition */
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.25s linear;
+}
+#remember-me::before {
+    background: var(--gradient-bg-lighter);
+}
+#remember-me::after {
+    background: var(--gradient-bg-dark);
+}
+/* gradient-bg-lighter when checked */
+#remember-me:checked::before {
+    opacity: 1;
+}
+/* gradient-bg-dark when checked + hover */
+#remember-me:checked:hover::after {
+    opacity: 1;
 }
 label {
     color: var(--font-color-white-bg);
