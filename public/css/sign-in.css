@@ -69,6 +69,13 @@ input {
     border-width: 2px;
     border-style: solid;
     border-image: linear-gradient(140deg, rgb(240, 240, 240) 0%, rgb(200, 200, 200) 100%) 1;
+    transition: background 0.25s linear;
+}
+.user-details > *:hover, .user-details > *:valid {
+    background: #e8f0fe;
+}
+.user-details > *:valid:hover {
+    background: #e8f0febf;
 }
 
 /* sign in button */
@@ -103,7 +110,6 @@ input {
     width: 3rem;
     height: 3rem;
     padding: 0;
-    transition: background 0.25s linear;
     /* for gradient transition */
     position: relative;
     z-index: 1;
