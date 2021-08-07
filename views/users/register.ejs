@@ -4,18 +4,10 @@
         <p>Create your free account easily with little information</p>
         <%- include('../partials/errorMessage.ejs') %>
         <form class="flex" action="/register" method="POST">
-            <div class="user-details flex">
-                <input type="text" name="name" placeholder="Name" value="<%= user.name %>" required="true">
-                <input type="email" name="email" placeholder="Email" value="<%= user.email %>" required="true">
-                <input type="password" name="password" placeholder="Password" value="<%= user.password %>" required="true">
-            </div>
+            <%- include('_user_details') %>
             <button class="submit" type="submit">CREATE ACCOUNT</button>
         </form>
         <p>Already have an account? <a href="/sign-in">Sign in</a></p>
     </div>
-
-    <div class="side-text flex">
-        <h1 onclick="location.href='/'">X<br>Food Diary</h1>
-        <p>Your personal diary is only one click away</p>
-    </div>
+    <%- include('_side_text') %>
 </div>
