@@ -20,11 +20,10 @@
     }
 }
 
-
-
 /* ================================================== */
 /* Sign up/in box */
 
+/* container */
 .sign-up-box {
     display: flex;
     flex-direction: column;
@@ -39,6 +38,7 @@
     padding: 0 1em;
 }
 
+/* title & p's */
 .sign-up-box .title {
     color: black;
     font-size: 2em;
@@ -47,6 +47,7 @@
     color: var(--font-color-white-bg);
 }
 
+/* form & .user-details */
 form {
     flex-direction: column;
 }
@@ -57,12 +58,12 @@ form > *:not(:first-child), .user-details > * {
 form > *+*, .user-details > *+* {
     margin-top: 1em;
 }
-
 .user-details {
     flex-wrap: wrap;
     width: 100%;
 }
 
+/* inputs */
 input {
     padding-left: 1rem;
     border-width: 2px;
@@ -70,6 +71,7 @@ input {
     border-image: linear-gradient(140deg, rgb(240, 240, 240) 0%, rgb(200, 200, 200) 100%) 1;
 }
 
+/* sign in button */
 .submit {
     border: none;
     font-weight: 800;
@@ -93,6 +95,7 @@ input {
     opacity: 1;
 }
 
+/* remember me button */
 .remember-me {
     justify-content: flex-start;
 }
@@ -111,7 +114,7 @@ input {
 #remember-me:checked {
     border: none;
 }
-/* before/after */
+/* before / after */
 #remember-me::before, #remember-me::after {
     content: "\f00c";
     color: var(--font-color-main);
@@ -147,6 +150,7 @@ label {
     cursor: pointer;
 }
 
+/* lower p only */
 p:last-of-type {
     text-align: center;
 }
@@ -155,12 +159,11 @@ p:last-of-type {
     text-decoration: underline;
 }
 
+/* error message */
 .errorMessage {
     color: #ff4242;
     font-weight: 800;
 }
-
-
 
 /* ================================================== */
 /* Side text */
