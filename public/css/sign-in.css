@@ -1,3 +1,15 @@
+/* page variables */
+:root {
+    --border-gradient: linear-gradient(140deg, rgb(240, 240, 240) 0%, rgb(200, 200, 200) 100%) 1;
+
+    --input-bg: #e8f0fe;
+    --input-bg-75-o: #e8f0febf;
+
+    --transition-bg: background 0.25s linear;
+    --transition-o: opacity 0.25s linear;
+}
+
+/* page specific font */
 * {
     font-family: 'Roboto', sans-serif;
 }
@@ -32,7 +44,7 @@
     min-width: 300px;
     height: 500px;
     min-height: 400px;
-    background: #fff;
+    background: white;
     border-radius: 0.6em;
     box-shadow: -20px 20px 20px rgba(0, 0, 0, 0.3);
     padding: 0 1em;
@@ -68,14 +80,14 @@ input {
     padding-left: 1rem;
     border-width: 2px;
     border-style: solid;
-    border-image: linear-gradient(140deg, rgb(240, 240, 240) 0%, rgb(200, 200, 200) 100%) 1;
-    transition: background 0.25s linear;
+    border-image: var(--border-gradient);
+    transition: var(--transition-bg);
 }
 .user-details > *:hover, .user-details > *:valid {
-    background: #e8f0fe;
+    background: var(--input-bg);
 }
 .user-details > *:valid:hover {
-    background: #e8f0febf;
+    background: var(--input-bg-75-o);
 }
 
 /* sign in button */
@@ -96,7 +108,7 @@ input {
     background: var(--gradient-bg-dark);
     z-index: -1;
     opacity: 0;
-    transition: opacity 0.25s linear;
+    transition: var(--transition-o);
 }
 .submit:hover::after {
     opacity: 1;
@@ -115,7 +127,7 @@ input {
     z-index: 1;
 }
 #remember-me:hover {
-    background: #e8f0fe;
+    background: var(--input-bg);
 }
 #remember-me:checked {
     border: none;
@@ -134,7 +146,7 @@ input {
     top: 0; right: 0; bottom: 0; left: 0;
     z-index: -1;
     opacity: 0;
-    transition: opacity 0.25s linear;
+    transition: var(--transition-o);
 }
 #remember-me::before {
     background: var(--gradient-bg-lighter);
