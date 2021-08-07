@@ -77,7 +77,7 @@ router.post('/nutritionix-api', (req, res) => {
 
 // Home Page Route
 router.get('/', (req, res) => {
-    res.render('main/index', {
+    res.render('main/home', {
         title: 'X Food Diary',
         css: 'home-page',
         user: req.user,
