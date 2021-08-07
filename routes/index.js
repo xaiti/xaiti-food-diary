@@ -77,7 +77,7 @@ router.post('/nutritionix-api', (req, res) => {
 
 // Home Page Route
 router.get('/', (req, res) => {
-    res.render('index', {
+    res.render('main/index', {
         title: 'X Food Diary',
         css: 'home-page',
         user: req.user,
@@ -86,7 +86,7 @@ router.get('/', (req, res) => {
 
 // Help Route
 router.get('/help', (req, res) => {
-    res.render('help', {
+    res.render('main/help', {
         title: 'Help',
         css: 'help',
         user: req.user,
@@ -95,7 +95,7 @@ router.get('/help', (req, res) => {
 
 // How It Works Route
 router.get('/how-it-works', (req, res) => {
-    res.render('how-it-works', {
+    res.render('main/how-it-works', {
         title: 'How It Works',
         css: 'how-it-works',
         user: req.user,
@@ -106,7 +106,7 @@ router.get('/how-it-works', (req, res) => {
 async function sendDiary(date, req, res) {
     // declare global entry variable
     ENTRY = await Entry.findOne({ user_email: req.user.email, date: date })
-    res.render('my-diary', {
+    res.render('main/my-diary', {
         title: 'My Diary',
         css: 'my-diary',
         user: req.user,
