@@ -1,7 +1,7 @@
 <div class="user-details flex">
     <% if (title == 'Sign Up') { %> 
-    <input type="text" name="name" placeholder="Name" value="<%= user.name %>" required="true">
+    <input type="text" name="name" placeholder="Name" value="<%= user.name %>" required="true" autofocus="true">
     <% } %> 
-    <input type="email" name="email" placeholder="Email" value="<%= user.email %>" required="true">
+    <input type="email" name="email" placeholder="Email" value="<%= user.email %>" required="true" autofocus="true">
     <input type="password" name="password" placeholder="Password" value="<%= user.password %>" required="true">
 </div>
