@@ -31,6 +31,7 @@ function initialize(passport, getUserByEmail) {
         return done(null, user);
     })
 
+    // remember me functionality
     async function consumeRememberMeToken(token, fn) {
       var uid = (await Token.findOne({ token: md5(token) })).userID
       // invalidate the single-use token
