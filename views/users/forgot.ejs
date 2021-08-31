@@ -1,0 +1,15 @@
+<div class="wrapper flex">
+    <div class="sign-up-box">
+        <div class="forgot-title flex">
+            <h2 class="title">Password reset</h2>
+            <p>Enter your email below</p>
+        </div>
+        <%- include('../partials/errorMessage.ejs') %>
+        <form class="flex" action="/sign-in" method="POST">
+            <input class="email-forgot" type="email" name="email" placeholder="Email" value="<%= user.email %>" required="true">
+            <button class="submit" type="submit">Reset password</button>
+        </form>
+        <p>Want to make a new account? <a href="/register">Join</a> for free</p>
+    </div>
+    <%- include('_side_text') %>
+</div>

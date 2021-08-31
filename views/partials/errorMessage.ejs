@@ -1,6 +1,9 @@
 <% if (locals.errorMessage) { %>
     <div class="errorMessage"><%= locals.errorMessage %></div>
 <% } %>
+<% if (locals.forgotMessage) { %>
+    <div class="errorMessage">Inncorrect email or password.<br>Forgot your password? Reset it <a href="/forgot">here</a></div>
+<% } %>
 <% if (messages.error) { %>
     <div class="errorMessage"><%= messages.error %></div>
-<% } %> 
+<% } %>

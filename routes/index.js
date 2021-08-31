@@ -300,22 +300,45 @@ router.get('/sign-in', checkNotAuthenticated, (req, res) => {
     res.render('users/sign-in', { title: 'Sign In', css: 'sign-in', user: User() })
 })
 
-router.post('/sign-in', checkNotAuthenticated, passport.authenticate('local', { failureRedirect: '/sign-in', failureFlash: true }),
+router.post('/sign-in', checkNotAuthenticated, function(req, res, next) {
+    passport.authenticate('local', function(err, user, info) {
+        if (err) { return next(err) }
+        if (!user) { return res.render('users/sign-in', {
+            title: 'Sign In',
+            css: 'sign-in',
+            user: new User(),
+            locals: { forgotMessage: true }
+        }) }
+        req.logIn(user, function(err) {
+            if (err) { return next(err) }
+            return next()
+        })
+    })(req, res, next) },
     async (req, res, next) => {
         // issue a remember me cookie if the option was checked
         if (!req.body.remember_me) { return next(); }
 
         var token = utils.generateToken(128)
         new Token({ userID: req.user.id, userEmail: req.user.email, token: md5(token) }).save(function(err) {
-            if (err) { return done(err); }
+            if (err) { return done(err) }
             res.cookie('remember_me', token, { path: '/', httpOnly: true, maxAge: 86400000 * 30 });
-            return next();
+            return next()
         });
     },
     (req, res) => {
-        res.redirect('/my-diary');
+        res.redirect('/my-diary')
     }
 )
+
+// Password reset route
+router.get('/forgot', checkNotAuthenticated, (req, res) => {
+    res.render('users/forgot', {
+        title: 'Password Reset',
+        css: 'sign-in',
+        user: User(),
+        // locals: { errorMessage: 'Incorrect email or password' }
+    })
+})
 
 // Sign Up Route
 router.get('/register', checkNotAuthenticated, (req, res) => {

@@ -59,11 +59,17 @@
     color: var(--font-color-white-bg);
 }
 
+.forgot-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2em;
+}
+
 /* form & .user-details */
 form {
     flex-direction: column;
 }
-form > *:not(:first-child), .user-details > * {
+form > *:not(:first-child), .user-details > *, .email-forgot {
     width: 100%;
     height: 3rem;
 }
@@ -119,8 +125,8 @@ input {
     justify-content: flex-start;
 }
 #remember-me {
-    width: 3rem;
-    height: 3rem;
+    width: 1.2rem;
+    height: 1.2rem;
     padding: 0;
     /* for gradient transition */
     position: relative;
@@ -136,7 +142,7 @@ input {
 #remember-me::before, #remember-me::after {
     content: "\f00c";
     color: var(--font-color-main);
-    font-size: 28px;
+    font-size: 0.75em;
     display: flex;
     justify-content: center;
     align-items: center;
