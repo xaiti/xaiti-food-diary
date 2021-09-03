@@ -381,8 +381,10 @@ router.post('/register', checkNotAuthenticated, async (req, res) => {
 
 // Sign-out
 router.delete('/sign-out', async (req, res) => {
-    await Token.deleteOne({ userID: req.user.id })
-    res.clearCookie('remember_me')
+    if (req.cookies.remember_me) {
+        await Token.deleteOne({ userID: req.user.id })
+        res.clearCookie('remember_me')
+    }
     req.logout()
     res.redirect('/')
 })
