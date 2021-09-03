@@ -15,6 +15,7 @@ const methodOverride = require('method-override')
 const axios = require('axios').default
 const utils = require('../utils')
 const md5 = require('md5')
+const nodemailer = require('nodemailer')
 
 const initializePassport = require('../passport-config')
 initializePassport(
@@ -364,9 +365,13 @@ router.post('/register', checkNotAuthenticated, async (req, res) => {
                 email: req.body.email,
                 password: hashedPassword
             })
-            const newUser = await user.save()
+            // const newUser = await user.save()
             // res.redirect(`users/${newUser.id}`)
-            res.redirect('/sign-in')
+            user.save(function(err) {
+                req.logIn(user, function(err) {
+                    res.redirect('/my-diary');
+                })
+            })
         }
     } catch(err) {
         renderResgister('Error creating User')
