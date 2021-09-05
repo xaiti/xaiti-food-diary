@@ -334,12 +334,15 @@ router.post('/sign-in', checkNotAuthenticated, function(req, res, next) {
 )
 
 // Password reset route
-async function renderForgot(req, res, msg) {
+async function renderForgot(req, res, rMsg, eMsg) {
     res.render('users/forgot', {
         title: 'Password Reset',
         css: 'sign-in',
         user: User(),
-        locals: { resetMessage: msg }
+        locals: { 
+            resetMessage: rMsg,
+            errorMessage: eMsg
+        }
     })
 }
 
@@ -370,13 +373,13 @@ router.post('/forgot', checkNotAuthenticated, (req, res) => {
             });
         },
         function(token, user, done) {
-            var smtpTransport = nodemailer.createTransport({
+            var transport = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
                     user: process.env.EMAIL_ID,
                     pass: process.env.EMAIL_PASS
                 }
-            });
+            })
             var mailOptions = {
                 to: user.email,
                 from: process.env.EMAIL_ID,
@@ -386,7 +389,7 @@ router.post('/forgot', checkNotAuthenticated, (req, res) => {
                     'http://' + req.headers.host + '/reset/' + token + '\n\n' +
                     'If you did not request this, please ignore this email and your password will remain unchanged.\n'
             };
-            smtpTransport.sendMail(mailOptions, function(err) {
+            transport.sendMail(mailOptions, function(err) {
                 req.flash('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.')
                 done(err, user, 'done')
             });
@@ -395,7 +398,66 @@ router.post('/forgot', checkNotAuthenticated, (req, res) => {
         if (err) {
             console.log(err)
         }
-        renderForgot(req, res, `An email has been sent to ${user.email}`)
+        renderForgot(req, res, `An email has been sent to ${user.email} with further instructions.`, 0)
+    })
+})
+
+// Reset password route
+router.get('/reset/:token', checkNotAuthenticated, function(req, res) {
+    User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+        if (!user) {
+            renderForgot(req, res, 0, 'Password reset token is invalid or has expired.')
+        }
+        res.render('users/reset', {
+            title: 'Password Reset',
+            css: 'sign-in',
+            user: user,
+            token: req.params.token
+        })
+    })
+})
+
+router.post('/reset/:token', checkNotAuthenticated, function(req, res) {
+    async.waterfall([
+        function(done) {
+            User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+                if (!user) {
+                    renderForgot(req, res, 0, 'Password reset token is invalid or has expired.')
+                }
+                
+                user.password = req.body.password
+                user.resetPasswordToken = undefined
+                user.resetPasswordExpires = undefined
+  
+                user.save(function(err) {
+                    req.logIn(user, function(err) {
+                        done(err, user)
+                    })
+                })
+            })
+        },
+        function(user, done) {
+            var transport = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: process.env.EMAIL_ID,
+                    pass: process.env.EMAIL_PASS
+                }
+            })
+            var mailOptions = {
+                to: user.email,
+                from: process.env.EMAIL_ID,
+                subject: 'Your password has been changed',
+                text: 'Hello,\n\n' +
+                    'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
+            };
+            transport.sendMail(mailOptions, function(err) {
+                req.flash('success', 'Success! Your password has been changed.')
+                done(err)
+            });
+      }
+    ], function(err) {
+        res.redirect('/')
     })
 })
 

@@ -1,0 +1,16 @@
+<div class="wrapper flex">
+    <div class="sign-up-box">
+        <div class="forgot-title flex">
+            <h2 class="title">Password reset</h2>
+            <p>Enter and confirm your new password below</p>
+        </div>
+        <%- include('../partials/errorMessage.ejs') %>
+        <form class="flex" action="/reset/<%= token %>" method="POST">
+            <input class="first-child" type="password" name="password" placeholder="New password" value="" required="true" autofocus="true">
+            <input type="password" name="confirm" placeholder="Confirm password" value="" required="true">
+            <button class="submit" type="submit">Update password</button>
+        </form>
+        <p>Want to make a new account? <a href="/register">Join</a> for free</p>
+    </div>
+    <%- include('_side_text') %>
+</div>
