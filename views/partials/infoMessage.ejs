@@ -1,0 +1,6 @@
+<% if (locals.forgotMessage) { %>
+    <div class="infoMessage">Forgot your password? Reset it <a href="/forgot">here</a>.</div>
+<% } %>
+<% if (locals.resetMessage) { %>
+    <div class="infoMessage"><%= locals.resetMessage %></div>
+<% } %>

@@ -310,7 +310,10 @@ router.post('/sign-in', checkNotAuthenticated, function(req, res, next) {
             title: 'Sign In',
             css: 'sign-in',
             user: new User(),
-            locals: { forgotMessage: true }
+            locals: {
+                errorMessage: 'Inncorrect email or password.',
+                forgotMessage: true
+            }
         }) }
         req.logIn(user, function(err) {
             if (err) { return next(err) }
@@ -334,14 +337,14 @@ router.post('/sign-in', checkNotAuthenticated, function(req, res, next) {
 )
 
 // Password reset route
-async function renderForgot(req, res, rMsg, eMsg) {
+async function renderForgot(req, res, eMsg, rMsg) {
     res.render('users/forgot', {
-        title: 'Password Reset',
+        title: 'Forgot password',
         css: 'sign-in',
         user: User(),
-        locals: { 
-            resetMessage: rMsg,
-            errorMessage: eMsg
+        locals: {
+            errorMessage: eMsg,
+            resetMessage: rMsg
         }
     })
 }
@@ -363,7 +366,6 @@ router.post('/forgot', checkNotAuthenticated, (req, res) => {
                 if (!user) {
                     renderForgot(req, res, 'No account with that email address exists')
                 }
-    
                 user.resetPasswordToken = token
                 user.resetPasswordExpires = Date.now() + 3600000 // 1 hour
     
@@ -398,7 +400,7 @@ router.post('/forgot', checkNotAuthenticated, (req, res) => {
         if (err) {
             console.log(err)
         }
-        renderForgot(req, res, `An email has been sent to ${user.email} with further instructions.`, 0)
+        renderForgot(req, res, 0, `An email has been sent to ${user.email} with further instructions.`)
     })
 })
 
@@ -406,7 +408,7 @@ router.post('/forgot', checkNotAuthenticated, (req, res) => {
 router.get('/reset/:token', checkNotAuthenticated, function(req, res) {
     User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
         if (!user) {
-            renderForgot(req, res, 0, 'Password reset token is invalid or has expired.')
+            renderForgot(req, res, 'Password reset token is invalid or has expired.')
         }
         res.render('users/reset', {
             title: 'Password Reset',
@@ -422,7 +424,7 @@ router.post('/reset/:token', checkNotAuthenticated, function(req, res) {
         function(done) {
             User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
                 if (!user) {
-                    renderForgot(req, res, 0, 'Password reset token is invalid or has expired.')
+                    renderForgot(req, res, 'Password reset token is invalid or has expired.')
                 }
                 
                 user.password = req.body.password
