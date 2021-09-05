@@ -183,9 +183,13 @@ p:last-of-type {
     text-decoration: underline;
 }
 
-/* error message */
+/* error & reset message */
 .errorMessage {
     color: #ff4242;
+    font-weight: 800;
+}
+.resetMessage {
+    color: #42b3ff;
     font-weight: 800;
 }
 

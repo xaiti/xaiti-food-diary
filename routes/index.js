@@ -16,6 +16,8 @@ const axios = require('axios').default
 const utils = require('../utils')
 const md5 = require('md5')
 const nodemailer = require('nodemailer')
+const crypto = require('crypto')
+const async = require('async')
 
 const initializePassport = require('../passport-config')
 initializePassport(
@@ -332,12 +334,68 @@ router.post('/sign-in', checkNotAuthenticated, function(req, res, next) {
 )
 
 // Password reset route
-router.get('/forgot', checkNotAuthenticated, (req, res) => {
+async function renderForgot(req, res, msg) {
     res.render('users/forgot', {
         title: 'Password Reset',
         css: 'sign-in',
         user: User(),
-        // locals: { errorMessage: 'Incorrect email or password' }
+        locals: { resetMessage: msg }
+    })
+}
+
+router.get('/forgot', checkNotAuthenticated, (req, res) => {
+    renderForgot(req, res)
+})
+
+router.post('/forgot', checkNotAuthenticated, (req, res) => {
+    async.waterfall([
+        function(done) {
+            crypto.randomBytes(20, function(err, buf) {
+                var token = buf.toString('hex')
+                done(err, token)
+            })
+        },
+        function(token, done) {
+            User.findOne({ email: req.body.email }, function(err, user) {
+                if (!user) {
+                    renderForgot(req, res, 'No account with that email address exists')
+                }
+    
+                user.resetPasswordToken = token
+                user.resetPasswordExpires = Date.now() + 3600000 // 1 hour
+    
+                user.save(function(err) {
+                    done(err, token, user)
+                });
+            });
+        },
+        function(token, user, done) {
+            var smtpTransport = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: process.env.EMAIL_ID,
+                    pass: process.env.EMAIL_PASS
+                }
+            });
+            var mailOptions = {
+                to: user.email,
+                from: process.env.EMAIL_ID,
+                subject: 'Node.js Password Reset',
+                text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+                    'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+                    'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+                    'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+            };
+            smtpTransport.sendMail(mailOptions, function(err) {
+                req.flash('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.')
+                done(err, user, 'done')
+            });
+        }
+    ], function(err, user) {
+        if (err) {
+            console.log(err)
+        }
+        renderForgot(req, res, `An email has been sent to ${user.email}`)
     })
 })
 
