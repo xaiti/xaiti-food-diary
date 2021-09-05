@@ -6,7 +6,7 @@
         </div>
         <%- include('../partials/errorMessage.ejs') %>
         <form class="flex" action="/forgot" method="POST">
-            <input class="email-forgot" type="email" name="email" placeholder="Email" value="<%= user.email %>" required="true">
+            <input class="email-forgot" type="email" name="email" placeholder="Email" value="<%= user.email %>" required="true" autofocus="true">
             <button class="submit" type="submit">Reset password</button>
         </form>
         <p>Want to make a new account? <a href="/register">Join</a> for free</p>
