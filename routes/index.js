@@ -423,12 +423,12 @@ router.get('/reset/:token', checkNotAuthenticated, function(req, res) {
 router.post('/reset/:token', checkNotAuthenticated, function(req, res) {
     async.waterfall([
         function(done) {
-            User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+            User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, async function(err, user) {
                 if (!user) {
                     renderForgot(req, res, 'Password reset token is invalid or has expired.')
                 }
                 
-                user.password = req.body.password
+                user.password = await bcrypt.hash(req.body.password, 10)
                 user.resetPasswordToken = undefined
                 user.resetPasswordExpires = undefined
   
