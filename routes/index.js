@@ -365,6 +365,7 @@ router.post('/forgot', checkNotAuthenticated, (req, res) => {
             User.findOne({ email: req.body.email }, function(err, user) {
                 if (!user) {
                     renderForgot(req, res, 'No account with that email address exists')
+                    return
                 }
                 user.resetPasswordToken = token
                 user.resetPasswordExpires = Date.now() + 3600000 // 1 hour
