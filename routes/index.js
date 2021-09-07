@@ -299,22 +299,26 @@ router.get('/users', async (req, res) => {
 })
 
 // Sign in Route
+function renderSignIn(req, res, eMsg, iMsg) {
+    res.render('users/sign-in', {
+        title: 'Sign In',
+        css: 'sign-in',
+        user: User(),
+        locals: {
+            errorMessage: eMsg,
+            infoMessage: iMsg 
+        }
+    })
+}
+
 router.get('/sign-in', checkNotAuthenticated, (req, res) => {
-    res.render('users/sign-in', { title: 'Sign In', css: 'sign-in', user: User() })
+    renderSignIn(req, res)
 })
 
 router.post('/sign-in', checkNotAuthenticated, function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
         if (err) { return next(err) }
-        if (!user) { return res.render('users/sign-in', {
-            title: 'Sign In',
-            css: 'sign-in',
-            user: new User(),
-            locals: {
-                errorMessage: 'Inncorrect email or password.',
-                infoMessage: 'Forgot your password? Reset it <a href="/forgot">here</a>.'
-            }
-        }) }
+        if (!user) { return renderSignIn(req, res, 'Inncorrect email or password.', 'Forgot your password? Reset it <a href="/forgot">here</a>.') }
         req.logIn(user, function(err) {
             if (err) { return next(err) }
             return next()
@@ -474,7 +478,7 @@ router.post('/reset/:token', checkNotAuthenticated, function(req, res) {
 
 // Sign Up Route
 router.get('/register', checkNotAuthenticated, (req, res) => {
-    res.render('users/register', { title: 'Sign Up', css: 'sign-in', user: new User() })
+    res.render('users/register', { title: 'Sign Up', css: 'sign-in', user: User() })
 })
 
 router.post('/register', checkNotAuthenticated, async (req, res) => {
@@ -482,7 +486,7 @@ router.post('/register', checkNotAuthenticated, async (req, res) => {
         res.render('users/register', {
             title: 'Sign Up',
             css: 'sign-in',
-            user: new User(),
+            user: User(),
             locals: { errorMessage: errMsg }
         })
     }
