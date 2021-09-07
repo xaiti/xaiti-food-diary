@@ -368,8 +368,7 @@ router.post('/forgot', checkNotAuthenticated, (req, res) => {
         function(token, done) {
             User.findOne({ email: req.body.email }, function(err, user) {
                 if (!user) {
-                    renderForgot(req, res, 'No account with that email address exists')
-                    return
+                    return renderForgot(req, res, 'No account with that email address exists')
                 }
                 user.resetPasswordToken = token
                 user.resetPasswordExpires = Date.now() + 3600000 // 1 hour
@@ -431,7 +430,7 @@ router.post('/reset/:token', checkNotAuthenticated, function(req, res) {
         function(done) {
             User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, async function(err, user) {
                 if (!user) {
-                    renderForgot(req, res, 'Password reset token is invalid or has expired')
+                    return renderForgot(req, res, 'Password reset token is invalid or has expired')
                 }
                 if (req.body.password !== req.body.confirm) {
                     return renderReset(req, res, user, 'Passwords do not match')
@@ -441,6 +440,7 @@ router.post('/reset/:token', checkNotAuthenticated, function(req, res) {
                 user.resetPasswordToken = undefined
                 user.resetPasswordExpires = undefined  
                 user.save()
+                done(err, user)
             })
         },
         function(user, done) {
