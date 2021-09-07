@@ -322,14 +322,14 @@ router.post('/sign-in', checkNotAuthenticated, function(req, res, next) {
     })(req, res, next) },
     async (req, res, next) => {
         // issue a remember me cookie if the option was checked
-        if (!req.body.remember_me) { return next(); }
+        if (!req.body.remember_me) { return next() }
 
         var token = utils.generateToken(128)
         new Token({ userID: req.user.id, userEmail: req.user.email, token: md5(token) }).save(function(err) {
             if (err) { return done(err) }
-            res.cookie('remember_me', token, { path: '/', httpOnly: true, maxAge: 86400000 * 30 });
+            res.cookie('remember_me', token, { path: '/', httpOnly: true, maxAge: 86400000 * 30 })
             return next()
-        });
+        })
     },
     (req, res) => {
         res.redirect('/my-diary')
@@ -372,8 +372,8 @@ router.post('/forgot', checkNotAuthenticated, (req, res) => {
     
                 user.save(function(err) {
                     done(err, token, user)
-                });
-            });
+                })
+            })
         },
         function(token, user, done) {
             var transport = nodemailer.createTransport({
@@ -391,11 +391,11 @@ router.post('/forgot', checkNotAuthenticated, (req, res) => {
                     'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
                     'http://' + req.headers.host + '/reset/' + token + '\n\n' +
                     'If you did not request this, please ignore this email and your password will remain unchanged.\n'
-            };
+            }
             transport.sendMail(mailOptions, function(err) {
                 req.flash('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.')
                 done(err, user, 'done')
-            });
+            })
         }
     ], function(err, user) {
         if (err) {
@@ -406,17 +406,22 @@ router.post('/forgot', checkNotAuthenticated, (req, res) => {
 })
 
 // Reset password route
+function renderReset(req, res, user, msg) {
+    res.render('users/reset', {
+        title: 'Password Reset',
+        css: 'sign-in',
+        user: user,
+        token: req.params.token,
+        locals: { errorMessage: msg }
+    })
+}
+
 router.get('/reset/:token', checkNotAuthenticated, function(req, res) {
     User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
         if (!user) {
             renderForgot(req, res, 'Password reset token is invalid or has expired.')
         }
-        res.render('users/reset', {
-            title: 'Password Reset',
-            css: 'sign-in',
-            user: user,
-            token: req.params.token
-        })
+        renderReset(req, res, user)
     })
 })
 
@@ -427,7 +432,11 @@ router.post('/reset/:token', checkNotAuthenticated, function(req, res) {
                 if (!user) {
                     renderForgot(req, res, 'Password reset token is invalid or has expired.')
                 }
-                
+                if (req.body.password !== req.body.confirm) {
+                    renderReset(req, res, user, 'Passwords do not match.')
+                    return
+                }
+
                 user.password = await bcrypt.hash(req.body.password, 10)
                 user.resetPasswordToken = undefined
                 user.resetPasswordExpires = undefined
@@ -453,11 +462,10 @@ router.post('/reset/:token', checkNotAuthenticated, function(req, res) {
                 subject: 'Your password has been changed',
                 text: 'Hello,\n\n' +
                     'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
-            };
+            }
             transport.sendMail(mailOptions, function(err) {
-                req.flash('success', 'Success! Your password has been changed.')
                 done(err)
-            });
+            })
       }
     ], function(err) {
         res.redirect('/')
@@ -492,7 +500,7 @@ router.post('/register', checkNotAuthenticated, async (req, res) => {
             // res.redirect(`users/${newUser.id}`)
             user.save(function(err) {
                 req.logIn(user, function(err) {
-                    res.redirect('/my-diary');
+                    res.redirect('/my-diary')
                 })
             })
         }
