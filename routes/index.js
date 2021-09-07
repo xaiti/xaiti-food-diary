@@ -312,7 +312,7 @@ router.post('/sign-in', checkNotAuthenticated, function(req, res, next) {
             user: new User(),
             locals: {
                 errorMessage: 'Inncorrect email or password.',
-                forgotMessage: true
+                infoMessage: 'Forgot your password? Reset it <a href="/forgot">here</a>.'
             }
         }) }
         req.logIn(user, function(err) {
