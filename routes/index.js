@@ -402,10 +402,8 @@ router.post('/forgot', checkNotAuthenticated, (req, res) => {
             })
         }
     ], function(err, user) {
-        if (err) {
-            console.log(err)
-        }
-        renderForgot(req, res, 0, `An email has been sent to ${user.email} with further instructions.`)
+        if (err) { console.log(err) }
+        renderForgot(req, res, 0, `An email has been sent to ${user.email} with further instructions`)
     })
 })
 
@@ -423,7 +421,7 @@ function renderReset(req, res, user, msg) {
 router.get('/reset/:token', checkNotAuthenticated, function(req, res) {
     User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
         if (!user) {
-            renderForgot(req, res, 'Password reset token is invalid or has expired.')
+            renderForgot(req, res, 'Password reset token is invalid or has expired')
         }
         renderReset(req, res, user)
     })
@@ -434,22 +432,16 @@ router.post('/reset/:token', checkNotAuthenticated, function(req, res) {
         function(done) {
             User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, async function(err, user) {
                 if (!user) {
-                    renderForgot(req, res, 'Password reset token is invalid or has expired.')
+                    renderForgot(req, res, 'Password reset token is invalid or has expired')
                 }
                 if (req.body.password !== req.body.confirm) {
-                    renderReset(req, res, user, 'Passwords do not match.')
-                    return
+                    return renderReset(req, res, user, 'Passwords do not match')
                 }
 
                 user.password = await bcrypt.hash(req.body.password, 10)
                 user.resetPasswordToken = undefined
-                user.resetPasswordExpires = undefined
-  
-                user.save(function(err) {
-                    req.logIn(user, function(err) {
-                        done(err, user)
-                    })
-                })
+                user.resetPasswordExpires = undefined  
+                user.save()
             })
         },
         function(user, done) {
@@ -470,9 +462,10 @@ router.post('/reset/:token', checkNotAuthenticated, function(req, res) {
             transport.sendMail(mailOptions, function(err) {
                 done(err)
             })
-      }
+        }
     ], function(err) {
-        res.redirect('/')
+        if (err) { console.log(err) }
+        renderSignIn(req, res, 0, 'Password updated succesfully')
     })
 })
 
