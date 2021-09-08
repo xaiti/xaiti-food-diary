@@ -378,7 +378,7 @@ router.post('/sign-in', checkNotAuthenticated, function(req, res, next) {
     }
 )
 
-// Password reset route
+// Forgot password route
 async function renderForgot(req, res, eMsg, iMsg) {
     res.render('users/forgot', {
         title: 'Forgot password',
