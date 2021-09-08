@@ -298,6 +298,44 @@ router.get('/users', async (req, res) => {
     }
 })
 
+// Register Route
+router.get('/register', checkNotAuthenticated, (req, res) => {
+    res.render('users/register', { title: 'Sign Up', css: 'sign-in', user: User() })
+})
+
+router.post('/register', checkNotAuthenticated, async (req, res) => {
+    function renderResgister(errMsg) {
+        res.render('users/register', {
+            title: 'Sign Up',
+            css: 'sign-in',
+            user: User(),
+            locals: { errorMessage: errMsg }
+        })
+    }
+    try {
+        if (await User.findOne({ email: req.body.email.toLowerCase() })) {
+            renderResgister('Email already in use')
+        } else {
+            const hashedPassword = await bcrypt.hash(req.body.password, 10)
+            const user = new User({
+                name: req.body.name,
+                email: req.body.email,
+                password: hashedPassword
+            })
+            // const newUser = await user.save()
+            // res.redirect(`users/${newUser.id}`)
+            user.save(function(err) {
+                req.logIn(user, function(err) {
+                    res.redirect('/my-diary')
+                })
+            })
+        }
+    } catch(err) {
+        renderResgister('Error creating User')
+        console.log(err)
+    }
+})
+
 // Sign in Route
 function renderSignIn(req, res, eMsg, iMsg) {
     res.render('users/sign-in', {
@@ -466,44 +504,6 @@ router.post('/reset/:token', checkNotAuthenticated, function(req, res) {
         if (err) { console.log(err) }
         renderSignIn(req, res, 0, 'Password updated succesfully')
     })
-})
-
-// Sign Up Route
-router.get('/register', checkNotAuthenticated, (req, res) => {
-    res.render('users/register', { title: 'Sign Up', css: 'sign-in', user: User() })
-})
-
-router.post('/register', checkNotAuthenticated, async (req, res) => {
-    function renderResgister(errMsg) {
-        res.render('users/register', {
-            title: 'Sign Up',
-            css: 'sign-in',
-            user: User(),
-            locals: { errorMessage: errMsg }
-        })
-    }
-    try {
-        if (await User.findOne({ email: req.body.email.toLowerCase() })) {
-            renderResgister('Email already in use')
-        } else {
-            const hashedPassword = await bcrypt.hash(req.body.password, 10)
-            const user = new User({
-                name: req.body.name,
-                email: req.body.email,
-                password: hashedPassword
-            })
-            // const newUser = await user.save()
-            // res.redirect(`users/${newUser.id}`)
-            user.save(function(err) {
-                req.logIn(user, function(err) {
-                    res.redirect('/my-diary')
-                })
-            })
-        }
-    } catch(err) {
-        renderResgister('Error creating User')
-        console.log(err)
-    }
 })
 
 // Sign-out
