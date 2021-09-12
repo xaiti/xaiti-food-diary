@@ -347,8 +347,7 @@ async function api(searchTerms) {
                     id: data.hits[i]._id,
                     item_name: data.hits[i].fields.item_name,
                     brand_name: data.hits[i].fields.brand_name,
-                    serving_size: data.hits[i].fields.nf_serving_size_qty,
-                    serving_size_alt: Math.round(data.nf_serving_size_qty * 10) / 10,
+                    serving_qty: data.hits[i].fields.nf_serving_size_qty,
                     serving_unit: data.hits[i].fields.nf_serving_size_unit,
                     serving_weight: data.hits[i].fields.nf_serving_weight_grams,
                     cal: Math.round(data.hits[i].fields.nf_calories),
@@ -357,7 +356,7 @@ async function api(searchTerms) {
                     carb:  Math.round(data.hits[i].fields.nf_total_carbohydrate * 10) / 10,
                     protein: Math.round(data.hits[i].fields.nf_protein * 10) / 10,
                     fiber: Math.round(data.hits[i].fields.nf_dietary_fiber * 10) / 10,
-                    sugar: Math.round(data.hits[i].fields.nf_sugars * 10) / 10,
+                    sugar: Math.round(data.hits[i].fields.nf_sugars * 10) / 10
                 }
                 
                 // create div for each search result & give it attributes for each hits data
@@ -366,7 +365,7 @@ async function api(searchTerms) {
                 for (var key in fields) {
                     if (fields.hasOwnProperty(key)) {
                         console.log(key + " -> " + fields[key]);
-                        searchResultItem.setAttribute(`data-${key}`, fields[key])
+                        searchResultItem.setAttribute(`data-${key}`, fields[key]);
                     }
                 }
 
@@ -374,7 +373,7 @@ async function api(searchTerms) {
                 searchResultItem.innerHTML = `
                     <div>
                         <div class="search-result-item-name">${fields.item_name}</div>
-                        <div class="search-result-item-sub-info">${fields.brand_name}, ${fields.serving_size} ${fields.serving_unit}</div>
+                        <div class="search-result-item-sub-info">${fields.brand_name}, ${fields.serving_qty} ${fields.serving_unit}</div>
                     </div>
                     <div class="search-result-item-cal-container">
                         <div class="search-result-item-cal">${fields.cal}</div>
