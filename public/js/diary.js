@@ -386,7 +386,7 @@ async function api(searchTerms) {
                 // search result item on click
                 searchResultItem.onclick = async function(e) {
                     // send food data to backend
-                    fetch('/my-diary', {
+                    fetch('/add-food', {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',

@@ -148,7 +148,7 @@ async function updateEntry(req, method) {
 }
 
 // Push selected food to database
-router.post('/my-diary', async (req, res) => {
+router.post('/add-food', async (req, res) => {
     if (await Entry.findOne({ user_email: req.user.email, date: req.body.date }) == null) {
         await newEntry(req)
     }
