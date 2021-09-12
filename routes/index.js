@@ -106,8 +106,8 @@ router.get('/how-it-works', (req, res) => {
 })
 
 // My Diary Route
-async function sendDiary(date, req, res) {
-    var entry = await Entry.findOne({ user_email: req.user.email, date: date })
+async function sendDiary(dateURL, req, res) {
+    var entry = await Entry.findOne({ user_email: req.user.email, date: dateURL })
     res.render('main/my-diary', {
         title: 'My Diary',
         css: 'my-diary',
@@ -122,9 +122,9 @@ async function sendDiary(date, req, res) {
 }
 
 router.get('/my-diary/:date', checkAuthenticated, async (req, res) => {
-    const dateDate = new Date(req.params.date)
-    const date = new Date(dateDate.setUTCHours(0,0,0,0))
-    sendDiary(date, req, res)
+    const date = new Date(req.params.date)
+    const dateURL = new Date(date.setUTCHours(0,0,0,0))
+    sendDiary(dateURL, req, res)
 })
 
 router.get('/my-diary', checkAuthenticated, async (req, res) => {
