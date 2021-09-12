@@ -149,7 +149,7 @@ async function updateEntry(req, method) {
 
 // Push selected food to database
 router.post('/my-diary', async (req, res) => {
-    if (await Entry.findOne({ user_email: req.user.email, date: date }) == null) {
+    if (await Entry.findOne({ user_email: req.user.email, date: req.body.date }) == null) {
         await newEntry(req)
     }
     updateEntry(req, { $push: { [req.body.meal]: req.body.food_item } })
@@ -162,7 +162,7 @@ router.post('/remove-food-item', async (req, res) => {
 
 // Push water to database
 router.post('/add-water', async (req, res) => {
-    if (await Entry.findOne({ user_email: req.user.email, date: date }) == null) {
+    if (await Entry.findOne({ user_email: req.user.email, date: req.body.date }) == null) {
         await newEntry(req)
     }
     updateEntry(req, { $inc: { water: req.body.water } })
@@ -170,7 +170,7 @@ router.post('/add-water', async (req, res) => {
 
 // Dummy data
 router.post('/dummy', async (req, res) => {
-    if (await Entry.findOne({ user_email: req.user.email, date: date }) == null) {
+    if (await Entry.findOne({ user_email: req.user.email, date: req.body.date }) == null) {
         await newEntry(req)
     }
     updateEntry(req, { $push: { 'food.snack': req.body.snack } })
