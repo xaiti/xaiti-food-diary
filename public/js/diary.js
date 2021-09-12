@@ -215,13 +215,13 @@ function removeFoodItem() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    meal: `food.${this.parentNode.parentNode.parentNode.getAttribute('data-meal')}`,
-                    item_id: this.parentNode.parentNode.getAttribute('data-id'),
+                    meal: `food.${this.parentNode.parentNode.parentNode.parentNode.dataset.meal}`,
+                    item_id: this.parentNode.parentNode.parentNode.dataset.id,
                     date: diaryDate
                 })
             });
             // remove food item from dom
-            this.parentNode.parentNode.remove();
+            this.parentNode.parentNode.parentNode.remove();
             totalFoodValues();
         });
     }
