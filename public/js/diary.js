@@ -364,8 +364,11 @@ async function api(searchTerms) {
                 searchResultItem.className = 'search-result-item';
                 for (var key in fields) {
                     if (fields.hasOwnProperty(key)) {
-                        console.log(key + " -> " + fields[key]);
+                        // console.log(key + " -> " + fields[key]);
                         searchResultItem.setAttribute(`data-${key}`, fields[key]);
+                        searchResultItem.setAttribute(`data-fields`, {
+                            key: fields[key]
+                        });
                     }
                 }
 
@@ -395,23 +398,23 @@ async function api(searchTerms) {
                         body: JSON.stringify({
                             meal: `food.${MEAL}`,
                             food_item: {
-                                id: e.currentTarget.getAttribute('data-id'),
-                                item_name: e.currentTarget.getAttribute('data-item_name'),
-                                brand_name: e.currentTarget.getAttribute('data-brand_name'),
-                                serving_qty: e.currentTarget.getAttribute('data-serving_qty'),
-                                serving_unit: e.currentTarget.getAttribute('data-serving_unit'),
-                                serving_weight: e.currentTarget.getAttribute('data-serving_weight'),
-                                cal: e.currentTarget.getAttribute('data-cal'),
-                                fat: e.currentTarget.getAttribute('data-fat'),
-                                sat_fat: e.currentTarget.getAttribute('data-sat_fat'),
-                                carb: e.currentTarget.getAttribute('data-carb'),
-                                protein: e.currentTarget.getAttribute('data-protein'),
-                                fiber: e.currentTarget.getAttribute('data-fiber'),
-                                sugar: e.currentTarget.getAttribute('data-sugar')
+                                id: e.currentTarget.dataset.id,
+                                item_name: e.currentTarget.dataset.item_name,
+                                brand_name: e.currentTarget.dataset.brand_name,
+                                serving_qty: e.currentTarget.dataset.serving_qty,
+                                serving_unit: e.currentTarget.dataset.serving_unit,
+                                serving_weight: e.currentTarget.dataset.serving_weight,
+                                cal: e.currentTarget.dataset.cal,
+                                fat: e.currentTarget.dataset.fat,
+                                sat_fat: e.currentTarget.dataset.sat_fat,
+                                carb: e.currentTarget.dataset.carb,
+                                protein: e.currentTarget.dataset.protein,
+                                fiber: e.currentTarget.dataset.fiber,
+                                sugar: e.currentTarget.dataset.sugar
                             },
                             date: diaryDate
                         })
-                    })
+                    });
 
                     // update the data to the table without refreshing the page
                     // get desired ul
@@ -419,24 +422,26 @@ async function api(searchTerms) {
                     
                     // insert a new li at the end of the ul
                     var li = document.createElement("li");
-                    li.className = 'food-item flex'; li.setAttribute('id', e.currentTarget.getAttribute('data-id'))
+                    li.className = 'food-item flex'; li.setAttribute('id', e.currentTarget.dataset.id); li.setAttribute('fields', {
+                        
+                    });
                     li.innerHTML = `
                         <div>
-                            <div class="item-name">${e.currentTarget.getAttribute('data-item_name')} <i class="remove-food remove-button icon"></i></div>
-                            <span class="item-brand-name">${e.currentTarget.getAttribute('data-brand_name')}, <span class="serving-size">${e.currentTarget.getAttribute('data-serving_qty')} ${e.currentTarget.getAttribute('data-serving_unit')}</span></span>
+                            <div class="item-name">${e.currentTarget.dataset.item_name} <i class="remove-food remove-button icon"></i></div>
+                            <span class="item-brand-name">${e.currentTarget.dataset.brand_name}, <span class="serving-size">${e.currentTarget.dataset.serving_qty} ${e.currentTarget.dataset.serving_unit}</span></span>
                         </div>
-                        <div class="${MEAL}-cal item-cal flex"><i class="cal-info icon"></i>${e.currentTarget.getAttribute('data-cal')}</div>
+                        <div class="${MEAL}-cal item-cal flex"><i class="cal-info icon"></i>${e.currentTarget.dataset.cal}</div>
                     `;
 
                     // create a second li for hidden food values
                     var hiddenLi = document.createElement("li");
                     hiddenLi.className = 'food-item-hidden-values';
-                    hiddenLi.innerHTML = `<span class="${MEAL}-fat">${e.currentTarget.getAttribute('data-fat')}</span>
-                                            <span class="${MEAL}-sat-fat">${e.currentTarget.getAttribute('data-sat_fat')}</span>
-                                            <span class="${MEAL}-carb">${e.currentTarget.getAttribute('data-carb')}</span>
-                                            <span class="${MEAL}-protein">${e.currentTarget.getAttribute('data-protein')}</span>
-                                            <span class="${MEAL}-fiber">${e.currentTarget.getAttribute('data-fiber')}</span>
-                                            <span class="${MEAL}-sugar">${e.currentTarget.getAttribute('data-sugar')}</span>`;
+                    hiddenLi.innerHTML = `<span class="${MEAL}-fat">${e.currentTarget.dataset.fat}</span>
+                                            <span class="${MEAL}-sat-fat">${e.currentTarget.dataset.sat_fat}</span>
+                                            <span class="${MEAL}-carb">${e.currentTarget.dataset.carb}</span>
+                                            <span class="${MEAL}-protein">${e.currentTarget.dataset.protein}</span>
+                                            <span class="${MEAL}-fiber">${e.currentTarget.dataset.fiber}</span>
+                                            <span class="${MEAL}-sugar">${e.currentTarget.dataset.sugar}</span>`;
                     
                     // append new li's to desired ul
                     currentList.appendChild(li);
