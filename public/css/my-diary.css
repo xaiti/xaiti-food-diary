@@ -213,6 +213,7 @@ h1 {
     background: var(--bg-color-center-50-o) !important;
     text-align: center;
     border: 2px solid rgba(35, 33, 45, 0.3);
+    border-radius: 5px;
 }
 
 .item-cal {
