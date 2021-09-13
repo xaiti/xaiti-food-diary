@@ -422,13 +422,11 @@ async function api(searchTerms) {
                     
                     // insert a new li at the end of the ul
                     var li = document.createElement("li");
-                    li.className = 'food-item flex'; li.setAttribute('id', e.currentTarget.dataset.id); li.setAttribute('fields', {
-                        
-                    });
+                    li.className = 'food-item flex'; li.setAttribute('id', e.currentTarget.dataset.id); li.setAttribute('fields', { });
                     li.innerHTML = `
                         <div>
                             <div class="item-name">${e.currentTarget.dataset.item_name}<i class="remove-food remove-button icon"></i></div>
-                            <span class="item-brand-name">${e.currentTarget.dataset.brand_name}, <span class="serving-size">${e.currentTarget.dataset.serving_qty} ${e.currentTarget.dataset.serving_unit}</span></span>
+                            <span class="item-brand-name">${e.currentTarget.dataset.brand_name}, <span class="serving"><input type="text" class="serving-qty" value="${e.currentTarget.dataset.serving_qty}"> ${e.currentTarget.dataset.serving_unit}</span></span>
                         </div>
                         <div class="${MEAL}-cal item-cal flex"><i class="cal-info icon"></i>${e.currentTarget.dataset.cal}</div>
                     `;

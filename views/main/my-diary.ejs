@@ -75,7 +75,7 @@
                 }'>
                     <div>
                         <div class="item-name"><%= breakfast.item_name %><i class="remove-food remove-button icon"></i></div>
-                        <span class="item-brand-name"><%= breakfast.brand_name %>, <span class="serving-size"><%= breakfast.serving_qty %> <%= breakfast.serving_unit %></span></span>
+                        <div class="item-brand-name"><%= breakfast.brand_name %>, <span class="serving"><input type="text" class="serving-qty" value="<%= breakfast.serving_qty %>"> <%= breakfast.serving_unit %></span></div>
                     </div>
                     <div class="breakfast-cal item-cal flex"><i class="cal-info icon"></i><%= breakfast.cal %></div>
                 </li>

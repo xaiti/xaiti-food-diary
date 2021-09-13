@@ -208,6 +208,13 @@ h1 {
     font-size: 0.8125em;
     color: var(--font-color-less-dim);
 }
+.serving-qty {
+    width: 2rem;
+    background: var(--bg-color-center-50-o) !important;
+    text-align: center;
+    border: 2px solid rgba(35, 33, 45, 0.3);
+}
+
 .item-cal {
     font-weight: 900;
     color: var(--nutritionix-color);
