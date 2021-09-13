@@ -65,7 +65,14 @@
                 <span class="total-breakfast-cal flex"><i class="cal-info icon"></i>0</span>
             </li>
             <% breakfast.forEach(breakfast => { %>
-                <li class="food-item" data-id="<%= breakfast.id %>">
+                <li class="food-item" data-id="<%= breakfast.id %>" data-nutrients='{
+                    "fat": <%= breakfast.fat %>,
+                    "sat_fat": <%= breakfast.sat_fat %>,
+                    "carb": <%= breakfast.carb %>,
+                    "protein": <%= breakfast.protein %>,
+                    "fiber": <%= breakfast.fiber %>,
+                    "sugar": <%= breakfast.sugar %>
+                }'>
                     <div>
                         <div class="item-name"><%= breakfast.item_name %> <i class="remove-food remove-button icon"></i></div>
                         <span class="item-brand-name"><%= breakfast.brand_name %>, <span class="serving-size"><%= breakfast.serving_qty %> <%= breakfast.serving_unit %></span></span>
