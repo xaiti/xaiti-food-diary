@@ -216,6 +216,11 @@ input[type=checkbox] {
   -o-appearance: none;
 }
 
+input[type=text] {
+    color: inherit;
+    background: inherit;
+}
+
 button {
     border: none;
     color: inherit;
