@@ -427,7 +427,7 @@ async function api(searchTerms) {
                     });
                     li.innerHTML = `
                         <div>
-                            <div class="item-name">${e.currentTarget.dataset.item_name} <i class="remove-food remove-button icon"></i></div>
+                            <div class="item-name">${e.currentTarget.dataset.item_name}<i class="remove-food remove-button icon"></i></div>
                             <span class="item-brand-name">${e.currentTarget.dataset.brand_name}, <span class="serving-size">${e.currentTarget.dataset.serving_qty} ${e.currentTarget.dataset.serving_unit}</span></span>
                         </div>
                         <div class="${MEAL}-cal item-cal flex"><i class="cal-info icon"></i>${e.currentTarget.dataset.cal}</div>
