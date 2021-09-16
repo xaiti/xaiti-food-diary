@@ -202,6 +202,24 @@ function totalFoodValues() {
 
 
 
+// Serving qty //
+var qty = document.querySelectorAll('.serving-qty');
+for (i = 0; i < qty.length; i++) {
+    qty[i].onkeyup = function() {
+        var data = this.parentNode.parentNode.parentNode.parentNode.dataset
+        var gn = JSON.parse(data.given_nutrients)
+        var n = JSON.parse(data.nutrients)
+        console.log(n)
+        n.serving_qty = Number(this.value)
+        n.cal = this.value * gn.cal / gn.serving_qty
+        console.log(n.cal)
+        this.setAttribute('given_nutrients', n)
+        totalFoodValues()
+    }
+}
+
+
+
 // Remove food item from table & database //
 function removeFoodItem() {
     var removeButton = document.querySelectorAll('.remove-food');
@@ -288,7 +306,7 @@ waterInput.addEventListener('keydown', function(e) {
     if(e.keyCode == 46) { updateWater('minus') }
     if(e.keyCode == 76) { document.querySelector('#l').checked = true }
     if(e.keyCode == 77) { document.querySelector('#ml').checked = true }
-})
+});
 
 
 
@@ -410,7 +428,17 @@ async function api(searchTerms) {
                                 carb: e.currentTarget.dataset.carb,
                                 protein: e.currentTarget.dataset.protein,
                                 fiber: e.currentTarget.dataset.fiber,
-                                sugar: e.currentTarget.dataset.sugar
+                                sugar: e.currentTarget.dataset.sugar,
+                                given_nutrients: {
+                                    serving_qty: e.currentTarget.dataset.serving_qty,
+                                    cal: e.currentTarget.dataset.cal,
+                                    fat: e.currentTarget.dataset.fat,
+                                    sat_fat: e.currentTarget.dataset.sat_fat,
+                                    carb: e.currentTarget.dataset.carb,
+                                    protein: e.currentTarget.dataset.protein,
+                                    fiber: e.currentTarget.dataset.fiber,
+                                    sugar: e.currentTarget.dataset.sugar
+                                }
                             },
                             date: diaryDate
                         })
@@ -423,6 +451,7 @@ async function api(searchTerms) {
                     // insert a new li at the end of the ul
                     var li = document.createElement("li");
                     li.className = 'food-item flex'; li.setAttribute('id', e.currentTarget.dataset.id); li.setAttribute('fields', { });
+                    li.setAttribute('fat', e.currentTarget.dataset.fat)
                     li.innerHTML = `
                         <div>
                             <div class="item-name">${e.currentTarget.dataset.item_name}<i class="remove-food remove-button icon"></i></div>
