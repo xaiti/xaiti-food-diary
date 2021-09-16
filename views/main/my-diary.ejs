@@ -65,14 +65,17 @@
                 <span class="total-breakfast-cal flex"><i class="cal-info icon"></i>0</span>
             </li>
             <% breakfast.forEach(breakfast => { %>
-                <li class="food-item" data-id="<%= breakfast.id %>" data-nutrients='{
-                    "fat": <%= breakfast.fat %>,
-                    "sat_fat": <%= breakfast.sat_fat %>,
-                    "carb": <%= breakfast.carb %>,
-                    "protein": <%= breakfast.protein %>,
-                    "fiber": <%= breakfast.fiber %>,
-                    "sugar": <%= breakfast.sugar %>
-                }'>
+                <li class="food-item" data-id="<%= breakfast.id %>" data-fat="<%= breakfast.fat %>" data-nutrients='{ "fat": <%= breakfast.fat %>, "sat_fat": <%= breakfast.sat_fat %>, "carb": <%= breakfast.carb %>, "protein": <%= breakfast.protein %>, "fiber": <%= breakfast.fiber %>, "sugar": <%= breakfast.sugar %> }'
+                    data-given_nutrients='{
+                        "serving_qty": <%= breakfast.given_nutrients.serving_qty %>,
+                        "cal": <%= breakfast.given_nutrients.cal %>,
+                        "fat": <%= breakfast.given_nutrients.fat %>,
+                        "sat_fat": <%= breakfast.given_nutrients.sat_fat %>,
+                        "carb": <%= breakfast.given_nutrients.carb %>,
+                        "protein": <%= breakfast.given_nutrients.protein %>,
+                        "fiber": <%= breakfast.given_nutrients.fiber %>,
+                        "sugar": <%= breakfast.given_nutrients.sugar %>
+                    }'>
                     <div>
                         <div class="item-name"><%= breakfast.item_name %><i class="remove-food remove-button icon"></i></div>
                         <div class="item-brand-name"><%= breakfast.brand_name %>, <span class="serving"><input type="text" class="serving-qty" value="<%= breakfast.serving_qty %>"> <%= breakfast.serving_unit %></span></div>
