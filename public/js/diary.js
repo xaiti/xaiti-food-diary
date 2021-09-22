@@ -205,16 +205,41 @@ function totalFoodValues() {
 // Serving qty //
 var qty = document.querySelectorAll('.serving-qty');
 for (i = 0; i < qty.length; i++) {
-    qty[i].onkeyup = function() {
-        var data = this.parentNode.parentNode.parentNode.parentNode.dataset
-        var gn = JSON.parse(data.given_nutrients)
-        var n = JSON.parse(data.nutrients)
-        console.log(n)
-        n.serving_qty = Number(this.value)
-        n.cal = this.value * gn.cal / gn.serving_qty
-        console.log(n.cal)
-        this.setAttribute('given_nutrients', n)
-        totalFoodValues()
+    qty[i].onchange = function() {
+        // get and parse the given_nutrients dataset
+        var data = this.parentNode.parentNode.parentNode.parentNode.dataset;
+        var gn = JSON.parse(data.given_nutrients);
+        var n = JSON.parse(data.nutrients);
+
+        // make an object for the updated nutrients
+        var updatedNutrients = {
+            "serving_qty" : Number(this.value),
+            "cal" : this.value * gn.cal / gn.serving_qty,
+            "fat" : this.value * gn.fat / gn.serving_qty,
+            "sat_fat" : this.value * gn.sat_fat / gn.serving_qty,
+            "carb" : this.value * gn.carb / gn.serving_qty,
+            "fiber" : this.value * gn.fiber / gn.serving_qty,
+            "protein" : this.value * gn.protein / gn.serving_qty,
+            "sugar" : this.value * gn.sugar / gn.serving_qty
+        }
+
+        // update the nutrients dataset
+        this.parentNode.parentNode.parentNode.parentNode.setAttribute('data-nutrients', JSON.stringify(updatedNutrients));
+
+        // send the new nutrients to the backend
+        // fetch('/update-nutrients', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Accept': 'application/json',
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({
+        //         meal: `food.${this.parentNode.parentNode.parentNode.parentNode.parentNode.dataset.meal}`,
+        //         item_id: this.parentNode.parentNode.parentNode.parentNode.dataset.id,
+        //         nutrients: updatedNutrients,
+        //         date: diaryDate
+        //     })
+        // });
     }
 }
 
@@ -406,6 +431,17 @@ async function api(searchTerms) {
 
                 // search result item on click
                 searchResultItem.onclick = async function(e) {
+                    var nutrients = {
+                        serving_qty: e.currentTarget.dataset.serving_qty,
+                        cal: e.currentTarget.dataset.cal,
+                        fat: e.currentTarget.dataset.fat,
+                        sat_fat: e.currentTarget.dataset.sat_fat,
+                        carb: e.currentTarget.dataset.carb,
+                        protein: e.currentTarget.dataset.protein,
+                        fiber: e.currentTarget.dataset.fiber,
+                        sugar: e.currentTarget.dataset.sugar
+                    };
+
                     // send food data to backend
                     fetch('/add-food', {
                         method: 'POST',
@@ -429,16 +465,8 @@ async function api(searchTerms) {
                                 protein: e.currentTarget.dataset.protein,
                                 fiber: e.currentTarget.dataset.fiber,
                                 sugar: e.currentTarget.dataset.sugar,
-                                given_nutrients: {
-                                    serving_qty: e.currentTarget.dataset.serving_qty,
-                                    cal: e.currentTarget.dataset.cal,
-                                    fat: e.currentTarget.dataset.fat,
-                                    sat_fat: e.currentTarget.dataset.sat_fat,
-                                    carb: e.currentTarget.dataset.carb,
-                                    protein: e.currentTarget.dataset.protein,
-                                    fiber: e.currentTarget.dataset.fiber,
-                                    sugar: e.currentTarget.dataset.sugar
-                                }
+                                nutrients: nutrients,
+                                given_nutrients: nutrients
                             },
                             date: diaryDate
                         })
@@ -450,8 +478,8 @@ async function api(searchTerms) {
                     
                     // insert a new li at the end of the ul
                     var li = document.createElement("li");
-                    li.className = 'food-item flex'; li.setAttribute('id', e.currentTarget.dataset.id); li.setAttribute('fields', { });
-                    li.setAttribute('fat', e.currentTarget.dataset.fat)
+                    li.className = 'food-item flex'; li.setAttribute('id', e.currentTarget.dataset.id);
+                    li.setAttribute('nutrients', JSON.stringify(nutrients)); li.setAttribute('given_nutrients', JSON.stringify(nutrients));
                     li.innerHTML = `
                         <div>
                             <div class="item-name">${e.currentTarget.dataset.item_name}<i class="remove-food remove-button icon"></i></div>
