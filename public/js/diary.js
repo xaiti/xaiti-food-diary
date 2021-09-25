@@ -206,10 +206,12 @@ function totalFoodValues() {
 var qty = document.querySelectorAll('.serving-qty');
 for (i = 0; i < qty.length; i++) {
     qty[i].onchange = function() {
+        // get desired parent node
+        var topParent = this.parentNode.parentNode.parentNode.parentNode;
+
         // get and parse the given_nutrients dataset
-        var data = this.parentNode.parentNode.parentNode.parentNode.dataset;
-        var gn = JSON.parse(data.given_nutrients);
-        var n = JSON.parse(data.nutrients);
+        // var data = this.parentNode.parentNode.parentNode.parentNode.dataset;
+        var gn = JSON.parse(topParent.dataset.given_nutrients);
 
         // make an object for the updated nutrients
         var updatedNutrients = {
@@ -224,22 +226,22 @@ for (i = 0; i < qty.length; i++) {
         }
 
         // update the nutrients dataset
-        this.parentNode.parentNode.parentNode.parentNode.setAttribute('data-nutrients', JSON.stringify(updatedNutrients));
+        topParent.setAttribute('data-nutrients', JSON.stringify(updatedNutrients));
 
         // send the new nutrients to the backend
-        // fetch('/update-nutrients', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Accept': 'application/json',
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify({
-        //         meal: `food.${this.parentNode.parentNode.parentNode.parentNode.parentNode.dataset.meal}`,
-        //         item_id: this.parentNode.parentNode.parentNode.parentNode.dataset.id,
-        //         nutrients: updatedNutrients,
-        //         date: diaryDate
-        //     })
-        // });
+        fetch('/update-nutrients', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                meal: topParent.parentNode.dataset.meal,
+                item_id: topParent.dataset.id,
+                nutrients: updatedNutrients,
+                date: diaryDate
+            })
+        });
     }
 }
 
@@ -451,6 +453,7 @@ async function api(searchTerms) {
                         },
                         body: JSON.stringify({
                             meal: `food.${MEAL}`,
+                            food_id: e.currentTarget.dataset.id,
                             food_item: {
                                 id: e.currentTarget.dataset.id,
                                 item_name: e.currentTarget.dataset.item_name,

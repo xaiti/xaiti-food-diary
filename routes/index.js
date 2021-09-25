@@ -45,8 +45,8 @@ router.post('/nutritionix-api', (req, res) => {
     const test_app_id = '811d2511'
     const test_app_key = 'b1a59fcada36e48c63c6cbfbc5f7dca8'
     axios.post('https://api.nutritionix.com/v1_1/search', {
-        'appId': x_app_id,
-        'appKey': x_app_key,
+        'appId': test_app_id,
+        'appKey': test_app_key,
         'query': req.body.query,
         'offset': 0,
         'limit': 20,
@@ -153,6 +153,21 @@ router.post('/add-food', async (req, res) => {
         await newEntry(req)
     }
     updateEntry(req, { $push: { [req.body.meal]: req.body.food_item } })
+})
+
+// Update food items nutrients
+router.post('/update-nutrients', async (req, res) => {
+    try {
+        var mealQuery = `food.${req.body.meal}.id`
+        var nutrientsQuery = `food.${req.body.meal}.$.nutrients`
+        await Entry.updateOne({ user_email: req.user.email, date: req.body.date, [mealQuery]: req.body.item_id },
+        { '$set': {
+            [nutrientsQuery]: req.body.nutrients
+        } })
+        console.log(JSON.stringify(await Entry.find({ user_email: req.user.email, date: req.body.date, [mealQuery]: req.body.item_id })))
+    } catch(err) {
+        console.log(err)
+    }
 })
 
 // Remove food item from database
