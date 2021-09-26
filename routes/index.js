@@ -163,11 +163,11 @@ router.post('/update-nutrients', async (req, res) => {
     try {
         var mealQuery = `food.${req.body.meal}.id`
         var nutrientsQuery = `food.${req.body.meal}.$.nutrients`
-        await Entry.updateOne({ user_email: req.user.email, date: req.body.date, [mealQuery]: req.body.item_id },
-        { '$set': {
-            [nutrientsQuery]: req.body.nutrients
-        } })
-        console.log(JSON.stringify(await Entry.find({ user_email: req.user.email, date: req.body.date, [mealQuery]: req.body.item_id })))
+        await Entry.updateOne({ user_email: req.user.email, date: req.body.date, [mealQuery]: req.body.item_id }, {
+            '$set': {
+                [nutrientsQuery]: req.body.nutrients
+            }
+        })
     } catch(err) {
         console.log(err)
     }
