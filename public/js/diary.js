@@ -506,16 +506,28 @@ nameHeader.addEventListener('click', function() {
                 id: 'bitofgreenonthetopright',
                 item_name : 'banananana',
                 brand_name: 'not ripe',
-                serving_qty: 1,
                 serving_unit: '7"',
                 serving_weight: 118,
-                cal: 105,
-                fat: 0.4,
-                sat_fat: 0.1,
-                carb: 27,
-                protein: 1.3,
-                fiber: 3.1,
-                sugar: 14.4
+                nutrients: {
+                    serving_qty: 1,
+                    cal: 105,
+                    fat: 0.4,
+                    sat_fat: 0.1,
+                    carb: 27,
+                    protein: 1.3,
+                    fiber: 3.1,
+                    sugar: 14.4
+                },
+                given_nutrients: {
+                    serving_qty: 1,
+                    cal: 105,
+                    fat: 0.4,
+                    sat_fat: 0.1,
+                    carb: 27,
+                    protein: 1.3,
+                    fiber: 3.1,
+                    sugar: 14.4
+                }
             },
             date: diaryDate
         })
