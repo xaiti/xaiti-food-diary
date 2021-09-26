@@ -464,16 +464,6 @@ async function api(searchTerms) {
                         </div>
                         <div class="${MEAL}-cal item-cal flex"><i class="cal-info icon"></i>${e.currentTarget.dataset.cal}</div>
                     `;
-
-                    // create a second li for hidden food values
-                    var hiddenLi = document.createElement('li');
-                    hiddenLi.className = 'food-item-hidden-values';
-                    hiddenLi.innerHTML = `<span class="${MEAL}-fat">${e.currentTarget.dataset.fat}</span>
-                                            <span class="${MEAL}-sat-fat">${e.currentTarget.dataset.sat_fat}</span>
-                                            <span class="${MEAL}-carb">${e.currentTarget.dataset.carb}</span>
-                                            <span class="${MEAL}-protein">${e.currentTarget.dataset.protein}</span>
-                                            <span class="${MEAL}-fiber">${e.currentTarget.dataset.fiber}</span>
-                                            <span class="${MEAL}-sugar">${e.currentTarget.dataset.sugar}</span>`;
                     
                     // append new li's to desired ul
                     currentList.appendChild(li);
