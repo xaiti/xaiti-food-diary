@@ -155,7 +155,7 @@ router.post('/add-food', async (req, res) => {
     updateEntry(req, { $push: { [req.body.meal]: req.body.food_item } })
 })
 
-// Update food items nutrients
+// Update food item nutrients
 router.post('/update-nutrients', async (req, res) => {
     try {
         var mealQuery = `food.${req.body.meal}.id`
