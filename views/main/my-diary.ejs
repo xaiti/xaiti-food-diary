@@ -68,17 +68,17 @@
                 <li class="food-item" data-id="<%= breakfast.id %>" data-nutrients='<%- JSON.stringify(breakfast.nutrients) %>' data-given_nutrients='<%- JSON.stringify(breakfast.given_nutrients) %>'>
                     <div>
                         <div class="item-name"><%= breakfast.item_name %><i class="remove-food remove-button icon"></i></div>
-                        <div class="item-brand-name"><%= breakfast.brand_name %>, <span class="serving"><input type="text" class="serving-qty" value="<%= breakfast.serving_qty %>"> <%= breakfast.serving_unit %></span></div>
+                        <div class="item-brand-name"><%= breakfast.brand_name %>, <span class="serving"><input type="text" class="serving-qty" value="<%= breakfast.nutrients.serving_qty %>"> <%= breakfast.serving_unit %></span></div>
                     </div>
-                    <div class="breakfast-cal item-cal flex"><i class="cal-info icon"></i><%= breakfast.cal %></div>
+                    <div class="breakfast-cal item-cal flex"><i class="cal-info icon"></i><%= breakfast.nutrients.cal %></div>
                 </li>
-                <li class="food-item-hidden-values" data-breakfast-fat="<%= breakfast.fat %>">
-                    <span class="breakfast-fat"><%= breakfast.fat %></span>
-                    <span class="breakfast-sat-fat"><%= breakfast.sat_fat %></span>
-                    <span class="breakfast-carb"><%= breakfast.carb %></span>
-                    <span class="breakfast-protein"><%= breakfast.protein %></span>
-                    <span class="breakfast-fiber"><%= breakfast.fiber %></span>
-                    <span class="breakfast-sugar"><%= breakfast.sugar %></span>
+                <li class="food-item-hidden-values">
+                    <span class="breakfast-fat"><%= breakfast.nutrients.fat %></span>
+                    <span class="breakfast-sat-fat"><%= breakfast.nutrients.sat_fat %></span>
+                    <span class="breakfast-carb"><%= breakfast.nutrients.carb %></span>
+                    <span class="breakfast-protein"><%= breakfast.nutrients.protein %></span>
+                    <span class="breakfast-fiber"><%= breakfast.nutrients.fiber %></span>
+                    <span class="breakfast-sugar"><%= breakfast.nutrients.sugar %></span>
                 </li>
             <% }) %> 
         </ul>
@@ -88,20 +88,20 @@
                 <span class="total-lunch-cal flex"><i class="cal-info icon"></i>0</span>
             </li>
             <% lunch.forEach(lunch => { %>
-                <li class="food-item flex" data-id="<%= lunch.id %>">
+                <li class="food-item flex" data-id="<%= lunch.id %>" data-nutrients='<%- JSON.stringify(lunch.nutrients) %>' data-given_nutrients='<%- JSON.stringify(lunch.given_nutrients) %>'>
                     <div>
                         <div class="item-name"><%= lunch.item_name %><i class="remove-food remove-button icon"></i></div>
-                        <span class="item-brand-name"><%= lunch.brand_name %>, <span class="serving-size"><%= lunch.serving_qty %> <%= lunch.serving_unit %></span></span>
+                        <div class="item-brand-name"><%= lunch.brand_name %>, <span class="serving"><input type="text" class="serving-qty" value="<%= lunch.nutrients.serving_qty %>"> <%= lunch.serving_unit %></span></div>
                     </div>
-                    <div class="lunch-cal item-cal flex"><i class="cal-info icon"></i><%= lunch.cal %></div>
+                    <div class="lunch-cal item-cal flex"><i class="cal-info icon"></i><%= lunch.nutrients.cal %></div>
                 </li>
                 <li class="food-item-hidden-values">
-                    <span class="lunch-fat"><%= lunch.fat %></span>
-                    <span class="lunch-sat-fat"><%= lunch.sat_fat %></span>
-                    <span class="lunch-carb"><%= lunch.carb %></span>
-                    <span class="lunch-protein"><%= lunch.protein %></span>
-                    <span class="lunch-fiber"><%= lunch.fiber %></span>
-                    <span class="lunch-sugar"><%= lunch.sugar %></span>
+                    <span class="lunch-fat"><%= lunch.nutrients.fat %></span>
+                    <span class="lunch-sat-fat"><%= lunch.nutrients.sat_fat %></span>
+                    <span class="lunch-carb"><%= lunch.nutrients.carb %></span>
+                    <span class="lunch-protein"><%= lunch.nutrients.protein %></span>
+                    <span class="lunch-fiber"><%= lunch.nutrients.fiber %></span>
+                    <span class="lunch-sugar"><%= lunch.nutrients.sugar %></span>
                 </li>
             <% }) %> 
         </ul>
@@ -111,20 +111,20 @@
                 <span class="total-dinner-cal flex"><i class="cal-info icon"></i>0</span>
             </li>
             <% dinner.forEach(dinner => { %>
-                <li class="food-item flex" data-id="<%= dinner.id %>">
+                <li class="food-item flex" data-id="<%= dinner.id %>" data-nutrients='<%- JSON.stringify(dinner.nutrients) %>' data-given_nutrients='<%- JSON.stringify(dinner.given_nutrients) %>'>
                     <div>
                         <div class="item-name"><%= dinner.item_name %><i class="remove-food remove-button icon"></i></div>
-                        <span class="item-brand-name"><%= dinner.brand_name %>, <span class="serving-size"><%= dinner.serving_qty %> <%= dinner.serving_unit %></span></span>
+                        <div class="item-brand-name"><%= dinner.brand_name %>, <span class="serving"><input type="text" class="serving-qty" value="<%= dinner.nutrients.serving_qty %>"> <%= dinner.serving_unit %></span></div>
                     </div>
-                    <div class="dinner-cal item-cal flex"><i class="cal-info icon"></i><%= dinner.cal %></div>
+                    <div class="dinner-cal item-cal flex"><i class="cal-info icon"></i><%= dinner.nutrients.cal %></div>
                 </li>
                 <li class="food-item-hidden-values">
-                    <span class="dinner-fat"><%= dinner.fat %></span>
-                    <span class="dinner-sat-fat"><%= dinner.sat_fat %></span>
-                    <span class="dinner-carb"><%= dinner.carb %></span>
-                    <span class="dinner-protein"><%= dinner.protein %></span>
-                    <span class="dinner-fiber"><%= dinner.fiber %></span>
-                    <span class="dinner-sugar"><%= dinner.sugar %></span>
+                    <span class="dinner-fat"><%= dinner.nutrients.fat %></span>
+                    <span class="dinner-sat-fat"><%= dinner.nutrients.sat_fat %></span>
+                    <span class="dinner-carb"><%= dinner.nutrients.carb %></span>
+                    <span class="dinner-protein"><%= dinner.nutrients.protein %></span>
+                    <span class="dinner-fiber"><%= dinner.nutrients.fiber %></span>
+                    <span class="dinner-sugar"><%= dinner.nutrients.sugar %></span>
                 </li>
             <% }) %> 
         </ul>
@@ -134,20 +134,20 @@
                 <span class="total-snack-cal flex"><i class="cal-info icon"></i>0</span>
             </li>
             <% snack.forEach(snack => { %>
-                <li class="food-item flex" data-id="<%= snack.id %>">
+                <li class="food-item flex" data-id="<%= snack.id %>" data-nutrients='<%- JSON.stringify(snack.nutrients) %>' data-given_nutrients='<%- JSON.stringify(snack.given_nutrients) %>'>
                     <div>
                         <div class="item-name"><%= snack.item_name %><i class="remove-food remove-button icon"></i></div>
-                        <span class="item-brand-name"><%= snack.brand_name %>, <span class="serving-size"><%= snack.serving_qty %> <%= snack.serving_unit %></span></span>
+                        <div class="item-brand-name"><%= snack.brand_name %>, <span class="serving"><input type="text" class="serving-qty" value="<%= snack.nutrients.serving_qty %>"> <%= snack.serving_unit %></span></div>
                     </div>
-                    <div class="snack-cal item-cal flex"><i class="cal-info icon"></i><%= snack.cal %></div>
+                    <div class="snack-cal item-cal flex"><i class="cal-info icon"></i><%= snack.nutrients.cal %></div>
                 </li>
                 <li class="food-item-hidden-values">
-                    <span class="snack-fat"><%= snack.fat %></span>
-                    <span class="snack-sat-fat"><%= snack.sat_fat %></span>
-                    <span class="snack-carb"><%= snack.carb %></span>
-                    <span class="snack-protein"><%= snack.protein %></span>
-                    <span class="snack-fiber"><%= snack.fiber %></span>
-                    <span class="snack-sugar"><%= snack.sugar %></span>
+                    <span class="snack-fat"><%= snack.nutrients.fat %></span>
+                    <span class="snack-sat-fat"><%= snack.nutrients.sat_fat %></span>
+                    <span class="snack-carb"><%= snack.nutrients.carb %></span>
+                    <span class="snack-protein"><%= snack.nutrients.protein %></span>
+                    <span class="snack-fiber"><%= snack.nutrients.fiber %></span>
+                    <span class="snack-sugar"><%= snack.nutrients.sugar %></span>
                 </li>
             <% }) %> 
         </ul>
