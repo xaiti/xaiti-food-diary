@@ -465,9 +465,8 @@ async function api(searchTerms) {
                         <div class="${MEAL}-cal item-cal flex"><i class="cal-info icon"></i>${e.currentTarget.dataset.cal}</div>
                     `;
                     
-                    // append new li's to desired ul
+                    // append new li to desired ul
                     currentList.appendChild(li);
-                    currentList.appendChild(hiddenLi);
 
                     // close search after selecting food item
                     closeOverlayAND(foodSearchContainer);
