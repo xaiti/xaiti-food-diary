@@ -70,7 +70,7 @@
                         <div class="item-name"><%= breakfast.item_name %><i class="remove-food remove-button icon"></i></div>
                         <div class="item-brand-name"><%= breakfast.brand_name %>, <span class="serving"><input type="text" class="serving-qty" value="<%= breakfast.nutrients.serving_qty %>"> <%= breakfast.serving_unit %></span></div>
                     </div>
-                    <div class="breakfast-cal item-cal flex"><i class="cal-info icon"></i><%= breakfast.nutrients.cal %></div>
+                    <div class="breakfast-cal item-cal flex"><i class="cal-info icon"></i><%= Math.round(breakfast.nutrients.cal) %></div>
                 </li>
             <% }) %> 
         </ul>
@@ -85,7 +85,7 @@
                         <div class="item-name"><%= lunch.item_name %><i class="remove-food remove-button icon"></i></div>
                         <div class="item-brand-name"><%= lunch.brand_name %>, <span class="serving"><input type="text" class="serving-qty" value="<%= lunch.nutrients.serving_qty %>"> <%= lunch.serving_unit %></span></div>
                     </div>
-                    <div class="lunch-cal item-cal flex"><i class="cal-info icon"></i><%= lunch.nutrients.cal %></div>
+                    <div class="lunch-cal item-cal flex"><i class="cal-info icon"></i><%= Math.round(lunch.nutrients.cal) %></div>
                 </li>
             <% }) %> 
         </ul>
@@ -100,7 +100,7 @@
                         <div class="item-name"><%= dinner.item_name %><i class="remove-food remove-button icon"></i></div>
                         <div class="item-brand-name"><%= dinner.brand_name %>, <span class="serving"><input type="text" class="serving-qty" value="<%= dinner.nutrients.serving_qty %>"> <%= dinner.serving_unit %></span></div>
                     </div>
-                    <div class="dinner-cal item-cal flex"><i class="cal-info icon"></i><%= dinner.nutrients.cal %></div>
+                    <div class="dinner-cal item-cal flex"><i class="cal-info icon"></i><%= Math.round(dinner.nutrients.cal) %></div>
                 </li>
             <% }) %> 
         </ul>
@@ -115,7 +115,7 @@
                         <div class="item-name"><%= snack.item_name %><i class="remove-food remove-button icon"></i></div>
                         <div class="item-brand-name"><%= snack.brand_name %>, <span class="serving"><input type="text" class="serving-qty" value="<%= snack.nutrients.serving_qty %>"> <%= snack.serving_unit %></span></div>
                     </div>
-                    <div class="snack-cal item-cal flex"><i class="cal-info icon"></i><%= snack.nutrients.cal %></div>
+                    <div class="snack-cal item-cal flex"><i class="cal-info icon"></i><%= Math.round(snack.nutrients.cal) %></div>
                 </li>
             <% }) %> 
         </ul>
