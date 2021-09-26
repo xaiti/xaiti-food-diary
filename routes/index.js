@@ -149,10 +149,14 @@ async function updateEntry(req, method) {
 
 // Push selected food to database
 router.post('/add-food', async (req, res) => {
-    if (await Entry.findOne({ user_email: req.user.email, date: req.body.date }) == null) {
-        await newEntry(req)
+    try {
+        if (await Entry.findOne({ user_email: req.user.email, date: req.body.date }) == null) {
+            await newEntry(req)
+        }
+        updateEntry(req, { $push: { [req.body.meal]: req.body.food_item } })
+    } catch(err) {
+        console.log(err)
     }
-    updateEntry(req, { $push: { [req.body.meal]: req.body.food_item } })
 })
 
 // Update food item nutrients
@@ -172,15 +176,23 @@ router.post('/update-nutrients', async (req, res) => {
 
 // Remove food item from database
 router.post('/remove-food-item', async (req, res) => {
-    updateEntry(req, { $pull: { [req.body.meal]: { id: req.body.item_id } } })
+    try {
+        updateEntry(req, { $pull: { [req.body.meal]: { id: req.body.item_id } } })
+    } catch(err) {
+        console.log(err)
+    }
 })
 
 // Push water to database
 router.post('/add-water', async (req, res) => {
-    if (await Entry.findOne({ user_email: req.user.email, date: req.body.date }) == null) {
-        await newEntry(req)
+    try {
+        if (await Entry.findOne({ user_email: req.user.email, date: req.body.date }) == null) {
+            await newEntry(req)
+        }
+        updateEntry(req, { $inc: { water: req.body.water } })
+    } catch(err) {
+        console.log(err)
     }
-    updateEntry(req, { $inc: { water: req.body.water } })
 })
 
 // Dummy data
