@@ -69,7 +69,7 @@ function totalFoodValues() {
     }
     var breakfastHeader = document.querySelector('.breakfast-header');
     breakfastHeader.setAttribute('data-total_nutrients', JSON.stringify(totalBreakfastNutrients));
-    document.querySelector('.total-breakfast-cal').childNodes[1].nodeValue = totalBreakfastCal.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-breakfast-cal').childNodes[1].nodeValue = Math.round(totalBreakfastCal);
 
     // total lunch values
     var lunchItem = document.querySelectorAll('.lunch-item');
@@ -93,7 +93,7 @@ function totalFoodValues() {
     }
     var lunchHeader = document.querySelector('.lunch-header');
     lunchHeader.setAttribute('data-total_nutrients', JSON.stringify(totalLunchNutrients));
-    document.querySelector('.total-lunch-cal').childNodes[1].nodeValue = totalLunchCal.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-lunch-cal').childNodes[1].nodeValue = Math.round(totalLunchCal);
 
     // total dinner values
     var dinnerItem = document.querySelectorAll('.dinner-item');
@@ -117,7 +117,7 @@ function totalFoodValues() {
     }
     var dinnerHeader = document.querySelector('.dinner-header');
     dinnerHeader.setAttribute('data-total_nutrients', JSON.stringify(totalDinnerNutrients));
-    document.querySelector('.total-dinner-cal').childNodes[1].nodeValue = totalDinnerCal.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-dinner-cal').childNodes[1].nodeValue = Math.round(totalDinnerCal);
 
     // total snack values
     var snackItem = document.querySelectorAll('.snack-item');
@@ -141,7 +141,7 @@ function totalFoodValues() {
     }
     var snackHeader = document.querySelector('.snack-header');
     snackHeader.setAttribute('data-total_nutrients', JSON.stringify(totalSnackNutrients));
-    document.querySelector('.total-snack-cal').childNodes[1].nodeValue = totalSnackCal.toFixed(1).replace(/[.,]0$/, "");
+    document.querySelector('.total-snack-cal').childNodes[1].nodeValue = Math.round(totalSnackCal);
 
     // total food values
     var totalCal = totalBreakfastCal + totalLunchCal + totalDinnerCal + totalSnackCal;
@@ -158,7 +158,7 @@ function totalFoodValues() {
     var calRemaining = document.querySelector('.cal-remaining').childNodes[1];
 
     calIntake.nodeValue = totalCal.toFixed(1).replace(/[.,]0$/, "");
-    calRemaining.nodeValue = calGoal - totalCal;
+    calRemaining.nodeValue = (calGoal - totalCal).toFixed(1).replace(/[.,]0$/, "");
     var progress = document.querySelector('.cal-progress-done');
     progress.setAttribute('data-done', (100 / calGoal) * calIntake.nodeValue);
     setTimeout(() => {
@@ -217,6 +217,10 @@ function servingQty() {
                     date: diaryDate
                 })
             });
+
+            // update food values without page refresh
+            topParent.childNodes[3].childNodes[1].nodeValue = Math.round(updatedNutrients.cal);
+            totalFoodValues();
         }
     }
 } servingQty();
