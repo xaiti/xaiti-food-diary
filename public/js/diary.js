@@ -180,13 +180,11 @@ function totalFoodValues() {
 // Serving qty //
 function servingQty() {
     var qty = document.querySelectorAll('.serving-qty');
-    console.log(qty)
     for (i = 0; i < qty.length; i++) {
         qty[i].onchange = function() {
             // get desired parent node
             var topParent = this.parentNode.parentNode.parentNode.parentNode;
 
-            console.log(topParent)
             // get and parse the given_nutrients dataset
             var gn = JSON.parse(topParent.dataset.given_nutrients);
 
