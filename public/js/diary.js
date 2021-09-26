@@ -210,7 +210,6 @@ for (i = 0; i < qty.length; i++) {
         var topParent = this.parentNode.parentNode.parentNode.parentNode;
 
         // get and parse the given_nutrients dataset
-        // var data = this.parentNode.parentNode.parentNode.parentNode.dataset;
         var gn = JSON.parse(topParent.dataset.given_nutrients);
 
         // make an object for the updated nutrients
