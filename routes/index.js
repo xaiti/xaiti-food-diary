@@ -196,10 +196,15 @@ router.post('/add-water', async (req, res) => {
 
 // Dummy data
 router.post('/dummy', async (req, res) => {
-    if (await Entry.findOne({ user_email: req.user.email, date: req.body.date }) == null) {
+    try {
+        if (await Entry.findOne({ user_email: req.user.email, date: req.body.date }) == null) {
         await newEntry(req)
     }
     updateEntry(req, { $push: { 'food.snack': req.body.snack } })
+    }
+    catch(err) {
+        console.log(err)
+    }
 })
 
 var dummyEntry = async () => {
