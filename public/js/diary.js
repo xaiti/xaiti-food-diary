@@ -48,142 +48,117 @@ nextDayButton.addEventListener('click', function() {
 // Total food values //
 function totalFoodValues() {
     // total breakfast values
-    var breakfastCal = document.querySelectorAll('.breakfast-cal');
-    var breakfastFat = document.querySelectorAll('.breakfast-fat');
-    var breakfastSatFat = document.querySelectorAll('.breakfast-sat-fat');
-    var breakfastCarb = document.querySelectorAll('.breakfast-carb');
-    var breakfastProtein = document.querySelectorAll('.breakfast-protein');
-    var breakfastFiber = document.querySelectorAll('.breakfast-fiber');
-    var breakfastSugar = document.querySelectorAll('.breakfast-sugar');
-
-    var breakfastCalNum = 0; var breakfastFatNum = 0; var breakfastSatFatNum = 0;
-    var breakfastCarbNum = 0; var breakfastProteinNum = 0; var breakfastFiberNum = 0; var breakfastSugarNum = 0;
-
-    // add total values together for each food item
-    for (i = 0; i < breakfastCal.length; i++) {
-        breakfastCalNum += Number(breakfastCal[i].childNodes[1].nodeValue);
-        breakfastFatNum += Number(breakfastFat[i].innerHTML);
-        breakfastSatFatNum += Number(breakfastSatFat[i].innerHTML);
-        breakfastCarbNum += Number(breakfastCarb[i].innerHTML);
-        breakfastProteinNum += Number(breakfastProtein[i].innerHTML);
-        breakfastFiberNum += Number(breakfastFiber[i].innerHTML);
-        breakfastSugarNum += Number(breakfastSugar[i].innerHTML);
+    var breakfastItem = document.querySelectorAll('.breakfast-item');
+    var totalBreakfastCal = 0; var totalBreakfastFat = 0; var totalBreakfastSatFat = 0;
+    var totalBreakfastCarb = 0; var totalBreakfastProtein = 0; var totalBreakfastFiber = 0; var totalBreakfastSugar = 0;
+    for (i = 0; i < breakfastItem.length; i++) {
+        var breakfastItemData = JSON.parse(breakfastItem[i].dataset.nutrients);
+        totalBreakfastCal += Number(breakfastItemData.cal); // some default nutritionix values aren't numbers
+        totalBreakfastFat += Number(breakfastItemData.fat); totalBreakfastSatFat += Number(breakfastItemData.sat_fat);
+        totalBreakfastCarb += Number(breakfastItemData.carb); totalBreakfastProtein += Number(breakfastItemData.protein);
+        totalBreakfastFiber += Number(breakfastItemData.fiber); totalBreakfastSugar += Number(breakfastItemData.sugar);
     }
-
-    document.querySelector('.total-breakfast-cal').childNodes[1].nodeValue = breakfastCalNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-breakfast-fat').innerHTML = breakfastFatNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-breakfast-sat-fat').innerHTML = breakfastSatFatNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-breakfast-carb').innerHTML = breakfastCarbNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-breakfast-protein').innerHTML = breakfastProteinNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-breakfast-fiber').innerHTML = breakfastFiberNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-breakfast-sugar').innerHTML = breakfastSugarNum.toFixed(1).replace(/[.,]0$/, "");
+    var totalBreakfastNutrients = {
+        "cal" : totalBreakfastCal,
+        "fat" : totalBreakfastFat,
+        "sat_fat" : totalBreakfastSatFat,
+        "carb" : totalBreakfastCarb,
+        "fiber" : totalBreakfastProtein,
+        "protein" : totalBreakfastFiber,
+        "sugar" : totalBreakfastSugar
+    }
+    var breakfastHeader = document.querySelector('.breakfast-header');
+    breakfastHeader.setAttribute('data-total_nutrients', JSON.stringify(totalBreakfastNutrients));
+    document.querySelector('.total-breakfast-cal').childNodes[1].nodeValue = totalBreakfastCal.toFixed(1).replace(/[.,]0$/, "");
 
     // total lunch values
-    var lunchCal = document.querySelectorAll('.lunch-cal');
-    var lunchFat = document.querySelectorAll('.lunch-fat');
-    var lunchSatFat = document.querySelectorAll('.lunch-sat-fat');
-    var lunchCarb = document.querySelectorAll('.lunch-carb');
-    var lunchProtein = document.querySelectorAll('.lunch-protein');
-    var lunchFiber = document.querySelectorAll('.lunch-fiber');
-    var lunchSugar = document.querySelectorAll('.lunch-sugar');
-
-    var lunchCalNum = 0; var lunchFatNum = 0; var lunchSatFatNum = 0;
-    var lunchCarbNum = 0; var lunchProteinNum = 0; var lunchFiberNum = 0; var lunchSugarNum = 0;
-
-    for (i = 0; i < lunchCal.length; i++) {
-        lunchCalNum += Number(lunchCal[i].childNodes[1].nodeValue);
-        lunchFatNum += Number(lunchFat[i].innerHTML);
-        lunchSatFatNum += Number(lunchSatFat[i].innerHTML);
-        lunchCarbNum += Number(lunchCarb[i].innerHTML);
-        lunchProteinNum += Number(lunchProtein[i].innerHTML);
-        lunchFiberNum += Number(lunchFiber[i].innerHTML);
-        lunchSugarNum += Number(lunchSugar[i].innerHTML);
+    var lunchItem = document.querySelectorAll('.lunch-item');
+    var totalLunchCal = 0; var totalLunchFat = 0; var totalLunchSatFat = 0;
+    var totalLunchCarb = 0; var totalLunchProtein = 0; var totalLunchFiber = 0; var totalLunchSugar = 0;
+    for (i = 0; i < lunchItem.length; i++) {
+        var lunchItemData = JSON.parse(lunchItem[i].dataset.nutrients);
+        totalLunchCal += Number(lunchItemData.cal); // some default nutritionix values aren't numbers
+        totalLunchFat += Number(lunchItemData.fat); totalLunchSatFat += Number(lunchItemData.sat_fat);
+        totalLunchCarb += Number(lunchItemData.carb); totalLunchProtein += Number(lunchItemData.protein);
+        totalLunchFiber += Number(lunchItemData.fiber); totalLunchSugar += Number(lunchItemData.sugar);
     }
-
-    document.querySelector('.total-lunch-cal').childNodes[1].nodeValue = lunchCalNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-lunch-fat').innerHTML = lunchFatNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-lunch-sat-fat').innerHTML = lunchSatFatNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-lunch-carb').innerHTML = lunchCarbNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-lunch-protein').innerHTML = lunchProteinNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-lunch-fiber').innerHTML = lunchFiberNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-lunch-sugar').innerHTML = lunchSugarNum.toFixed(1).replace(/[.,]0$/, "");
+    var totalLunchNutrients = {
+        "cal" : totalLunchCal,
+        "fat" : totalLunchFat,
+        "sat_fat" : totalLunchSatFat,
+        "carb" : totalLunchCarb,
+        "fiber" : totalLunchProtein,
+        "protein" : totalLunchFiber,
+        "sugar" : totalLunchSugar
+    }
+    var lunchHeader = document.querySelector('.lunch-header');
+    lunchHeader.setAttribute('data-total_nutrients', JSON.stringify(totalLunchNutrients));
+    document.querySelector('.total-lunch-cal').childNodes[1].nodeValue = totalLunchCal.toFixed(1).replace(/[.,]0$/, "");
 
     // total dinner values
-    var dinnerCal = document.querySelectorAll('.dinner-cal');
-    var dinnerFat = document.querySelectorAll('.dinner-fat');
-    var dinnerSatFat = document.querySelectorAll('.dinner-sat-fat');
-    var dinnerCarb = document.querySelectorAll('.dinner-carb');
-    var dinnerProtein = document.querySelectorAll('.dinner-protein');
-    var dinnerFiber = document.querySelectorAll('.dinner-fiber');
-    var dinnerSugar = document.querySelectorAll('.dinner-sugar');
-
-    var dinnerCalNum = 0; var dinnerFatNum = 0; var dinnerSatFatNum = 0;
-    var dinnerCarbNum = 0; var dinnerProteinNum = 0; var dinnerFiberNum = 0; var dinnerSugarNum = 0;
-
-    for (i = 0; i < dinnerCal.length; i++) {
-        dinnerCalNum += Number(dinnerCal[i].childNodes[1].nodeValue);
-        dinnerFatNum += Number(dinnerFat[i].innerHTML);
-        dinnerSatFatNum += Number(dinnerSatFat[i].innerHTML);
-        dinnerCarbNum += Number(dinnerCarb[i].innerHTML);
-        dinnerProteinNum += Number(dinnerProtein[i].innerHTML);
-        dinnerFiberNum += Number(dinnerFiber[i].innerHTML);
-        dinnerSugarNum += Number(dinnerSugar[i].innerHTML);
+    var dinnerItem = document.querySelectorAll('.dinner-item');
+    var totalDinnerCal = 0; var totalDinnerFat = 0; var totalDinnerSatFat = 0;
+    var totalDinnerCarb = 0; var totalDinnerProtein = 0; var totalDinnerFiber = 0; var totalDinnerSugar = 0;
+    for (i = 0; i < dinnerItem.length; i++) {
+        var dinnerItemData = JSON.parse(dinnerItem[i].dataset.nutrients);
+        totalDinnerCal += Number(dinnerItemData.cal); // some default nutritionix values aren't numbers
+        totalDinnerFat += Number(dinnerItemData.fat); totalDinnerSatFat += Number(dinnerItemData.sat_fat);
+        totalDinnerCarb += Number(dinnerItemData.carb); totalDinnerProtein += Number(dinnerItemData.protein);
+        totalDinnerFiber += Number(dinnerItemData.fiber); totalDinnerSugar += Number(dinnerItemData.sugar);
     }
-
-    document.querySelector('.total-dinner-cal').childNodes[1].nodeValue = dinnerCalNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-dinner-fat').innerHTML = dinnerFatNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-dinner-sat-fat').innerHTML = dinnerSatFatNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-dinner-carb').innerHTML = dinnerCarbNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-dinner-protein').innerHTML = dinnerProteinNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-dinner-fiber').innerHTML = dinnerFiberNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-dinner-sugar').innerHTML = dinnerSugarNum.toFixed(1).replace(/[.,]0$/, "");
+    var totalDinnerNutrients = {
+        "cal" : totalDinnerCal,
+        "fat" : totalDinnerFat,
+        "sat_fat" : totalDinnerSatFat,
+        "carb" : totalDinnerCarb,
+        "fiber" : totalDinnerProtein,
+        "protein" : totalDinnerFiber,
+        "sugar" : totalDinnerSugar
+    }
+    var dinnerHeader = document.querySelector('.dinner-header');
+    dinnerHeader.setAttribute('data-total_nutrients', JSON.stringify(totalDinnerNutrients));
+    document.querySelector('.total-dinner-cal').childNodes[1].nodeValue = totalDinnerCal.toFixed(1).replace(/[.,]0$/, "");
 
     // total snack values
-    var snackCal = document.querySelectorAll('.snack-cal');
-    var snackFat = document.querySelectorAll('.snack-fat');
-    var snackSatFat = document.querySelectorAll('.snack-sat-fat');
-    var snackCarb = document.querySelectorAll('.snack-carb');
-    var snackProtein = document.querySelectorAll('.snack-protein');
-    var snackFiber = document.querySelectorAll('.snack-fiber');
-    var snackSugar = document.querySelectorAll('.snack-sugar');
-
-    var snackCalNum = 0; var snackFatNum = 0; var snackSatFatNum = 0;
-    var snackCarbNum = 0; var snackProteinNum = 0; var snackFiberNum = 0; var snackSugarNum = 0;
-
-    for (i = 0; i < snackCal.length; i++) {
-        snackCalNum += Number(snackCal[i].childNodes[1].nodeValue);
-        snackFatNum += Number(snackFat[i].innerHTML);
-        snackSatFatNum += Number(snackSatFat[i].innerHTML);
-        snackCarbNum += Number(snackCarb[i].innerHTML);
-        snackProteinNum += Number(snackProtein[i].innerHTML);
-        snackFiberNum += Number(snackFiber[i].innerHTML);
-        snackSugarNum += Number(snackSugar[i].innerHTML);
+    var snackItem = document.querySelectorAll('.snack-item');
+    var totalSnackCal = 0; var totalSnackFat = 0; var totalSnackSatFat = 0;
+    var totalSnackCarb = 0; var totalSnackProtein = 0; var totalSnackFiber = 0; var totalSnackSugar = 0;
+    for (i = 0; i < snackItem.length; i++) {
+        var snackItemData = JSON.parse(snackItem[i].dataset.nutrients);
+        totalSnackCal += Number(snackItemData.cal); // some default nutritionix values aren't numbers
+        totalSnackFat += Number(snackItemData.fat); totalSnackSatFat += Number(snackItemData.sat_fat);
+        totalSnackCarb += Number(snackItemData.carb); totalSnackProtein += Number(snackItemData.protein);
+        totalSnackFiber += Number(snackItemData.fiber); totalSnackSugar += Number(snackItemData.sugar);
     }
+    var totalSnackNutrients = {
+        "cal" : totalSnackCal,
+        "fat" : totalSnackFat,
+        "sat_fat" : totalSnackSatFat,
+        "carb" : totalSnackCarb,
+        "fiber" : totalSnackProtein,
+        "protein" : totalSnackFiber,
+        "sugar" : totalSnackSugar
+    }
+    var snackHeader = document.querySelector('.snack-header');
+    snackHeader.setAttribute('data-total_nutrients', JSON.stringify(totalSnackNutrients));
+    document.querySelector('.total-snack-cal').childNodes[1].nodeValue = totalSnackCal.toFixed(1).replace(/[.,]0$/, "");
 
-    document.querySelector('.total-snack-cal').childNodes[1].nodeValue = snackCalNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-snack-fat').innerHTML = snackFatNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-snack-sat-fat').innerHTML = snackSatFatNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-snack-carb').innerHTML = snackCarbNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-snack-protein').innerHTML = snackProteinNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-snack-fiber').innerHTML = snackFiberNum.toFixed(1).replace(/[.,]0$/, "");
-    document.querySelector('.total-snack-sugar').innerHTML = snackSugarNum.toFixed(1).replace(/[.,]0$/, "");
-
-    // total values
-    var totalCalNum = breakfastCalNum + lunchCalNum + dinnerCalNum + snackCalNum;
-    var totalFatNum = breakfastFatNum + lunchFatNum + dinnerFatNum + snackFatNum;
-    var totalSatFatNum = breakfastSatFatNum + lunchSatFatNum + dinnerSatFatNum + snackSatFatNum;
-    var totalCarbNum = breakfastCarbNum + lunchCarbNum + dinnerCarbNum + snackCarbNum;
-    var totalProteinNum = breakfastProteinNum +  lunchProteinNum + snackProteinNum + dinnerProteinNum;
-    var totalFiberNum = breakfastFiberNum + lunchFiberNum + dinnerFiberNum + snackFiberNum;
-    var totalSugarNum = breakfastSugarNum + lunchSugarNum + dinnerSugarNum + snackSugarNum;
+    // total food values
+    var totalCal = totalBreakfastCal + totalLunchCal + totalDinnerCal + totalSnackCal;
+    var totalFat = totalBreakfastFat + totalLunchFat + totalDinnerFat + totalSnackFat;
+    var totalSatFat = totalBreakfastSatFat + totalLunchSatFat + totalDinnerSatFat + totalSnackSatFat;
+    var totalCarb = totalBreakfastCarb + totalLunchCarb + totalDinnerCarb + totalSnackCarb;
+    var totalProtein = totalBreakfastProtein +  totalLunchProtein + totalSnackProtein + totalDinnerProtein;
+    var totalFiber = totalBreakfastFiber + totalLunchFiber + totalDinnerFiber + totalSnackFiber;
+    var totalSugar = totalBreakfastSugar + totalLunchSugar + totalDinnerSugar + totalSnackSugar;
 
     // cal panel
     var calGoal = 2000;
     var calIntake = document.querySelector('.cal-intake').childNodes[0];
     var calRemaining = document.querySelector('.cal-remaining').childNodes[1];
 
-    calIntake.nodeValue = totalCalNum.toFixed(1).replace(/[.,]0$/, "");
-    calRemaining.nodeValue = calGoal - totalCalNum;
+    calIntake.nodeValue = totalCal.toFixed(1).replace(/[.,]0$/, "");
+    calRemaining.nodeValue = calGoal - totalCal;
     var progress = document.querySelector('.cal-progress-done');
     progress.setAttribute('data-done', (100 / calGoal) * calIntake.nodeValue);
     setTimeout(() => {
@@ -192,12 +167,12 @@ function totalFoodValues() {
     }, 100);
 
     // nutrition panel
-    document.querySelector('.total-fat').childNodes[0].nodeValue = totalFatNum.toFixed(1).replace(/[.,]0$/, "") + 'g';
-    document.querySelector('.total-sat-fat').childNodes[0].nodeValue = totalSatFatNum.toFixed(1).replace(/[.,]0$/, "") + 'g';
-    document.querySelector('.total-carb').childNodes[0].nodeValue = totalCarbNum.toFixed(1).replace(/[.,]0$/, "") + 'g';
-    document.querySelector('.total-protein').childNodes[0].nodeValue = totalProteinNum.toFixed(1).replace(/[.,]0$/, "") + 'g';
-    document.querySelector('.total-fiber').childNodes[0].nodeValue = totalFiberNum.toFixed(1).replace(/[.,]0$/, "") + 'g';
-    document.querySelector('.total-sugar').childNodes[0].nodeValue = totalSugarNum.toFixed(1).replace(/[.,]0$/, "") + 'g';
+    document.querySelector('.total-fat').childNodes[0].nodeValue = totalFat.toFixed(1).replace(/[.,]0$/, "") + 'g';
+    document.querySelector('.total-sat-fat').childNodes[0].nodeValue = totalSatFat.toFixed(1).replace(/[.,]0$/, "") + 'g';
+    document.querySelector('.total-carb').childNodes[0].nodeValue = totalCarb.toFixed(1).replace(/[.,]0$/, "") + 'g';
+    document.querySelector('.total-protein').childNodes[0].nodeValue = totalProtein.toFixed(1).replace(/[.,]0$/, "") + 'g';
+    document.querySelector('.total-fiber').childNodes[0].nodeValue = totalFiber.toFixed(1).replace(/[.,]0$/, "") + 'g';
+    document.querySelector('.total-sugar').childNodes[0].nodeValue = totalSugar.toFixed(1).replace(/[.,]0$/, "") + 'g';
 } totalFoodValues();
 
 
@@ -479,9 +454,9 @@ async function api(searchTerms) {
                     var currentList = document.querySelector(`[data-meal='${MEAL}']`);
                     
                     // insert a new li at the end of the ul
-                    var li = document.createElement("li");
-                    li.className = 'food-item flex'; li.setAttribute('id', e.currentTarget.dataset.id);
-                    li.setAttribute('nutrients', JSON.stringify(nutrients)); li.setAttribute('given_nutrients', JSON.stringify(nutrients));
+                    var li = document.createElement('li');
+                    li.className = `food-item ${MEAL}-item flex`; li.setAttribute('id', e.currentTarget.dataset.id);
+                    li.setAttribute('data-nutrients', JSON.stringify(nutrients)); li.setAttribute('data-given_nutrients', JSON.stringify(nutrients));
                     li.innerHTML = `
                         <div>
                             <div class="item-name">${e.currentTarget.dataset.item_name}<i class="remove-food remove-button icon"></i></div>
@@ -491,7 +466,7 @@ async function api(searchTerms) {
                     `;
 
                     // create a second li for hidden food values
-                    var hiddenLi = document.createElement("li");
+                    var hiddenLi = document.createElement('li');
                     hiddenLi.className = 'food-item-hidden-values';
                     hiddenLi.innerHTML = `<span class="${MEAL}-fat">${e.currentTarget.dataset.fat}</span>
                                             <span class="${MEAL}-sat-fat">${e.currentTarget.dataset.sat_fat}</span>
