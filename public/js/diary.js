@@ -178,44 +178,46 @@ function totalFoodValues() {
 
 
 // Serving qty //
-var qty = document.querySelectorAll('.serving-qty');
-for (i = 0; i < qty.length; i++) {
-    qty[i].onchange = function() {
-        // get desired parent node
-        var topParent = this.parentNode.parentNode.parentNode.parentNode;
+function servingQty() {
+    var qty = document.querySelectorAll('.serving-qty');
+    for (i = 0; i < qty.length; i++) {
+        qty[i].onchange = function() {
+            // get desired parent node
+            var topParent = this.parentNode.parentNode.parentNode.parentNode;
 
-        // get and parse the given_nutrients dataset
-        var gn = JSON.parse(topParent.dataset.given_nutrients);
+            // get and parse the given_nutrients dataset
+            var gn = JSON.parse(topParent.dataset.given_nutrients);
 
-        // make an object for the updated nutrients
-        var updatedNutrients = {
-            "serving_qty" : Number(this.value),
-            "cal" : this.value * gn.cal / gn.serving_qty,
-            "fat" : this.value * gn.fat / gn.serving_qty,
-            "sat_fat" : this.value * gn.sat_fat / gn.serving_qty,
-            "carb" : this.value * gn.carb / gn.serving_qty,
-            "fiber" : this.value * gn.fiber / gn.serving_qty,
-            "protein" : this.value * gn.protein / gn.serving_qty,
-            "sugar" : this.value * gn.sugar / gn.serving_qty
+            // make an object for the updated nutrients
+            var updatedNutrients = {
+                "serving_qty" : Number(this.value),
+                "cal" : this.value * gn.cal / gn.serving_qty,
+                "fat" : this.value * gn.fat / gn.serving_qty,
+                "sat_fat" : this.value * gn.sat_fat / gn.serving_qty,
+                "carb" : this.value * gn.carb / gn.serving_qty,
+                "fiber" : this.value * gn.fiber / gn.serving_qty,
+                "protein" : this.value * gn.protein / gn.serving_qty,
+                "sugar" : this.value * gn.sugar / gn.serving_qty
+            }
+
+            // update the nutrients dataset
+            topParent.setAttribute('data-nutrients', JSON.stringify(updatedNutrients));
+
+            // send the new nutrients to the backend
+            fetch('/update-nutrients', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    meal: topParent.parentNode.dataset.meal,
+                    item_id: topParent.dataset.id,
+                    nutrients: updatedNutrients,
+                    date: diaryDate
+                })
+            });
         }
-
-        // update the nutrients dataset
-        topParent.setAttribute('data-nutrients', JSON.stringify(updatedNutrients));
-
-        // send the new nutrients to the backend
-        fetch('/update-nutrients', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                meal: topParent.parentNode.dataset.meal,
-                item_id: topParent.dataset.id,
-                nutrients: updatedNutrients,
-                date: diaryDate
-            })
-        });
     }
 }
 
@@ -455,7 +457,7 @@ async function api(searchTerms) {
                     
                     // insert a new li at the end of the ul
                     var li = document.createElement('li');
-                    li.className = `food-item ${MEAL}-item flex`; li.setAttribute('id', e.currentTarget.dataset.id);
+                    li.className = `food-item ${MEAL}-item flex`; li.setAttribute('data-id', e.currentTarget.dataset.id);
                     li.setAttribute('data-nutrients', JSON.stringify(nutrients)); li.setAttribute('data-given_nutrients', JSON.stringify(nutrients));
                     li.innerHTML = `
                         <div>
@@ -476,6 +478,9 @@ async function api(searchTerms) {
 
                     // Update remove food item buttons
                     removeFoodItem();
+
+                    // Upate serving_qty without refresh
+                    servingQty();
                 }
             }
         });
