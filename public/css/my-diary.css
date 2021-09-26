@@ -220,9 +220,6 @@ h1 {
     font-weight: 900;
     color: var(--nutritionix-color);
 }
-.food-item-hidden-values {
-    display: none;
-}
 
 .item-name { /* remove button appear to the left of food item */
     position: relative;
