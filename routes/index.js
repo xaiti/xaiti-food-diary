@@ -45,8 +45,8 @@ router.post('/nutritionix-api', (req, res) => {
     const test_app_id = '811d2511'
     const test_app_key = 'b1a59fcada36e48c63c6cbfbc5f7dca8'
     axios.post('https://api.nutritionix.com/v1_1/search', {
-        'appId': test_app_id,
-        'appKey': test_app_key,
+        'appId': x_app_id,
+        'appKey': x_app_key,
         'query': req.body.query,
         'offset': 0,
         'limit': 20,
@@ -135,11 +135,10 @@ router.get('/my-diary', checkAuthenticated, async (req, res) => {
 
 // New Entry
 async function newEntry(req) {
-    const newEntry = new Entry({
+    const newEntry = await new Entry({
         user_email: req.user.email,
         date: req.body.date
-    })
-    await newEntry.save()
+    }).save()
 }
 
 // Update Entry
