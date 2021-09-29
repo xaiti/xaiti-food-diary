@@ -441,13 +441,6 @@ async function api(searchTerms) {
                                 serving_qty: e.currentTarget.dataset.serving_qty,
                                 serving_unit: e.currentTarget.dataset.serving_unit,
                                 serving_weight: e.currentTarget.dataset.serving_weight,
-                                cal: e.currentTarget.dataset.cal,
-                                fat: e.currentTarget.dataset.fat,
-                                sat_fat: e.currentTarget.dataset.sat_fat,
-                                carb: e.currentTarget.dataset.carb,
-                                protein: e.currentTarget.dataset.protein,
-                                fiber: e.currentTarget.dataset.fiber,
-                                sugar: e.currentTarget.dataset.sugar,
                                 nutrients: nutrients,
                                 given_nutrients: nutrients
                             },
