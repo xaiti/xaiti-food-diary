@@ -487,10 +487,3 @@ h1 {
     visibility: visible;
     opacity: 1;
 }
-
-/* ================================================== */
-/* Total food values */
-
-.total-food-values {
-    display: none;
-}
