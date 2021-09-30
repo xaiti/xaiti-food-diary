@@ -153,6 +153,7 @@ h1 {
     font-size: 0.875em;
     background: rgba(0, 0, 0, 0.225);
     border-bottom: none;
+    border-right: none;
 }
 .nutrition-panel span {
     color: var(--font-color-less-dim);
@@ -162,8 +163,6 @@ h1 {
     text-align: center;
     padding: 6px;
     border-bottom: 2px solid rgba(35, 33, 45, 0.3);
-}
-.nutrition-panel *:not(:last-child) {
     border-right: 2px solid rgba(35, 33, 45, 0.3);
 }
 
