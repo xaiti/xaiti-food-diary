@@ -75,6 +75,10 @@ h1 {
 /* ================================================== */
 /* Food Diary */
 
+.food-diary-container {
+    position: relative;
+}
+
 /* borders & border-radius */
 .date-picker-container {
     border-radius: 8px 8px 0 0;
@@ -86,6 +90,20 @@ h1 {
 .water-header {
     border-bottom: 2px solid rgba(35, 33, 45, 0.3);
     border-radius: 0 0 8px 8px;
+}
+
+/* settings button */
+.settings {
+    position: absolute;
+    right: 0;
+    top: -25px;
+}
+.settings::before {
+    content: "\f013";
+    font-size: 1em;
+    color: var(--font-color-main);
+    padding: 9px;
+    cursor: pointer;
 }
 
 /* date picker */
