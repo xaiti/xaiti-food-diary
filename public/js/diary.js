@@ -263,6 +263,18 @@ function closeOverlayAND(container) {
 
 
 
+// Calorie goal //
+var settingsContainer = document.querySelector('.settings-container');
+
+document.querySelector('.settings-button').onclick = () => {
+    overlay.style.display = 'block';
+    settingsContainer.style.display = 'flex';
+    document.querySelector('#cal-goal').focus();
+    overlay.onclick = () => closeOverlayAND(settingsContainer);
+}
+
+
+
 // Push added water to database //
 var addWaterContainer = document.querySelector('.add-water-container');
 var waterInput = document.querySelector('.water-input');
