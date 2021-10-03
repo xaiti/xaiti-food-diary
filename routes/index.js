@@ -194,6 +194,17 @@ router.post('/add-water', async (req, res) => {
     }
 })
 
+// Set users calorie goal
+router.post('/cal-goal', async (req, res) => {
+    try {
+        await User.updateOne({ email: req.user.email }, {
+            $set: { calGoal: req.body.calGoal }
+        })
+    } catch(err) {
+        console.log(err)
+    }
+})
+
 // Dummy data
 router.post('/dummy', async (req, res) => {
     try {

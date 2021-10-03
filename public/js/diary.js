@@ -153,7 +153,7 @@ function totalFoodValues() {
     var totalSugar = totalBreakfastSugar + totalLunchSugar + totalDinnerSugar + totalSnackSugar;
 
     // cal panel
-    var calGoal = 2000;
+    var calGoal = document.querySelector('#cal-goal').value;
     var calIntake = document.querySelector('.cal-intake').childNodes[0];
     var calRemaining = document.querySelector('.cal-remaining').childNodes[1];
 
@@ -265,12 +265,24 @@ function closeOverlayAND(container) {
 
 // Calorie goal //
 var settingsContainer = document.querySelector('.settings-container');
-
 document.querySelector('.settings-button').onclick = () => {
     overlay.style.display = 'block';
     settingsContainer.style.display = 'flex';
     document.querySelector('#cal-goal').focus();
     overlay.onclick = () => closeOverlayAND(settingsContainer);
+}
+
+document.querySelector('#cal-goal').onchange = function() {
+    fetch('/cal-goal', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            calGoal: this.value
+        })
+    })
 }
 
 

@@ -40,7 +40,7 @@
         <i class="settings-button icon"></i>
         <div class="settings-container">
             <label for="cal-goal">Calorie goal:</label>
-            <input type="text" name="cal-goal" id="cal-goal" value="2000">
+            <input type="text" name="cal-goal" id="cal-goal" value="<%= user.calGoal ? user.calGoal : 2000 %>">
         </div>
 
         <div class="date-picker-container">
