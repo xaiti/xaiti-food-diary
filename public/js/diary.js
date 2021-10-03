@@ -198,7 +198,7 @@ function servingQty() {
 
             // make an object for the updated nutrients
             var updatedNutrients = {
-                "serving_qty" : Number(this.value),
+                "serving_qty" : this.value,
                 "cal" : this.value * gn.cal / gn.serving_qty,
                 "fat" : this.value * gn.fat / gn.serving_qty,
                 "sat_fat" : this.value * gn.sat_fat / gn.serving_qty,
