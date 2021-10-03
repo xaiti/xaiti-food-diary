@@ -208,6 +208,7 @@ input::-webkit-inner-spin-button {
 } /* Chrome, Safari, Edge, Opera */
 input[type=number] {
   -moz-appearance: textfield;
+  color: inherit;
 }/* Firefox */
 
 input[type=checkbox] {
