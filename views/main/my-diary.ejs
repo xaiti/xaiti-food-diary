@@ -75,7 +75,7 @@
                 <li class="food-item breakfast-item" data-id="<%= breakfast.id %>" data-nutrients='<%- JSON.stringify(breakfast.nutrients) %>' data-given_nutrients='<%- JSON.stringify(breakfast.given_nutrients) %>'>
                     <div>
                         <div class="item-name"><%= breakfast.item_name %><i class="remove-food remove-button icon"></i></div>
-                        <div class="item-brand-name"><%= breakfast.brand_name %>, <span class="serving"><input type="text" class="serving-qty" value="<%= breakfast.nutrients.serving_qty %>"> <%= breakfast.serving_unit %></span></div>
+                        <div class="item-brand-name"><%= breakfast.brand_name %>, <span class="serving"><input type="number" class="serving-qty" value="<%= breakfast.nutrients.serving_qty %>"> <%= breakfast.serving_unit %></span></div>
                     </div>
                     <div class="breakfast-cal item-cal flex"><i class="cal-info icon"></i><%= Math.round(breakfast.nutrients.cal) %></div>
                 </li>
@@ -90,7 +90,7 @@
                 <li class="food-item lunch-item flex" data-id="<%= lunch.id %>" data-nutrients='<%- JSON.stringify(lunch.nutrients) %>' data-given_nutrients='<%- JSON.stringify(lunch.given_nutrients) %>'>
                     <div>
                         <div class="item-name"><%= lunch.item_name %><i class="remove-food remove-button icon"></i></div>
-                        <div class="item-brand-name"><%= lunch.brand_name %>, <span class="serving"><input type="text" class="serving-qty" value="<%= lunch.nutrients.serving_qty %>"> <%= lunch.serving_unit %></span></div>
+                        <div class="item-brand-name"><%= lunch.brand_name %>, <span class="serving"><input type="number" class="serving-qty" value="<%= lunch.nutrients.serving_qty %>"> <%= lunch.serving_unit %></span></div>
                     </div>
                     <div class="lunch-cal item-cal flex"><i class="cal-info icon"></i><%= Math.round(lunch.nutrients.cal) %></div>
                 </li>
@@ -105,7 +105,7 @@
                 <li class="food-item dinner-item flex" data-id="<%= dinner.id %>" data-nutrients='<%- JSON.stringify(dinner.nutrients) %>' data-given_nutrients='<%- JSON.stringify(dinner.given_nutrients) %>'>
                     <div>
                         <div class="item-name"><%= dinner.item_name %><i class="remove-food remove-button icon"></i></div>
-                        <div class="item-brand-name"><%= dinner.brand_name %>, <span class="serving"><input type="text" class="serving-qty" value="<%= dinner.nutrients.serving_qty %>"> <%= dinner.serving_unit %></span></div>
+                        <div class="item-brand-name"><%= dinner.brand_name %>, <span class="serving"><input type="number" class="serving-qty" value="<%= dinner.nutrients.serving_qty %>"> <%= dinner.serving_unit %></span></div>
                     </div>
                     <div class="dinner-cal item-cal flex"><i class="cal-info icon"></i><%= Math.round(dinner.nutrients.cal) %></div>
                 </li>
@@ -120,7 +120,7 @@
                 <li class="food-item snack-item flex" data-id="<%= snack.id %>" data-nutrients='<%- JSON.stringify(snack.nutrients) %>' data-given_nutrients='<%- JSON.stringify(snack.given_nutrients) %>'>
                     <div>
                         <div class="item-name"><%= snack.item_name %><i class="remove-food remove-button icon"></i></div>
-                        <div class="item-brand-name"><%= snack.brand_name %>, <span class="serving"><input type="text" class="serving-qty" value="<%= snack.nutrients.serving_qty %>"> <%= snack.serving_unit %></span></div>
+                        <div class="item-brand-name"><%= snack.brand_name %>, <span class="serving"><input type="number" class="serving-qty" value="<%= snack.nutrients.serving_qty %>"> <%= snack.serving_unit %></span></div>
                     </div>
                     <div class="snack-cal item-cal flex"><i class="cal-info icon"></i><%= Math.round(snack.nutrients.cal) %></div>
                 </li>
