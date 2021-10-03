@@ -161,10 +161,18 @@ function totalFoodValues() {
     calRemaining.nodeValue = (calGoal - totalCal).toFixed(1).replace(/[.,]0$/, "");
     var progress = document.querySelector('.cal-progress-done');
     progress.setAttribute('data-done', (100 / calGoal) * calIntake.nodeValue);
+    var doneP = Number(progress.getAttribute('data-done'));
     setTimeout(() => {
         progress.style.opacity = 1;
-        progress.style.width = Number(progress.getAttribute('data-done')) >= 100 ? 100 + '%' : progress.getAttribute('data-done') + '%';
+        progress.style.width = doneP >= 100 ? 100 + '%' : progress.getAttribute('data-done') + '%';
+        progress.style.background = doneP > 125 ? 'var(--button-color-dark)'
+            : doneP > 110 ? 'var(--button-color)'
+            : doneP >= 100 ? 'skyblue'
+            : 'var(--nutritionix-color)';
     }, 100);
+    // if (Number(progress.getAttribute('data-done')) > 100) {
+    //     progress.style.background = 'red';
+    // }
 
     // nutrition panel
     document.querySelector('.total-fat').childNodes[0].nodeValue = totalFat.toFixed(1).replace(/[.,]0$/, "") + 'g';

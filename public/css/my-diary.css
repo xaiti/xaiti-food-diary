@@ -190,7 +190,6 @@ h1 {
     width: 100%;
 }
 .cal-progress-done {
-    background: var(--nutritionix-color);
     border-radius: 7px;
     width: 0%;
     height: 100%;
