@@ -282,7 +282,8 @@ document.querySelector('#cal-goal').onchange = function() {
         body: JSON.stringify({
             calGoal: this.value
         })
-    })
+    });
+    totalFoodValues();
 }
 
 
