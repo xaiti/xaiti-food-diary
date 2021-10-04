@@ -51,6 +51,7 @@ body {
 /* Header */
 .header {
     display: flex;
+    gap: 40px;
     justify-content: space-between;
     align-items: center;
     max-width: 1140px;
@@ -59,8 +60,8 @@ body {
     text-transform: capitalize;
 }
 .logo {
-    width: 111px;
-    height: 85px;
+    min-width: 111px;
+    height: 100%;
     background: 
         url(img/x-logo.svg) 
         center / contain 
@@ -70,11 +71,12 @@ body {
 }
 .header-links {
     display: flex;
+    gap: 40px;
     align-items: center;
+    text-align: center;
     color: var(--font-color-less-dim);
-}
-.header-links * {
-    padding: 10px 20px;
+    text-transform: uppercase;
+    font-weight: 700;
 }
 .header-links *:hover {
     color: var(--button-color);
@@ -99,10 +101,13 @@ body {
 /* Collapsible Menu */
 .collapsible-menu {
     display: none;
+    position: relative;
     text-align: center;
+    width: 111px;
+    height: 100%;
 }
 .collapsible-menu a {
-    display:block;
+    display: block;
     padding: 5px 10px;
     margin: 5px;
 }
@@ -116,8 +121,8 @@ body {
         no-repeat;          /* repeat */
     filter: var(--button-color-filter);
     padding: 10px 0 10px 0;
-    width: 150px;
-    height: 85px;
+    width: 111px;
+    height: 100%;
 }
 .collapsible-menu input:checked + label {
     background-image: url(img/x.png);
@@ -134,8 +139,9 @@ body {
     color: transparent;
 }
 .collapsible-menu input:checked ~ .menu-content {
-    max-height: 100%;
+    max-height: 180%;
     position: absolute;
+    left: -20px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     border-radius: 15px;
     color: var(--font-color-main);
@@ -155,11 +161,11 @@ body {
     .header-links, .sign-in-out-button {
         display: none;
     }
-    .header {
-        margin: 0 0 0 32px;
-    }
     .collapsible-menu {
         display: block;
+    }
+    .header {
+        justify-content: space-evenly;
     }
 }
 
