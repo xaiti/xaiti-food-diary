@@ -61,6 +61,7 @@ h1 {
 
 .email-us {
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
     gap: 30px;
     margin: 60px 0 30px;
@@ -68,16 +69,16 @@ h1 {
 }
 
 .gmail-logo {
-    min-width: 100px;
-    max-width: 100px;
-    min-height: 75px;
-    max-height: 75px; /* avoid the div getting resized */
+    min-width: calc(4096px * 0.0175);
+    max-width: calc(4096px * 0.0175);
+    min-height: calc(3073px * 0.0175);
+    max-height: calc(3073px * 0.0175); /* avoid the div getting resized */
     background:
         url(img/gmail-logo.png) /* image */
         center / contain        /* position / size */
         no-repeat;              /* repeat */
         box-shadow: -10px 10px 10px 0px rgb(0 0 0 / 25%);
-        border-radius: 10px;
+    border-radius: 8px 8px 4px 4px;
 }
 
 .email-us-text {
