@@ -27,7 +27,7 @@ h1 {
     width: 100%;
     flex-wrap: wrap;
     gap: 40px 20px;
-    margin: 30px 0 0;
+    margin: 15px 0 0;
 }
 
 .faqs > * {
@@ -36,15 +36,15 @@ h1 {
 
 .faqs h3 {
     position: relative;
-    margin: 0 0 10px;
+    margin: 0 0 30px;
 }
 .faqs h3::before {
     content: '';
     position: absolute;
-    top: -12px;
-    width: 100%;
+    bottom: -10px;
+    width: 33%;
     height: 3px;
-    background: linear-gradient(90deg, skyblue 0%, transparent 38%);
+    background: skyblue;
 }
 @media (max-width: 1159px) {
     .faqs {
