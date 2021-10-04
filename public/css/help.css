@@ -35,7 +35,7 @@ h1 {
     max-width: 360px;
 }
 
-h3 {
+.faqs h3 {
     margin: 0 0 10px;
 }
 
@@ -55,8 +55,10 @@ h3 {
 }
 
 .gmail-logo {
-    width: 100px;
-    height: 75px;
+    min-width: 100px;
+    max-width: 100px;
+    min-height: 75px;
+    max-height: 75px; /* avoid the div getting resized */
     background:
         url(img/gmail-logo.png) /* image */
         center / contain        /* position / size */
@@ -65,9 +67,15 @@ h3 {
         border-radius: 10px;
 }
 
+.email-us-text {
+    flex: 1 1 238px;
+}
+.email-us h3 {
+    margin: 0 0 10px;
+}
 .email-us span {
     color: var(--font-color-less-dim);
 }
 .email-us span span {
-    color: #ffc800;
+    color: #fbbc04;
 }
