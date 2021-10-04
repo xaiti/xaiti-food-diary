@@ -23,7 +23,7 @@ h1 {
 
 .faqs {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     width: 100%;
     flex-wrap: wrap;
     gap: 40px 20px;
@@ -46,6 +46,11 @@ h1 {
     height: 3px;
     background: linear-gradient(90deg, skyblue 0%, transparent 38%);
 }
+@media (max-width: 1159px) {
+    .faqs {
+        justify-content: space-around;
+    }
+}
 
 .faqs span {
     color: var(--font-color-less-dim);
@@ -56,10 +61,10 @@ h1 {
 
 .email-us {
     display: flex;
+    flex-wrap: wrap;
     gap: 30px;
     margin: 60px 0 30px;
     width: 100%;
-    padding: 0 30px;
 }
 
 .gmail-logo {
