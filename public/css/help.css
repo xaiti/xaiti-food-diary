@@ -4,8 +4,8 @@
 .wrapper {
     flex-direction: column;
     margin: 0 auto;
-    max-width: 1320px; /* max-width - horrizontal padding x2 = max-width */
-    padding: 0 10px;
+    max-width: 1240px; /* max-width - horrizontal padding x2 = max-width */
+    padding: 0 20px;
 }
 
 /* ================================================== */
