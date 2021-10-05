@@ -292,6 +292,7 @@ document.querySelector('#cal-goal').onchange = function() {
         })
     });
     totalFoodValues();
+    closeOverlayAND(settingsContainer);
 }
 
 
