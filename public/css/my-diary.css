@@ -51,9 +51,8 @@
 /* Header */
 
 h1 {
-    display: flex;
-    justify-content: center;
-    margin: 15px;
+    width: fit-content;
+    margin: 15px auto;
     font-size: 24px;
 }
 
