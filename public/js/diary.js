@@ -229,6 +229,7 @@ function servingQty() {
             // update food values without page refresh
             topParent.childNodes[3].childNodes[1].nodeValue = Math.round(updatedNutrients.cal);
             totalFoodValues();
+            this.blur();
         }
     }
 } servingQty();
